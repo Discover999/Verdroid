@@ -58,6 +58,7 @@ fun ChatsScreen(
     val hasKeys by vm.hasKeys.collectAsStateWithLifecycle()
     val updateAvailable by vm.updateAvailable.collectAsStateWithLifecycle()
     val now = rememberNow()
+    val context = LocalContext.current
     val snackbar = remember { SnackbarHostState() }
     StarPrompt(anyTaskActive = conversations.any { it.task.status.isActive })
     LaunchedEffect(Unit) {
@@ -137,10 +138,11 @@ internal fun updateHintLatest(vm: ChatsViewModel, updateAvailable: Boolean): Str
 @Composable
 internal fun UpdatePill(latest: String, label: String = "New version on GitHub", modifier: Modifier = Modifier) {
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
+    val cdNewVersion = stringResource(R.string.cd_new_version, latest)
     Surface(shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         modifier = modifier.clip(RoundedCornerShape(50)).clickable { runCatching { uri.openUri(com.verdroid.app.data.update.UpdateLogic.RELEASES_PAGE) } }
-            .semantics { contentDescription = stringResource(R.string.cd_new_version, latest) }) {
+            .semantics { contentDescription = cdNewVersion }) {
         Text(label, style = MaterialTheme.typography.labelMedium, maxLines = 1, softWrap = false,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp))
     }
@@ -334,9 +336,10 @@ private fun ProfileMenu(
 ) {
     var open by remember { mutableStateOf(false) }
     val multi = com.verdroid.app.data.profiles.Profiles.visible(profiles)
+    val cdProfile = stringResource(R.string.cd_profile, active.name)
     Box {
         TextButton(onClick = { open = true }, contentPadding = PaddingValues(horizontal = 8.dp),
-            modifier = Modifier.semantics { contentDescription = stringResource(R.string.cd_profile, active.name) }) {
+            modifier = Modifier.semantics { contentDescription = cdProfile }) {
             // Always icon-only (emoji + arrow); the menu lists the full names.
             Text(active.emoji.ifBlank { "🤖" }, maxLines = 1, softWrap = false)
             Icon(Icons.Filled.ArrowDropDown, null, Modifier.size(18.dp))
