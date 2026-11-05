@@ -24,6 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import com.verdroid.app.domain.model.ApiKey
 import com.verdroid.app.domain.model.LimitSettings
 import com.verdroid.app.ui.Routes
@@ -38,7 +40,7 @@ import com.verdroid.app.ui.components.groupedRow
 private fun SubScreen(title: String, onBack: () -> Unit, actions: @Composable RowScope.() -> Unit = {}, content: @Composable (PaddingValues) -> Unit) {
     Scaffold(topBar = {
         TopAppBar(title = { Text(title) }, actions = actions,
-            navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") } })
+            navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back)) } })
     }, content = content)
 }
 
@@ -48,16 +50,16 @@ private fun SubScreen(title: String, onBack: () -> Unit, actions: @Composable Ro
 fun SettingsScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, unreadNotifications: Int = 0, vm: SettingsViewModel = hiltViewModel()) {
     val kiloNoticeSeen by vm.appPrefs.kiloNoticeSeen.collectAsStateWithLifecycle()
     Scaffold(topBar = {
-        TopAppBar(title = { Text("Settings") },
-            navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") } })
+        TopAppBar(title = { Text(stringResource(R.string.settings)) },
+            navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back)) } })
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(bottom = 16.dp)) {
             fun item(title: String, subtitle: String, route: String): @Composable (Int) -> Unit = { i -> MenuItem(title, subtitle, i) { onNavigate(route) } }
             if (!kiloNoticeSeen) KiloNotice(onDismiss = vm.appPrefs::dismissKiloNotice)
             SettingsGroup("Activity", listOf(
-                item("Notifications",
-                    if (unreadNotifications > 0) "$unreadNotifications unread · rate limits, quota warnings, completions"
-                    else "Rate-limit alerts, quota warnings and completions", Routes.NOTIFICATIONS),
+                item(stringResource(R.string.notifications),
+                    if (unreadNotifications > 0) stringResource(R.string.unread_notifications, unreadNotifications)
+                    else stringResource(R.string.rate_limit_alerts), Routes.NOTIFICATIONS),
                 item("Schedules", "Reminders and scheduled agent runs: next run, last result, on/off, run now", Routes.SCHEDULES),
                 item("Memory", "Short-term (per chat) and long-term memory: list, search, edit, automatic saving", Routes.memory()),
                 item("Archive", "Chats deleted from the home list: open, restore or delete permanently", Routes.ARCHIVE),
@@ -86,7 +88,7 @@ fun SettingsScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, unreadNotif
             SettingsGroup("App", listOf({ i -> AppUpdateRow(vm.updater, i) },
                 { i -> CrashLogRow(i) },
                 { i -> LinkItem("Feedback / Feature request", "Report a bug or suggest an idea on GitHub", i) { com.verdroid.app.data.feedback.FeedbackLinks.CHOOSER } }))
-            Text("Verdroid v${com.verdroid.app.BuildConfig.VERSION_NAME}", style = MaterialTheme.typography.labelSmall,
+            Text(stringResource(R.string.version_line, com.verdroid.app.BuildConfig.VERSION_NAME), style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(start = 28.dp, top = 16.dp))
         }
     }
@@ -99,13 +101,13 @@ private fun KiloNotice(onDismiss: () -> Unit) {
         shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
         modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, top = 12.dp)) {
         Column(Modifier.padding(16.dp)) {
-            Text("New: Kilo Auto Free (no API key)", style = MaterialTheme.typography.titleSmall)
+            Text(stringResource(R.string.new_kilo_auto), style = MaterialTheme.typography.titleSmall)
             Spacer(Modifier.height(4.dp))
             Text("kilo:kilo-auto/free is in Model priority and is used when OpenRouter has no key or is unavailable. " +
                 "It works without an OpenRouter key (about 200 requests/hour). Kilo's free models may log prompts and " +
                 "replies, which can include your memories. Turn off \"Send memories to Kilo models\" below or remove the model " +
                 "from Model priority if you prefer.", style = MaterialTheme.typography.bodySmall)
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { TextButton(onClick = onDismiss) { Text("Got it") } }
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { TextButton(onClick = onDismiss) { Text(stringResource(R.string.got_it)) } }
         }
     }
 }

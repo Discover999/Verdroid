@@ -36,6 +36,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,6 +49,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.verdroid.app.R
 import com.verdroid.app.chathead.ChatHeadResult
 import com.verdroid.app.domain.model.*
 import com.verdroid.app.ui.chathead.OverlayPermissionDialog
@@ -97,13 +99,13 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
             when (vm.openChatHead()) {
                 ChatHeadResult.NEEDS_OVERLAY_PERMISSION -> showOverlayDialog = true
                 ChatHeadResult.BUBBLES_BLOCKED -> {
-                    Toast.makeText(context, "Bubbles are off for Verdroid. Enable them, or pick Overlay in Settings → Chat heads.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, context.getString(R.string.chat_bubbles_off), Toast.LENGTH_LONG).show()
                     context.startActivity(vm.chatHeads.bubbleSettingsIntent())
                 }
                 ChatHeadResult.NOTIFICATIONS_BLOCKED ->
-                    Toast.makeText(context, "Notifications are blocked, and bubbles need them. Allow notifications or pick Overlay in Settings → Chat heads.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, context.getString(R.string.chat_notifications_blocked), Toast.LENGTH_LONG).show()
                 ChatHeadResult.OVERLAY_STARTED ->
-                    Toast.makeText(context, "Chat head is floating. Switch apps to keep chatting.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.chat_head_floating), Toast.LENGTH_SHORT).show()
                 ChatHeadResult.BUBBLE_SHOWN, null -> Unit
             }
             Unit
@@ -156,13 +158,13 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
         if (voice.needsIntentFallback()) {
             voice.stopSpeaking()
             runCatching { speechFallback.launch(voice.recognizeIntent()) }.onFailure {
-                Toast.makeText(context, "No speech recognition service on this phone. Install or enable Google voice typing (or another recognizer).", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.chat_no_stt), Toast.LENGTH_LONG).show()
             }
         } else voice.startListening()
     }
     val micPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) startMicNow()
-        else Toast.makeText(context, "Microphone access was denied, so voice input is off. You can allow it in Android Settings → Apps → Verdroid → Permissions.", Toast.LENGTH_LONG).show()
+        else Toast.makeText(context, context.getString(R.string.chat_mic_denied), Toast.LENGTH_LONG).show()
     }
     val startMic: () -> Unit = {
         val needsPermission = !voice.needsIntentFallback() &&
@@ -289,19 +291,19 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                         }
                         Box {
                             IconButton(onClick = { overflow = true }) {
-                                Text("⋮", fontSize = 22.sp, modifier = Modifier.semantics { contentDescription = "More options" })
+                                Text("⋮", fontSize = 22.sp, modifier = Modifier.semantics { contentDescription = context.getString(R.string.cd_more_options) })
                             }
                             DropdownMenu(expanded = overflow, onDismissRequest = { overflow = false }) {
-                                DropdownMenuItem(text = { Text("Chat memory (short-term)") }, onClick = {
+                                DropdownMenuItem(text = { Text(stringResource(R.string.chat_memory)) }, onClick = {
                                     overflow = false
                                     val id = task?.id
                                     if (id != null) onChatMemory(id)
-                                    else Toast.makeText(context, "Chat memory is empty until the first message.", Toast.LENGTH_SHORT).show()
+                                    else Toast.makeText(context, context.getString(R.string.chat_memory_empty), Toast.LENGTH_SHORT).show()
                                 })
-                                DropdownMenuItem(text = { Text("Model") }, onClick = {
+                                DropdownMenuItem(text = { Text(stringResource(R.string.model)) }, onClick = {
                                     overflow = false; showModel = true
                                 })
-                                DropdownMenuItem(text = { Text("Tool presets") }, onClick = {
+                                DropdownMenuItem(text = { Text(stringResource(R.string.tool_presets)) }, onClick = {
                                     overflow = false; showPresets = true
                                 })
                             }
@@ -320,7 +322,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 if (visible.isEmpty()) {
                     item {
-                        Text("Describe a task or ask anything.\nVerdroid can read, write and list files in its sandboxed workspace.",
+                        Text(stringResource(R.string.chat_empty_hint),
                             textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.fillMaxWidth().padding(top = 48.dp))
                     }
@@ -329,7 +331,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                     // Reaching the top loads the previous page; keys keep the scroll position anchored.
                     LaunchedEffect(window, follow.value) { if (!follow.value) vm.loadEarlier() } // only after the user scrolled up
                     Box(Modifier.fillMaxWidth().padding(8.dp), contentAlignment = Alignment.Center) {
-                        TextButton(onClick = vm::loadEarlier) { Text("Load earlier messages") }
+                        TextButton(onClick = vm::loadEarlier) { Text(stringResource(R.string.load_earlier_messages)) }
                     }
                 }
                 items(blocks, key = { it.key }) { block ->
@@ -345,7 +347,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                     }
                 }
                 if (generating) item("typing") {
-                    Text("● ${task?.subtitle ?: "Thinking..."}", color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    Text(stringResource(R.string.status_with_subtitle, task?.subtitle ?: stringResource(R.string.thinking)), color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(start = 8.dp, top = 4.dp))
                 }
             }
@@ -355,16 +357,16 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                 // v1.0.12: archived chats are read-only; restore to continue.
                 Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, modifier = Modifier.fillMaxWidth()) {
                     Row(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Text("Archived chat (read-only)", modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium,
+                        Text(stringResource(R.string.archived_read_only), modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        FilledTonalButton(onClick = vm::restore) { Text("Restore") }
+                        FilledTonalButton(onClick = vm::restore) { Text(stringResource(R.string.restore)) }
                     }
                 }
             } else if (generating) {
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     OutlinedButton(onClick = vm::stop, modifier = Modifier.padding(4.dp)) {
                         Box(Modifier.size(12.dp).background(MaterialTheme.colorScheme.error, RoundedCornerShape(2.dp)))
-                        Spacer(Modifier.width(8.dp)); Text("Stop Generation")
+                        Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.stop_generation))
                     }
                 }
             } else if (status in setOf(TaskStatus.PAUSED, TaskStatus.RATE_LIMITED, TaskStatus.QUEUED, TaskStatus.FAILED, TaskStatus.CANCELLED)) {
@@ -372,16 +374,16 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                 val resumeAt = task?.resumeAt
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     if (resumeAt != null && resumeAt > now && status != TaskStatus.CANCELLED && status != TaskStatus.FAILED) {
-                        Text("Auto-resume in ${formatDuration(resumeAt - now)}", style = MaterialTheme.typography.labelMedium,
+                        Text(stringResource(R.string.auto_resume_in, formatDuration(resumeAt - now)), style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(4.dp)) {
                         FilledTonalButton(onClick = vm::forceRetry) {
                             Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(6.dp))
-                            Text(if (resumeAt != null && resumeAt > now && status != TaskStatus.FAILED && status != TaskStatus.CANCELLED) "Force retry now" else "Continue")
+                            Text(if (resumeAt != null && resumeAt > now && status != TaskStatus.FAILED && status != TaskStatus.CANCELLED) stringResource(R.string.force_retry_now) else stringResource(R.string.continue_))
                         }
                         if (status == TaskStatus.PAUSED || status == TaskStatus.RATE_LIMITED || status == TaskStatus.QUEUED) {
-                            OutlinedButton(onClick = vm::cancelTask) { Text("Cancel") }
+                            OutlinedButton(onClick = vm::cancelTask) { Text(stringResource(R.string.cancel)) }
                         }
                     }
                 }
@@ -409,7 +411,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                             } else null,
                             trailingIcon = {
                                 IconButton(onClick = vm::clearPendingAttach, modifier = Modifier.size(18.dp)) {
-                                    Icon(Icons.Filled.Close, "Remove attachment")
+                                    Icon(Icons.Filled.Close, context.getString(R.string.cd_remove_attachment))
                                 }
                             },
                         )
@@ -419,8 +421,8 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                         Row {
                             if (attachAccess != null) TextButton(onClick = {
                                 runCatching { accessLauncher.launch(com.verdroid.app.data.storage.SharedFolder.accessIntent(attachCtx)) }
-                            }) { Text("Grant access") }
-                            TextButton(onClick = vm::clearAttachError) { Text("Dismiss") }
+                            }) { Text(stringResource(R.string.grant_access)) }
+                            TextButton(onClick = vm::clearAttachError) { Text(stringResource(R.string.dismiss)) }
                         }
                     }
                     if (voice.mic != com.verdroid.app.ui.voice.VoiceController.Mic.IDLE || voice.speaking) {
@@ -479,9 +481,9 @@ internal fun ToolPresetsDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        confirmButton = { TextButton(onClick = onDismiss) { Text("Done") } },
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) } },
         dismissButton = { TextButton(onClick = onReset, enabled = off.isNotEmpty()) { Text(toolPresetsResetLabel(profilesOn)) } },
-        title = { Text("Tool presets") },
+        title = { Text(stringResource(R.string.tool_presets)) },
         text = { ToolPresetsContent(off, global, onSet, onSetAll, if (profilesOn) profileLabel else "", profilesOn) },
     )
 }
@@ -497,7 +499,7 @@ internal fun ToolPresetsContent(
     profilesOn: Boolean = true,
 ) {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                if (profilesOn && profileLabel.isNotBlank()) Text("From profile: $profileLabel", style = MaterialTheme.typography.labelLarge,
+                if (profilesOn && profileLabel.isNotBlank()) Text(stringResource(R.string.from_profile, profileLabel), style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary)
                 Text(toolPresetsIntro(profilesOn), style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -779,7 +781,7 @@ internal fun AttachmentThumb(relativePath: String, size: androidx.compose.ui.uni
     Box(Modifier.size(size).clip(RoundedCornerShape(8.dp)).background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.Center) {
         val b = bmp
-        if (b != null) androidx.compose.foundation.Image(b, contentDescription = "Attached image",
+        if (b != null) androidx.compose.foundation.Image(b, contentDescription = context.getString(R.string.cd_attached_image),
             contentScale = androidx.compose.ui.layout.ContentScale.Crop, modifier = Modifier.fillMaxSize())
         else Text("🖼️", fontSize = (size.value * 0.45f).sp)
     }

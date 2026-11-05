@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Verdroid</string>
+    <string name="accessibility_label">Verdroid 智能体控制</string>
+    <string name="accessibility_description">当你让 Verdroid 智能体在这台手机上自动化执行任务时，允许它点击、滑动、输入并读取屏幕内容。除你配置的 AI 模型因任务需要接收数据外，不会向任何地方发送信息。</string>
+
+    <!-- chat detail screen -->
+    <string name="chat_bubbles_off">Verdroid 的气泡被关闭了。请开启气泡，或在 设置 → 悬浮头像 中改用「覆盖层」。</string>
+    <string name="chat_notifications_blocked">通知被屏蔽，而气泡依赖通知。请允许通知，或在 设置 → 悬浮头像 中改用「覆盖层」。</string>
+    <string name="chat_head_floating">悬浮头像已开启，切换到其他应用也能继续对话。</string>
+    <string name="chat_no_stt">这台手机没有语音识别服务。请安装或启用 Google 语音输入（或其他识别器）。</string>
+    <string name="chat_mic_denied">麦克风权限被拒绝，语音输入已关闭。你可以在 Android 设置 → 应用 → Verdroid → 权限 中允许。</string>
+    <string name="cd_more_options">更多选项</string>
+    <string name="chat_memory">对话记忆（短期）</string>
+    <string name="chat_memory_empty">第一条消息发出前，对话记忆是空的。</string>
+    <string name="model">模型</string>
+    <string name="tool_presets">工具预设</string>
+    <string name="chat_empty_hint">描述一个任务或随便问点什么。\nVerdroid 可以在沙箱工作区里读取、写入和列出文件。</string>
+    <string name="load_earlier_messages">加载更早的消息</string>
+    <string name="thinking">思考中…</string>
+    <string name="status_with_subtitle">● %1$s</string>
+    <string name="archived_read_only">已归档的对话（只读）</string>
+    <string name="restore">恢复</string>
+    <string name="stop_generation">停止生成</string>
+    <string name="auto_resume_in">%1$s 后自动继续</string>
+    <string name="force_retry_now">立即强制重试</string>
+    <string name="continue_">继续</string>
+    <string name="cancel">取消</string>
+    <string name="grant_access">授予权限</string>
+    <string name="dismiss">知道了</string>
+    <string name="done">完成</string>
+    <string name="from_profile">来自配置：%1$s</string>
+    <string name="image_fallback">图片</string>
+    <string name="image_cannot_show">🖼️ %1$s（无法显示：%2$s）</string>
+    <string name="earlier_summarized">📝 更早的对话已总结 %1$s</string>
+    <string name="steps_workers_failed">⚠️ %1$d 个 worker%2$s失败 %3$s</string>
+    <string name="cd_attached_image">已附加的图片</string>
+    <string name="cd_remove_attachment">移除附件</string>
+    <string name="model_pin_hint">固定一个模型（只使用它；失败时显示错误而不切换）：</string>
+    <string name="model_pin_other">其他模型 id（vendor/model、kilo:…、prov:…）</string>
+    <string name="pin">固定</string>
+    <string name="allow_fallback">允许回退</string>
+    <string name="allow_fallback_desc">如果固定的模型失败，继续使用全局列表。</string>
+    <string name="close">关闭</string>
+
+    <!-- chats (home) screen -->
+    <string name="cd_new_conversation">新对话</string>
+    <string name="moved_to_archive">已移入归档</string>
+    <string name="moved_to_archive_stopped">已移入归档（任务已停止）</string>
+    <string name="undo">撤销</string>
+    <string name="new_version_github">GitHub 上有新版本</string>
+    <string name="update">更新</string>
+    <string name="cd_settings_update">设置（有更新）</string>
+    <string name="need_api_key">🔑 添加 OpenRouter API 密钥即可开始（设置 → LLM 提供商 → OpenRouter）。</string>
+    <string name="cd_new_version">GitHub 上有新版本 v%1$s，打开发布页面。</string>
+    <string name="active_model">当前模型：%1$s</string>
+    <string name="details">详情</string>
+    <string name="search_hint">搜索对话或任务</string>
+    <string name="archive">归档</string>
+    <string name="open">打开</string>
+    <string name="delete">删除</string>
+    <string name="cd_profile">配置：%1$s</string>
+    <string name="add_new">+ 新建</string>
+    <string name="show_all_profiles">显示所有配置</string>
+    <string name="manage_profiles">管理配置</string>
+    <string name="turn_off_profiles">关闭配置功能</string>
+
+    <!-- settings menu -->
+    <string name="back">返回</string>
+    <string name="rate_limit_alerts">速率限制提醒、配额警告和补全</string>
+    <string name="settings">设置</string>
+    <string name="notifications">通知</string>
+    <string name="unread_notifications">%1$d 条未读 · 速率限制、配额警告、补全</string>
+    <string name="version_line">Verdroid v%1$s</string>
+    <string name="new_kilo_auto">新：Kilo Auto Free（无需 API 密钥）</string>
+    <string name="kilo_auto_desc">kilo:kilo-auto/free 已在模型优先级中，当 OpenRouter 没有密钥或不可用时使用。</string>
+    <string name="got_it">知道了</string>
+    <string name="add_key">添加密钥</string>
+    <string name="label_optional">标签（可选）</string>
+    <string name="or_key_hint">OpenRouter API 密钥（sk-or-…）</string>
+    <string name="edit_label">编辑标签</string>
+    <string name="save">保存</string>
+    <string name="reset">重置</string>
+    <string name="model_id_hint">模型 id，如 vendor/model:free 或 kilo:id</string>
+    <string name="add">添加</string>
+    <string name="defaults">默认</string>
+    <string name="free_tier_quota">免费额度（GET /key）</string>
+    <string name="no_quota_data">暂无数据（添加密钥并刷新后显示）。</string>
+    <string name="last_rate_headers">最近的 X-RateLimit 响应头</string>
+    <string name="latest_crash">最近一次崩溃</string>
+    <string name="no_crashes">自崩溃日志功能上线以来没有记录到崩溃。</string>
+    <string name="share">分享</string>
+    <string name="enable_subagents">启用子智能体</string>
+    <string name="rate_limits">速率限制</string>
+    <string name="fall_back_main_model">受限时回退到主模型</string>
+    <string name="deep_research">深度研究</string>
+    <string name="enable_deep_research">启用深度研究</string>
+    <string name="worker_model">Worker 模型</string>
+    <string name="tools_subagents_may_use">子智能体可用的工具</string>
+    <string name="default_">默认</string>
+    <string name="subagent_model">子智能体模型</string>
+    <string name="research_worker_model">深度研究 worker 模型</string>
+</resources>
