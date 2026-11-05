@@ -781,7 +781,8 @@ internal fun AttachmentThumb(relativePath: String, size: androidx.compose.ui.uni
     Box(Modifier.size(size).clip(RoundedCornerShape(8.dp)).background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.Center) {
         val b = bmp
-        if (b != null) androidx.compose.foundation.Image(b, contentDescription = context.getString(R.string.cd_attached_image),
+        val cdAttachedImage = stringResource(R.string.cd_attached_image)
+        if (b != null) androidx.compose.foundation.Image(b, contentDescription = cdAttachedImage,
             contentScale = androidx.compose.ui.layout.ContentScale.Crop, modifier = Modifier.fillMaxSize())
         else Text("🖼️", fontSize = (size.value * 0.45f).sp)
     }
