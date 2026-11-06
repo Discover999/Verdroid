@@ -358,11 +358,12 @@ private fun CrashLogRow(index: Int) {
         },
         confirmButton = {
             text?.let { t ->
+                val chooserTitle = stringResource(R.string.share_crash_log)
                 TextButton(onClick = {
                     val send = android.content.Intent(android.content.Intent.ACTION_SEND).setType("text/plain")
                         .putExtra(android.content.Intent.EXTRA_SUBJECT, "Verdroid crash log").putExtra(android.content.Intent.EXTRA_TEXT, t.second)
-                    runCatching { context.startActivity(android.content.Intent.createChooser(send, stringResource(R.string.share_crash_log))) }
-                }) { Text("Share") }
+                    runCatching { context.startActivity(android.content.Intent.createChooser(send, chooserTitle)) }
+                }) { Text(stringResource(R.string.share)) }
             }
         },
         dismissButton = { TextButton(onClick = { open = false }) { Text(stringResource(R.string.close)) } })
@@ -385,9 +386,9 @@ fun SubAgentSettingsScreen(onBack: () -> Unit, vm: SettingsViewModel = hiltViewM
     val rlFallback by sa.fallbackOnRateLimit.collectAsStateWithLifecycle()
     val freeRpm by vm.appPrefs.rpmOverride.collectAsStateWithLifecycle()
     var pick by remember { mutableStateOf(false) }
-    val R = com.verdroid.app.agent.research.ResearchPolicy
+    val RP = com.verdroid.app.agent.research.ResearchPolicy
     val rp = vm.research
-    val researchOn = R.TOOL_NAME !in disabled
+    val researchOn = RP.TOOL_NAME !in disabled
     val rPin by rp.model.collectAsStateWithLifecycle()
     val rStd by rp.standardSources.collectAsStateWithLifecycle()
     val rDeep by rp.deepSources.collectAsStateWithLifecycle()
@@ -445,7 +446,7 @@ fun SubAgentSettingsScreen(onBack: () -> Unit, vm: SettingsViewModel = hiltViewM
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(stringResource(R.string.enable_deep_research), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                Switch(checked = researchOn, onCheckedChange = { vm.toolPrefs.setEnabled(R.TOOL_NAME, it) })
+                Switch(checked = researchOn, onCheckedChange = { vm.toolPrefs.setEnabled(RP.TOOL_NAME, it) })
             }
             Row(Modifier.fillMaxWidth().clickable(enabled = researchOn) { pickResearch = true }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
@@ -455,9 +456,9 @@ fun SubAgentSettingsScreen(onBack: () -> Unit, vm: SettingsViewModel = hiltViewM
                 }
                 Text(stringResource(R.string.change), color = MaterialTheme.colorScheme.primary)
             }
-            rSlider(stringResource(R.string.rs_standard_sources, rStd, R.STANDARD_QUESTIONS), rStd, R.SOURCES_RANGE) { rp.setStandardSources((it / 5) * 5) }
-            rSlider(stringResource(R.string.rs_deep_sources, rDeep, R.DEEP_QUESTIONS), rDeep, R.SOURCES_RANGE) { rp.setDeepSources((it / 5) * 5) }
-            rSlider(stringResource(R.string.rs_deep_rounds, rRounds), rRounds, R.ROUNDS_RANGE, rp::setDeepRounds)
+            rSlider(stringResource(R.string.rs_standard_sources, rStd, RP.STANDARD_QUESTIONS), rStd, RP.SOURCES_RANGE) { rp.setStandardSources((it / 5) * 5) }
+            rSlider(stringResource(R.string.rs_deep_sources, rDeep, RP.DEEP_QUESTIONS), rDeep, RP.SOURCES_RANGE) { rp.setDeepSources((it / 5) * 5) }
+            rSlider(stringResource(R.string.rs_deep_rounds, rRounds), rRounds, RP.ROUNDS_RANGE, rp::setDeepRounds)
             val B = com.verdroid.app.agent.research.RunBudget
             rSlider(stringResource(R.string.rs_standard_budget, rStdBudget), rStdBudget, B.STANDARD_MIN_RANGE, rp::setStandardBudgetMin)
             rSlider(stringResource(R.string.rs_deep_budget, rDeepBudget), rDeepBudget, B.DEEP_MIN_RANGE, rp::setDeepBudgetMin)
