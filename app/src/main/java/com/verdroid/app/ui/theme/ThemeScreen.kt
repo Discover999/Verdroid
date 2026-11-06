@@ -15,6 +15,8 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -27,22 +29,22 @@ fun ThemeScreen(onBack: () -> Unit) {
     val mode by store.mode.collectAsState()
     val palette by store.palette.collectAsState()
     Scaffold(topBar = {
-        TopAppBar(title = { Text("Theme") },
-            navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") } })
+        TopAppBar(title = { Text(stringResource(R.string.theme)) },
+            navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back)) } })
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState())) {
-            Header("Mode")
+            Header(stringResource(R.string.mode))
             ThemeMode.entries.forEach { m ->
-                Row(m.label, when (m) { ThemeMode.SYSTEM -> "Follow the phone's dark mode"; ThemeMode.LIGHT -> "Always light"; ThemeMode.DARK -> "Always dark" },
+                Row(m.label, when (m) { ThemeMode.SYSTEM -> stringResource(R.string.follow_phone_dark); ThemeMode.LIGHT -> stringResource(R.string.always_light); ThemeMode.DARK -> stringResource(R.string.always_dark) },
                     selected = mode == m) { store.setMode(m) }
             }
-            Header("Colors")
+            Header(stringResource(R.string.colors))
             Palette.entries.forEach { p ->
                 val unavailable = p == Palette.DYNAMIC && Build.VERSION.SDK_INT < Build.VERSION_CODES.S
                 Row(p.label, if (unavailable) "${p.description} — not available on this Android version, uses Messenger Blue" else p.description,
                     selected = palette == p) { store.setPalette(p) }
             }
-            Header("Font size")
+            Header(stringResource(R.string.font_size))
             val scale by store.fontScale.collectAsState()
             var pending by remember(scale) { mutableFloatStateOf(scale) }
             Column(Modifier.padding(horizontal = 16.dp)) {
@@ -52,14 +54,14 @@ fun ThemeScreen(onBack: () -> Unit) {
                         onValueChangeFinished = { store.setFontScale(pending) },
                         valueRange = FontScale.MIN..FontScale.MAX, steps = FontScale.STEPS,
                         modifier = Modifier.weight(1f).padding(horizontal = 8.dp)
-                            .semantics { contentDescription = "Font size ${FontScale.label(pending)}" })
+                            .semantics { contentDescription = context.getString(R.string.font_size_label, FontScale.label(pending)) })
                     Text("A", style = MaterialTheme.typography.titleLarge)
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(FontScale.label(pending) + if (pending == FontScale.DEFAULT) " (default)" else "",
                         style = MaterialTheme.typography.labelLarge, modifier = Modifier.weight(1f))
                     TextButton(enabled = scale != FontScale.DEFAULT || pending != FontScale.DEFAULT,
-                        onClick = { pending = FontScale.DEFAULT; store.setFontScale(FontScale.DEFAULT) }) { Text("Reset") }
+                        onClick = { pending = FontScale.DEFAULT; store.setFontScale(FontScale.DEFAULT) }) { Text(stringResource(R.string.reset)) }
                 }
                 // Live preview at the pending size (applied app-wide when you let go of the slider).
                 val d = LocalDensity.current
