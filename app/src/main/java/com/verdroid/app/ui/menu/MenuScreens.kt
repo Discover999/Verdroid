@@ -130,10 +130,13 @@ private fun LanguageRow(vm: SettingsViewModel, index: Int) {
     val language by vm.appPrefs.language.collectAsStateWithLifecycle()
     var open by remember { mutableStateOf(false) }
     val context = androidx.compose.ui.platform.LocalContext.current
+    val sysLabel = stringResource(R.string.lang_system)
+    val enLabel = stringResource(R.string.lang_english)
+    val zhLabel = stringResource(R.string.lang_chinese)
     fun label(tag: String) = when (tag) {
-        "en" -> stringResource(R.string.lang_english)
-        "zh" -> stringResource(R.string.lang_chinese)
-        else -> stringResource(R.string.lang_system)
+        "en" -> enLabel
+        "zh" -> zhLabel
+        else -> sysLabel
     }
     val current = label(language)
     ListItem(
