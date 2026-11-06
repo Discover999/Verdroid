@@ -36,6 +36,12 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class ShareActivity : ComponentActivity() {
+    override fun attachBaseContext(newBase: android.content.Context) {
+        super.attachBaseContext(
+            com.verdroid.app.data.prefs.LocaleHelper.attachBaseContext(
+                newBase, newBase.getSharedPreferences("app_prefs", android.content.Context.MODE_PRIVATE)
+                    .getString("app_language", "system") ?: "system"))
+    }
     @Inject lateinit var sharedFolder: SharedFolder
     @Inject lateinit var startConversation: StartConversationUseCase
     @Inject lateinit var sendMessage: com.verdroid.app.domain.usecase.SendMessageUseCase

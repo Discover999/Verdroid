@@ -33,6 +33,12 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class AssistActivity : ComponentActivity() {
+    override fun attachBaseContext(newBase: android.content.Context) {
+        super.attachBaseContext(
+            com.verdroid.app.data.prefs.LocaleHelper.attachBaseContext(
+                newBase, newBase.getSharedPreferences("app_prefs", android.content.Context.MODE_PRIVATE)
+                    .getString("app_language", "system") ?: "system"))
+    }
     @Inject lateinit var startConversation: StartConversationUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -100,4 +100,12 @@
     <string name="default_">Default</string>
     <string name="subagent_model">Sub-agent model</string>
     <string name="research_worker_model">Deep research worker model</string>
+    <string name="theme">Theme</string>
+    <string name="theme_desc">Light / dark mode and color palette</string>
+    <string name="voice">Voice</string>
+    <string name="voice_desc">Mic button (speech to text), read replies aloud, hands-free mode</string>
+    <string name="language">Language</string>
+    <string name="lang_system">System default</string>
+    <string name="lang_english">English</string>
+    <string name="lang_chinese">\u4e2d\u6587</string>
 </resources>

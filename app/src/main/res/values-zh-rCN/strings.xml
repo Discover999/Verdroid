@@ -100,4 +100,12 @@
     <string name="default_">默认</string>
     <string name="subagent_model">子智能体模型</string>
     <string name="research_worker_model">深度研究 worker 模型</string>
+    <string name="theme">\u4e3b\u9898</string>
+    <string name="theme_desc">\u6d45\u8272/\u6df1\u8272\u6a21\u5f0f\u4e0e\u914d\u8272</string>
+    <string name="voice">\u8bed\u97f3</string>
+    <string name="voice_desc">\u9ea6\u514b\u98ce\u6309\u94ae\uff08\u8bed\u97f3\u8f93\u5165\uff09\u3001\u6717\u8bfb\u56de\u590d\u3001\u514d\u63d0\u624b\u6a21\u5f0f</string>
+    <string name="language">\u8bed\u8a00</string>
+    <string name="lang_system">\u8ddf\u968f\u7cfb\u7edf</string>
+    <string name="lang_english">English</string>
+    <string name="lang_chinese">\u4e2d\u6587</string>
 </resources>

@@ -83,8 +83,9 @@ fun SettingsScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, unreadNotif
                 item("Background & battery", "Keep-alive service, battery optimisation, HyperOS autostart", Routes.KEEP_ALIVE),
                 item("Shizuku & Git", "run_shell via Shizuku, rish, Git token", Routes.SHIZUKU),
             ))
-            SettingsGroup("Appearance", listOf(item("Theme", "Light / dark mode and color palette", Routes.THEME),
-                item("Voice", "Mic button (speech to text), read replies aloud, hands-free mode", Routes.VOICE)))
+            SettingsGroup("Appearance", listOf(item(stringResource(R.string.theme), stringResource(R.string.theme_desc), Routes.THEME),
+                item(stringResource(R.string.voice), stringResource(R.string.voice_desc), Routes.VOICE),
+                { i -> LanguageRow(vm, i) }))
             SettingsGroup("App", listOf({ i -> AppUpdateRow(vm.updater, i) },
                 { i -> CrashLogRow(i) },
                 { i -> LinkItem("Feedback / Feature request", "Report a bug or suggest an idea on GitHub", i) { com.verdroid.app.data.feedback.FeedbackLinks.CHOOSER } }))
@@ -121,6 +122,43 @@ private fun MenuItem(title: String, subtitle: String, index: Int, onClick: () ->
         colors = ListItemDefaults.colors(containerColor = Zebra.color(index)),
         modifier = Modifier.clickable(onClick = onClick),
     )
+}
+
+/** Settings → Appearance → Language: System default / English / 中文. Applies immediately (activity recreate). */
+@Composable
+private fun LanguageRow(vm: SettingsViewModel, index: Int) {
+    val language by vm.appPrefs.language.collectAsStateWithLifecycle()
+    var open by remember { mutableStateOf(false) }
+    val context = androidx.compose.ui.platform.LocalContext.current
+    fun label(tag: String) = when (tag) {
+        "en" -> stringResource(R.string.lang_english)
+        "zh" -> stringResource(R.string.lang_chinese)
+        else -> stringResource(R.string.lang_system)
+    }
+    val current = label(language)
+    ListItem(
+        headlineContent = { Text(stringResource(R.string.language)) },
+        supportingContent = { Text(current) },
+        colors = ListItemDefaults.colors(containerColor = Zebra.color(index)),
+        modifier = Modifier.clickable { open = true },
+    )
+    if (open) {
+        AlertDialog(onDismissRequest = { open = false },
+            title = { Text(stringResource(R.string.language)) },
+            text = { Column {
+                listOf("system", "en", "zh").forEach { tag ->
+                    ListItem(headlineContent = { Text(label(tag)) },
+                        leadingContent = { if (tag == language) Icon(Icons.Filled.Check, null) },
+                        modifier = Modifier.clickable {
+                            vm.appPrefs.setLanguage(tag)
+                            com.verdroid.app.data.prefs.LocaleHelper.apply(tag)
+                            open = false
+                            (context as? android.app.Activity)?.recreate()
+                        })
+                }
+            }},
+            confirmButton = { TextButton(onClick = { open = false }) { Text(stringResource(R.string.close)) } })
+    }
 }
 
 /** OpenRouter keys (multi-key fallback, primary first). Lives in Settings → LLM providers → OpenRouter (v1.0.45). */
