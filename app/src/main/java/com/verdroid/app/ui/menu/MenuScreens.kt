@@ -1,6 +1,7 @@
 package com.verdroid.app.ui.menu
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,6 +17,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -145,18 +147,28 @@ private fun LanguageRow(vm: SettingsViewModel, index: Int) {
     if (open) {
         AlertDialog(onDismissRequest = { open = false },
             title = { Text(stringResource(R.string.language)) },
-            text = { Column {
-                listOf("system", "en", "zh").forEach { tag ->
-                    ListItem(headlineContent = { Text(label(tag)) },
-                        leadingContent = { if (tag == language) Icon(Icons.Filled.Check, null) },
-                        modifier = Modifier.clickable {
-                            vm.appPrefs.setLanguage(tag)
-                            com.verdroid.app.data.prefs.LocaleHelper.apply(tag)
-                            open = false
-                            (context as? android.app.Activity)?.recreate()
-                        })
+            text = {
+                Column(Modifier.fillMaxWidth()) {
+                    listOf("system", "en", "zh").forEach { tag ->
+                        Row(
+                            Modifier.fillMaxWidth()
+                                .selectable(selected = tag == language, role = Role.RadioButton,
+                                    onClick = {
+                                        vm.appPrefs.setLanguage(tag)
+                                        com.verdroid.app.data.prefs.LocaleHelper.apply(tag)
+                                        open = false
+                                        (context as? android.app.Activity)?.recreate()
+                                    })
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            RadioButton(selected = tag == language, onClick = null)
+                            Spacer(Modifier.width(12.dp))
+                            Text(label(tag), style = MaterialTheme.typography.bodyLarge)
+                        }
+                    }
                 }
-            }},
+            },
             confirmButton = { TextButton(onClick = { open = false }) { Text(stringResource(R.string.close)) } })
     }
 }
