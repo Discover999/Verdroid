@@ -8,6 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -149,42 +151,40 @@ fun LocalProviderPanel(onOpenModels: () -> Unit, vm: LocalLlmViewModel = hiltVie
     val engineOk = remember { LlamaNative.available || LiteRtLmEngine.available }
 
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text("Local (on-device)", style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+        Text(stringResource(R.string.provider_local), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
         AssistChip(onClick = {}, enabled = false, label = { Text(when {
-            !engineOk -> "Not supported"
-            state is LocalEngineState.Loaded -> "Loaded"
-            models.isEmpty() -> "No model yet"
-            else -> "Ready"
+            !engineOk -> stringResource(R.string.not_supported)
+            state is LocalEngineState.Loaded -> stringResource(R.string.loaded_state)
+            models.isEmpty() -> stringResource(R.string.no_model_yet)
+            else -> stringResource(R.string.state_ready)
         }) })
     }
-    Text("Runs a model on this phone: GGUF files with llama.cpp, .litertlm files with Google LiteRT-LM. Private and offline, but much slower and less capable " +
-        "than cloud models. Suggested: Qwen3-4B Q4_K_M (≈2.5 GB, needs ~6 GB RAM) or a 1–2B model on older phones. " +
-        "Agents get a smaller tool set on local models. If a local model can't load, Verdroid moves on to the next model in Model priority.",
+    Text(stringResource(R.string.local_provider_intro),
         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     if (!engineOk) {
         Text(LlamaNative.unavailableReason + "; " + LiteRtLmEngine.unavailableReason, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
         return
     }
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button(enabled = !busy, onClick = { picker.launch(arrayOf("*/*")) }) { Text("Import a .gguf or .litertlm model") }
-        if (busy) OutlinedButton(onClick = vm::cancelImport) { Text("Cancel") }
+        Button(enabled = !busy, onClick = { picker.launch(arrayOf("*/*")) }) { Text(stringResource(R.string.import_model)) }
+        if (busy) OutlinedButton(onClick = vm::cancelImport) { Text(stringResource(R.string.cancel)) }
     }
-    Text("The file is copied into Verdroid's private storage. .litertlm models come from the LiteRT Community on Hugging Face (huggingface.co/litert-community).",
+    Text(stringResource(R.string.import_model_note),
         style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
-    Text("Context size", style = MaterialTheme.typography.labelLarge)
+    Text(stringResource(R.string.context_size), style = MaterialTheme.typography.labelLarge)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         LocalModels.CONTEXT_SIZES.forEach { n -> FilterChip(selected = nCtx == n, onClick = { nCtx = n; vm.setContext(n) }, label = { Text("${n / 1024}K") }) }
     }
-    Text("Threads: $threads", style = MaterialTheme.typography.labelLarge)
+    Text(stringResource(R.string.threads_n, threads), style = MaterialTheme.typography.labelLarge)
     Slider(value = threads.toFloat(), onValueChange = { threads = it.toInt() }, onValueChangeFinished = { vm.setThreads(threads) },
         valueRange = 1f..8f, steps = 6)
 
-    ListItem(headlineContent = { Text("Use GPU") },
-        supportingContent = { Text("Experimental. GGUF: Vulkan, tested first in a separate process. LiteRT: its GPU (OpenCL) backend. On any GPU problem Verdroid uses the CPU instead.") },
+    ListItem(headlineContent = { Text(stringResource(R.string.use_gpu)) },
+        supportingContent = { Text(stringResource(R.string.use_gpu_desc)) },
         trailingContent = { if (probing) CircularProgressIndicator(Modifier.size(24.dp)) else Switch(useGpu, vm::setGpu, enabled = !busy) })
     if (useGpu) {
-        Text("GPU layers (GGUF only)", style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.gpu_layers), style = MaterialTheme.typography.labelLarge)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             com.verdroid.app.data.localllm.GpuPolicy.LAYER_CHOICES.forEach { n ->
                 FilterChip(selected = gpuLayers == n, onClick = { gpuLayers = n; vm.setGpuLayers(n) },
@@ -192,12 +192,12 @@ fun LocalProviderPanel(onOpenModels: () -> Unit, vm: LocalLlmViewModel = hiltVie
             }
         }
     }
-    vm.store.gpuProbe?.let { Text("Last GPU probe: $it", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    vm.store.gpuProbe?.let { Text(stringResource(R.string.last_gpu_probe, it), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     gpuNote?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error) }
-    (state as? LocalEngineState.Loaded)?.let { Text("Active backend: ${it.backend}", style = MaterialTheme.typography.labelLarge) }
+    (state as? LocalEngineState.Loaded)?.let { Text(stringResource(R.string.active_backend_label, it.backend), style = MaterialTheme.typography.labelLarge) }
 
     when (val s = state) {
-        is LocalEngineState.Loading -> Text("Loading ${s.id}…")
+        is LocalEngineState.Loading -> Text(stringResource(R.string.loading_id, s.id))
         is LocalEngineState.Failed -> Text("${s.id}: ${s.message}", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
         else -> {}
     }
@@ -212,26 +212,26 @@ fun LocalProviderPanel(onOpenModels: () -> Unit, vm: LocalLlmViewModel = hiltVie
                     Text(m.name, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
                     AssistChip(onClick = {}, enabled = false, label = { Text(if (m.format == LocalModels.LITERTLM) "LiteRT" else "GGUF") })
                 }
-                Text("${LocalModels.human(m.sizeBytes)} · local:${m.id}${if (loaded) " · loaded on ${(state as LocalEngineState.Loaded).backend}" else ""}",
+                Text(stringResource(R.string.local_model_line, LocalModels.human(m.sizeBytes), m.id) + (if (loaded) " · " + stringResource(R.string.loaded_on, (state as LocalEngineState.Loaded).backend) else ""),
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    if (loaded) OutlinedButton(onClick = { vm.unload() }) { Text("Unload") }
-                    else OutlinedButton(enabled = !busy, onClick = { vm.load(m.id) }) { Text("Load") }
-                    OutlinedButton(enabled = !busy, onClick = { vm.quickTest(m.id) }) { Text("Quick test") }
-                    if (inPriority) OutlinedButton(onClick = { vm.removeFromPriority(m.id) }) { Text("Remove from priority") }
-                    else Button(onClick = { vm.addToPriority(m.id) }) { Text("Add to Model priority") }
-                    TextButton(enabled = !busy, onClick = { confirmDelete = m }) { Text("Delete") }
+                    if (loaded) OutlinedButton(onClick = { vm.unload() }) { Text(stringResource(R.string.unload)) }
+                    else OutlinedButton(enabled = !busy, onClick = { vm.load(m.id) }) { Text(stringResource(R.string.load)) }
+                    OutlinedButton(enabled = !busy, onClick = { vm.quickTest(m.id) }) { Text(stringResource(R.string.quick_test)) }
+                    if (inPriority) OutlinedButton(onClick = { vm.removeFromPriority(m.id) }) { Text(stringResource(R.string.remove_from_priority)) }
+                    else Button(onClick = { vm.addToPriority(m.id) }) { Text(stringResource(R.string.add_to_model_priority)) }
+                    TextButton(enabled = !busy, onClick = { confirmDelete = m }) { Text(stringResource(R.string.delete)) }
                 }
             }
         }
     }
-    TextButton(onClick = onOpenModels) { Text("Choose the order of models in Model priority →") }
+    TextButton(onClick = onOpenModels) { Text(stringResource(R.string.choose_model_order)) }
 
     confirmDelete?.let { m ->
         AlertDialog(onDismissRequest = { confirmDelete = null },
-            title = { Text("Delete ${m.name}?") },
-            text = { Text("Removes the copied model file (${LocalModels.human(m.sizeBytes)}) from Verdroid's storage and from Model priority.") },
-            confirmButton = { TextButton(onClick = { vm.delete(m); confirmDelete = null }) { Text("Yes") } },
-            dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text("No") } })
+            title = { Text(stringResource(R.string.delete_model_file, m.name)) },
+            text = { Text(stringResource(R.string.delete_model_file_desc, LocalModels.human(m.sizeBytes))) },
+            confirmButton = { TextButton(onClick = { vm.delete(m); confirmDelete = null }) { Text(stringResource(R.string.yes)) } },
+            dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text(stringResource(R.string.no)) } })
     }
 }

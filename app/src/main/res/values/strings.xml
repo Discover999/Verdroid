@@ -379,4 +379,28 @@
     <string name="model_name">Model name</string>
     <string name="show_available_models">Show available models</string>
     <string name="tap_model_to_add">Tap a model to add it (it goes to the top of Model priority):</string>
+    <!-- local provider -->
+    <string name="not_supported">Not supported</string>
+    <string name="loaded_state">Loaded</string>
+    <string name="no_model_yet">No model yet</string>
+    <string name="local_provider_intro">Runs a model on this phone: GGUF files with llama.cpp, .litertlm files with Google LiteRT-LM. Private and offline, but much slower and less capable than cloud models. Suggested: Qwen3-4B Q4_K_M (≈2.5 GB, needs ~6 GB RAM) or a 1–2B model on older phones. Agents get a smaller tool set on local models. If a local model can't load, Verdroid moves on to the next model in Model priority.</string>
+    <string name="import_model">Import a .gguf or .litertlm model</string>
+    <string name="import_model_note">The file is copied into Verdroid's private storage. .litertlm models come from the LiteRT Community on Hugging Face (huggingface.co/litert-community).</string>
+    <string name="context_size">Context size</string>
+    <string name="threads_n">Threads: %1$d</string>
+    <string name="use_gpu">Use GPU</string>
+    <string name="use_gpu_desc">Experimental. GGUF: Vulkan, tested first in a separate process. LiteRT: its GPU (OpenCL) backend. On any GPU problem Verdroid uses the CPU instead.</string>
+    <string name="gpu_layers">GPU layers (GGUF only)</string>
+    <string name="last_gpu_probe">Last GPU probe: %1$s</string>
+    <string name="active_backend_label">Active backend: %1$s</string>
+    <string name="loading_id">Loading %1$s…</string>
+    <string name="local_model_line">%1$s · local:%2$s</string>
+    <string name="loaded_on">loaded on %1$s</string>
+    <string name="unload">Unload</string>
+    <string name="load">Load</string>
+    <string name="quick_test">Quick test</string>
+    <string name="remove_from_priority">Remove from priority</string>
+    <string name="add_to_model_priority">Add to Model priority</string>
+    <string name="delete_model_file">Delete %1$s?</string>
+    <string name="delete_model_file_desc">Removes the copied model file (%1$s) from Verdroid's storage and from Model priority.</string>
 </resources>

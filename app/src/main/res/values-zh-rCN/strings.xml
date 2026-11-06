@@ -379,4 +379,28 @@
     <string name="model_name">模型名称</string>
     <string name="show_available_models">显示可用模型</string>
     <string name="tap_model_to_add">点按模型即可添加（会放到模型优先级顶部）：</string>
+    <!-- local provider -->
+    <string name="not_supported">不支持</string>
+    <string name="loaded_state">已加载</string>
+    <string name="no_model_yet">还没有模型</string>
+    <string name="local_provider_intro">在手机上运行模型：GGUF 文件用 llama.cpp，.litertlm 文件用 Google LiteRT-LM。完全离线、私密，但比云端模型慢得多、能力也弱。推荐：Qwen3-4B Q4_K_M（约 2.5 GB，需约 6 GB 内存），老机型建议 1–2B 模型。本地模型的智能体工具集会精简。如果本地模型加载失败，Verdroid 会改用模型优先级中的下一个。</string>
+    <string name="import_model">导入 .gguf 或 .litertlm 模型</string>
+    <string name="import_model_note">文件会复制到 Verdroid 的私有存储。.litertlm 模型来自 Hugging Face 的 LiteRT Community（huggingface.co/litert-community）。</string>
+    <string name="context_size">上下文大小</string>
+    <string name="threads_n">线程数：%1$d</string>
+    <string name="use_gpu">使用 GPU</string>
+    <string name="use_gpu_desc">实验性。GGUF：Vulkan，先在独立进程中测试。LiteRT：其 GPU（OpenCL）后端。GPU 出现任何问题时，Verdroid 会改用 CPU。</string>
+    <string name="gpu_layers">GPU 层数（仅 GGUF）</string>
+    <string name="last_gpu_probe">上次 GPU 探测：%1$s</string>
+    <string name="active_backend_label">当前后端：%1$s</string>
+    <string name="loading_id">正在加载 %1$s…</string>
+    <string name="local_model_line">%1$s · local:%2$s</string>
+    <string name="loaded_on">已加载于 %1$s</string>
+    <string name="unload">卸载</string>
+    <string name="load">加载</string>
+    <string name="quick_test">快速测试</string>
+    <string name="remove_from_priority">从优先级移除</string>
+    <string name="add_to_model_priority">添加到模型优先级</string>
+    <string name="delete_model_file">删除 %1$s？</string>
+    <string name="delete_model_file_desc">从 Verdroid 存储和模型优先级中移除已复制的模型文件（%1$s）。</string>
 </resources>
