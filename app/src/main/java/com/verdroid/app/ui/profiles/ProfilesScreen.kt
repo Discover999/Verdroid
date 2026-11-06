@@ -11,6 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -76,14 +78,14 @@ fun ProfilesScreen(onBack: () -> Unit, startNew: Boolean = false, vm: ProfilesVi
         return
     }
 
-    BackScaffold("Profiles", onBack) { padding ->
+    BackScaffold(stringResource(R.string.profiles), onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding)) {
             item("toggle") {
                 androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
                     verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                     androidx.compose.foundation.layout.Column(Modifier.weight(1f)) {
-                        Text("Profiles", style = MaterialTheme.typography.titleMedium)
-                        Text(if (enabled) "On: profile switcher shown on the main screen" else "Off: everything uses Default; your profiles are kept",
+                        Text(stringResource(R.string.profiles), style = MaterialTheme.typography.titleMedium)
+                        Text(if (enabled) stringResource(R.string.profiles_on) else stringResource(R.string.profiles_off),
                             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     androidx.compose.material3.Switch(checked = enabled, onCheckedChange = { vm.setEnabled(it) })
@@ -91,8 +93,7 @@ fun ProfilesScreen(onBack: () -> Unit, startNew: Boolean = false, vm: ProfilesVi
             }
             if (enabled) {
             item {
-                Text("A profile bundles tools, skills, a model, instructions and memory, so you can switch with one tap at the top of a chat. " +
-                    "Each chat remembers its profile. With only Default, nothing changes.",
+                Text(stringResource(R.string.profiles_intro),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
             }
@@ -101,11 +102,11 @@ fun ProfilesScreen(onBack: () -> Unit, startNew: Boolean = false, vm: ProfilesVi
             }
             item {
                 Box(Modifier.padding(16.dp)) {
-                    Button(onClick = { newMenu = true }) { Text("New profile") }
+                    Button(onClick = { newMenu = true }) { Text(stringResource(R.string.new_profile)) }
                     DropdownMenu(expanded = newMenu, onDismissRequest = { newMenu = false }) {
-                        DropdownMenuItem(text = { Text("Copy of current profile") }, onClick = { newMenu = false; editing = vm.draftCopy() })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.copy_of_current)) }, onClick = { newMenu = false; editing = vm.draftCopy() })
                         vm.templates().forEach { t ->
-                            DropdownMenuItem(text = { Text("Template: ${t.label}") }, onClick = { newMenu = false; editing = t })
+                            DropdownMenuItem(text = { Text(stringResource(R.string.template_arg, t.label)) }, onClick = { newMenu = false; editing = t })
                         }
                     }
                 }
@@ -120,19 +121,19 @@ fun ProfilesScreen(onBack: () -> Unit, startNew: Boolean = false, vm: ProfilesVi
     }
 
     confirmDelete?.let { p ->
-        AlertDialog(onDismissRequest = { confirmDelete = null }, title = { Text("Delete profile \"${p.name}\"?") },
-            text = { Text("Its chats move to Default and the memories it learned become visible to \"All memories\" profiles. Chats and memories are not deleted.") },
-            confirmButton = { TextButton(onClick = { vm.delete(p.id); confirmDelete = null }) { Text("Delete") } },
-            dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text("Cancel") } })
+        AlertDialog(onDismissRequest = { confirmDelete = null }, title = { Text(stringResource(R.string.delete_profile, p.name)) },
+            text = { Text(stringResource(R.string.delete_profile_desc)) },
+            confirmButton = { TextButton(onClick = { vm.delete(p.id); confirmDelete = null }) { Text(stringResource(R.string.delete)) } },
+            dismissButton = { TextButton(onClick = { confirmDelete = null }) { Text(stringResource(R.string.cancel)) } })
     }
 }
 
 private fun summary(p: Profile): String = listOfNotNull(
     if (p.model.isBlank()) "Model priority" else ModelIds.label(p.model),
-    if (p.tools == null) "all tools" else "${p.tools.size} tool groups",
-    if (p.skills == null) "all skills" else "${p.skills.size} skills",
-    if (p.memories == null) "all memories" else "${p.memories.size} memories",
-    if (p.instructions.isNotBlank()) "instructions" else null,
+    if (p.tools == null) stringResource(R.string.all_tools) else stringResource(R.string.n_tool_groups, p.tools.size),
+    if (p.skills == null) stringResource(R.string.all_skills) else stringResource(R.string.n_skills, p.skills.size),
+    if (p.memories == null) stringResource(R.string.all_memories) else stringResource(R.string.n_memories, p.memories.size),
+    if (p.instructions.isNotBlank()) stringResource(R.string.instructions_word) else null,
 ).joinToString(" · ")
 
 @Composable
@@ -142,8 +143,8 @@ private fun ProfileEditor(initial: Profile, vm: ProfilesViewModel, onDone: (Prof
     val memories by vm.memories.collectAsStateWithLifecycle()
     val models by vm.models.collectAsStateWithLifecycle()
     BackHandler { onDone(null) }
-    BackScaffold(if (initial.isDefault) "Default profile" else "Edit profile", { onDone(null) },
-        actions = { TextButton(onClick = { onDone(p) }) { Text("Save") } }) { padding ->
+    BackScaffold(if (initial.isDefault) stringResource(R.string.default_profile) else stringResource(R.string.edit_profile), { onDone(null) },
+        actions = { TextButton(onClick = { onDone(p) }) { Text(stringResource(R.string.save)) } }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp)) {
             ProfileEditorContent(p, skills.map { PickItem(it.id, it.name + if (!it.enabled) " (off in Settings → Skills)" else "", it.description.takeIf { d -> d.isNotBlank() }) },
                 memories.map { PickItem(it.id.toString(), it.text.take(120), it.tags.takeIf { t -> t.isNotEmpty() }?.joinToString(", ")) },
@@ -159,46 +160,45 @@ internal fun ProfileEditorContent(initialP: Profile, skills: List<PickItem>, mem
     fun set(n: Profile) = onChange(n)
     var modelMenu by remember { mutableStateOf(false) }
     run {
-            Section("Icon")
+            Section(stringResource(R.string.icon))
             EmojiGrid(p.emoji) { set(p.copy(emoji = it)) }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(p.emoji, { set(p.copy(emoji = it.take(8))) }, label = { Text("Any emoji") }, singleLine = true, modifier = Modifier.width(88.dp))
+                OutlinedTextField(p.emoji, { set(p.copy(emoji = it.take(8))) }, label = { Text(stringResource(R.string.any_emoji)) }, singleLine = true, modifier = Modifier.width(88.dp))
                 Spacer(Modifier.width(8.dp))
-                OutlinedTextField(p.name, { set(p.copy(name = it.take(40))) }, label = { Text("Name") }, singleLine = true,
+                OutlinedTextField(p.name, { set(p.copy(name = it.take(40))) }, label = { Text(stringResource(R.string.name)) }, singleLine = true,
                     enabled = !p.isDefault, modifier = Modifier.weight(1f))
             }
-            Section("Model")
+            Section(stringResource(R.string.model))
             Box {
-                OutlinedButton(onClick = { modelMenu = true }) { Text(if (p.model.isBlank()) "Follow Model priority" else ModelIds.label(p.model)) }
+                OutlinedButton(onClick = { modelMenu = true }) { Text(if (p.model.isBlank()) stringResource(R.string.follow_model_priority) else ModelIds.label(p.model)) }
                 DropdownMenu(expanded = modelMenu, onDismissRequest = { modelMenu = false }) {
-                    DropdownMenuItem(text = { Text("Follow Model priority") }, onClick = { set(p.copy(model = "")); modelMenu = false })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.follow_model_priority)) }, onClick = { set(p.copy(model = "")); modelMenu = false })
                     (models + listOfNotNull(p.model.takeIf { it.isNotBlank() })).distinct().forEach { m ->
                         DropdownMenuItem(text = { Text(ModelIds.label(m)) }, onClick = { set(p.copy(model = m)); modelMenu = false })
                     }
                 }
             }
-            Hint("Tried first; if it fails, the rest of Model priority is used. A chat's own pinned model still wins.")
+            Hint(stringResource(R.string.profile_model_hint))
 
-            Section("Tools")
+            Section(stringResource(R.string.tools))
             ToolsSection(p) { set(it) }
-            Hint("A chat's Tool presets can still override this; Settings → Tools switches still apply.")
+            Hint(stringResource(R.string.profile_tools_hint))
 
-            Section("Skills")
+            Section(stringResource(R.string.skills))
             SkillsSection(p, skills) { set(it) }
 
-            Section("Memory")
-            if (p.isDefault) Hint("Default always sees all memories.")
+            Section(stringResource(R.string.memory))
+            if (p.isDefault) Hint(stringResource(R.string.default_all_memories))
             else {
                 MemorySection(p, memories) { set(it) }
-                Hint("Selected only: the agent sees just these long-term memories, and anything it learns in this profile is added here " +
-                    "(hidden from other profiles). Short-term notes are always per chat.")
+                Hint(stringResource(R.string.profile_memory_hint))
             }
 
-            Section("Instructions")
+            Section(stringResource(R.string.instructions))
             OutlinedTextField(p.instructions, { set(p.copy(instructions = it.take(Profiles.MAX_INSTRUCTIONS))) },
-                placeholder = { Text("Context or persona for this profile, e.g. \"You help me with Android coding in Kotlin.\"") },
+                placeholder = { Text(stringResource(R.string.profile_instructions_hint)) },
                 minLines = 4, modifier = Modifier.fillMaxWidth())
-            Hint("Added to the agent's instructions, after AGENTS.md.")
+            Hint(stringResource(R.string.profile_instructions_note))
             Spacer(Modifier.height(12.dp))
             Text(Profiles.SHARED_NOTE, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(32.dp))
@@ -219,15 +219,15 @@ internal fun ProfileEditorContent(initialP: Profile, skills: List<PickItem>, mem
 /** Chat header quick picker. */
 @Composable
 fun ProfilePickerDialog(profiles: List<Profile>, current: String, onPick: (String) -> Unit, onDismiss: () -> Unit) {
-    AlertDialog(onDismissRequest = onDismiss, title = { Text("Profile") },
+    AlertDialog(onDismissRequest = onDismiss, title = { Text(stringResource(R.string.profile)) },
         text = {
             Column {
                 profiles.forEach { p -> RadioRow(p.label, p.id == current) { onPick(p.id) } }
                 Spacer(Modifier.height(8.dp))
-                Text("Edit profiles in Settings → Profiles.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.edit_profiles_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         },
-        confirmButton = { TextButton(onClick = onDismiss) { Text("Close") } })
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.close)) } })
 }
 
 /** Suggested profile icons (free entry stays available below the grid). */
@@ -353,5 +353,5 @@ internal fun PickerDialog(noun: String, items: List<PickItem>, onDismiss: () -> 
             }
         },
         confirmButton = { TextButton(onClick = { onAdd(chosen) }, enabled = chosen.isNotEmpty()) { Text(if (chosen.isEmpty()) "Add" else "Add (${chosen.size})") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } })
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } })
 }
