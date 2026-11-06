@@ -221,7 +221,6 @@
     <string name="profile">配置</string>
     <string name="edit_profiles_hint">在 设置 → 配置 中编辑。</string>
     <!-- memory -->
-    <string name="memory">记忆</string>
     <string name="long_term">长期</string>
     <string name="add_short_term_note">添加短期笔记</string>
     <string name="add_long_term_memory">添加长期记忆</string>
@@ -296,7 +295,6 @@
     <string name="remove_token">移除令牌</string>
     <!-- tools -->
     <string name="command_copied">命令已复制——粘贴到 Termux 并按回车</string>
-    <string name="tools">工具</string>
     <string name="checking_">检查中…</string>
     <string name="check_again">重新检查</string>
     <string name="file_safety">文件安全</string>
@@ -492,4 +490,5 @@
     <string name="default_word">默认</string>
     <string name="for_theme">（%1$s 主题）</string>
     <string name="pick">选择</string>
+    <string name="connecting_">连接中…</string>
 </resources>

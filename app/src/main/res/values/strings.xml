@@ -108,6 +108,7 @@
     <string name="lang_system">System default</string>
     <string name="lang_english">English</string>
     <string name="lang_chinese">\u4e2d\u6587</string>
+    <string name="connecting_">Connecting…</string>
     <!-- consent dialogs -->
     <string name="allow_this_command">Allow this command?</string>
     <string name="allow_this_file_change">Allow this file change?</string>
@@ -221,7 +222,6 @@
     <string name="profile">Profile</string>
     <string name="edit_profiles_hint">Edit profiles in Settings → Profiles.</string>
     <!-- memory -->
-    <string name="memory">Memory</string>
     <string name="long_term">Long-term</string>
     <string name="add_short_term_note">Add short-term note</string>
     <string name="add_long_term_memory">Add long-term memory</string>
@@ -296,7 +296,6 @@
     <string name="remove_token">Remove token</string>
     <!-- tools -->
     <string name="command_copied">Command copied — paste it in Termux and press Enter</string>
-    <string name="tools">Tools</string>
     <string name="checking_">Checking…</string>
     <string name="check_again">Check again</string>
     <string name="file_safety">File safety</string>
