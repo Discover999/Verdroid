@@ -86,7 +86,7 @@ fun DeviceControlScreen(onBack: () -> Unit, vm: DeviceControlViewModel = hiltVie
 
                 Section(stringResource(R.string.section_rish)) {
                     Text(stringResource(R.string.rish_intro), style = MaterialTheme.typography.bodySmall)
-                    Text(if (ui.rishInstalled) stringResource(R.string.rish_installed, ui.rishInfo) else stringResource(R.string.not_set_up), style = MaterialTheme.typography.bodyMedium)
+                    Text(if (ui.rishInstalled) stringResource(R.string.rish_installed, ui.rishInfo ?: "") else stringResource(R.string.not_set_up), style = MaterialTheme.typography.bodyMedium)
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Button(onClick = vm::findRish) { Text(stringResource(R.string.find_rish)) }
                         OutlinedButton(onClick = { rishPicker.launch(arrayOf("*/*")) }) { Text(if (ui.rishInstalled) stringResource(R.string.pick_again) else stringResource(R.string.pick_rish_file)) }

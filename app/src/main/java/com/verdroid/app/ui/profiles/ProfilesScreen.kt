@@ -128,6 +128,7 @@ fun ProfilesScreen(onBack: () -> Unit, startNew: Boolean = false, vm: ProfilesVi
     }
 }
 
+@Composable
 private fun summary(p: Profile): String = listOfNotNull(
     if (p.model.isBlank()) "Model priority" else ModelIds.label(p.model),
     if (p.tools == null) stringResource(R.string.all_tools) else stringResource(R.string.n_tool_groups, p.tools.size),

@@ -160,6 +160,9 @@ private fun AddScheduleDialog(onDismiss: () -> Unit, onCreate: (ScheduleKind, St
     var value by remember { mutableStateOf("10") }
     var only by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
+    val errTimeLike = stringResource(R.string.enter_time_like)
+    val errAtLeast = stringResource(R.string.at_least_minutes, ScheduleSpec.MIN_INTERVAL_MINUTES)
+    val errEnterMinutes = stringResource(R.string.enter_minutes)
     AlertDialog(onDismissRequest = onDismiss, title = { Text(stringResource(R.string.new_schedule)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -193,7 +196,7 @@ private fun AddScheduleDialog(onDismiss: () -> Unit, onCreate: (ScheduleKind, St
                     1 -> ScheduleMath.parseTimeOfDay(value)?.let { (h, m) -> ScheduleSpec.Daily(h, m) }
                     else -> value.trim().toIntOrNull()?.takeIf { it >= ScheduleSpec.MIN_INTERVAL_MINUTES }?.let { ScheduleSpec.Interval(it) }
                 }
-                if (spec == null) error = when (mode) { 1 -> stringResource(R.string.enter_time_like); 2 -> stringResource(R.string.at_least_minutes, ScheduleSpec.MIN_INTERVAL_MINUTES); else -> stringResource(R.string.enter_minutes) }
+                if (spec == null) error = when (mode) { 1 -> errTimeLike; 2 -> errAtLeast; else -> errEnterMinutes }
                 else onCreate(kind, text, spec, only) { error = it }
             }) { Text(stringResource(R.string.create)) }
         },

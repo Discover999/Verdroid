@@ -47,6 +47,7 @@ fun ThemeScreen(onBack: () -> Unit) {
             Header(stringResource(R.string.font_size))
             val scale by store.fontScale.collectAsState()
             var pending by remember(scale) { mutableFloatStateOf(scale) }
+            val ctx = androidx.compose.ui.platform.LocalContext.current
             Column(Modifier.padding(horizontal = 16.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("A", style = MaterialTheme.typography.bodySmall)
@@ -54,7 +55,7 @@ fun ThemeScreen(onBack: () -> Unit) {
                         onValueChangeFinished = { store.setFontScale(pending) },
                         valueRange = FontScale.MIN..FontScale.MAX, steps = FontScale.STEPS,
                         modifier = Modifier.weight(1f).padding(horizontal = 8.dp)
-                            .semantics { contentDescription = context.getString(R.string.font_size_label, FontScale.label(pending)) })
+                            .semantics { contentDescription = ctx.getString(R.string.font_size_label, FontScale.label(pending)) })
                     Text("A", style = MaterialTheme.typography.titleLarge)
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {

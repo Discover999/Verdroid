@@ -17,7 +17,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import com.verdroid.app.R
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -47,21 +46,21 @@ object PermissionCatalog {
         val shizuku: ShizukuState, val accessibility: Boolean, val overlay: Boolean, val battery: Boolean, val installApps: Boolean,
     )
 
-    fun rows(s: Status): List<PermissionRow> = listOf(
-        PermissionRow("all_files", stringResource(R.string.perm_all_files), stringResource(R.string.perm_all_files_desc), s.allFiles, stringResource(R.string.grant)),
-        PermissionRow("notifications", stringResource(R.string.notifications), stringResource(R.string.perm_notifications_desc), s.notifications, stringResource(R.string.grant)),
-        PermissionRow("termux", stringResource(R.string.perm_termux), stringResource(R.string.perm_termux_desc),
-            s.termuxRunCommand, if (!s.termuxInstalled) stringResource(R.string.get_termux) else stringResource(R.string.grant)),
-        PermissionRow("shizuku", stringResource(R.string.perm_shizuku), stringResource(R.string.perm_shizuku_desc), s.shizuku == ShizukuState.READY, when (s.shizuku) {
-            ShizukuState.NOT_INSTALLED -> stringResource(R.string.get_shizuku)
-            ShizukuState.NOT_RUNNING, ShizukuState.PRE_V11 -> stringResource(R.string.open_shizuku)
-            ShizukuState.NO_PERMISSION -> stringResource(R.string.grant)
+    fun rows(ctx: Context, s: Status): List<PermissionRow> = listOf(
+        PermissionRow("all_files", ctx.getString(R.string.perm_all_files), ctx.getString(R.string.perm_all_files_desc), s.allFiles, ctx.getString(R.string.grant)),
+        PermissionRow("notifications", ctx.getString(R.string.notifications), ctx.getString(R.string.perm_notifications_desc), s.notifications, ctx.getString(R.string.grant)),
+        PermissionRow("termux", ctx.getString(R.string.perm_termux), ctx.getString(R.string.perm_termux_desc),
+            s.termuxRunCommand, if (!s.termuxInstalled) ctx.getString(R.string.get_termux) else ctx.getString(R.string.grant)),
+        PermissionRow("shizuku", ctx.getString(R.string.perm_shizuku), ctx.getString(R.string.perm_shizuku_desc), s.shizuku == ShizukuState.READY, when (s.shizuku) {
+            ShizukuState.NOT_INSTALLED -> ctx.getString(R.string.get_shizuku)
+            ShizukuState.NOT_RUNNING, ShizukuState.PRE_V11 -> ctx.getString(R.string.open_shizuku)
+            ShizukuState.NO_PERMISSION -> ctx.getString(R.string.grant)
             ShizukuState.READY -> null
         }),
-        PermissionRow("accessibility", stringResource(R.string.perm_accessibility), stringResource(R.string.perm_accessibility_desc), s.accessibility, stringResource(R.string.open_settings)),
-        PermissionRow("overlay", stringResource(R.string.perm_overlay), stringResource(R.string.perm_overlay_desc), s.overlay, stringResource(R.string.grant)),
-        PermissionRow("battery", stringResource(R.string.perm_battery), stringResource(R.string.perm_battery_desc), s.battery, stringResource(R.string.grant)),
-        PermissionRow("install", stringResource(R.string.perm_install), stringResource(R.string.perm_install_desc), s.installApps, stringResource(R.string.grant)),
+        PermissionRow("accessibility", ctx.getString(R.string.perm_accessibility), ctx.getString(R.string.perm_accessibility_desc), s.accessibility, ctx.getString(R.string.open_settings)),
+        PermissionRow("overlay", ctx.getString(R.string.perm_overlay), ctx.getString(R.string.perm_overlay_desc), s.overlay, ctx.getString(R.string.grant)),
+        PermissionRow("battery", ctx.getString(R.string.perm_battery), ctx.getString(R.string.perm_battery_desc), s.battery, ctx.getString(R.string.grant)),
+        PermissionRow("install", ctx.getString(R.string.perm_install), ctx.getString(R.string.perm_install_desc), s.installApps, ctx.getString(R.string.grant)),
     )
 }
 
@@ -94,7 +93,7 @@ class PermissionsViewModel @Inject constructor(
             installApps = runCatching { updater.canInstall() }.getOrDefault(false),
         )
         if (status.allFiles) runCatching { sharedFolder.ensure() }
-        _rows.value = PermissionCatalog.rows(status)
+        _rows.value = PermissionCatalog.rows(context, status)
     }
 
     /** Settings screen (or app store page) for a row; null = handled by a runtime permission dialog in the UI. */
