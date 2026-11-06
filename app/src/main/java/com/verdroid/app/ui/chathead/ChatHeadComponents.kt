@@ -1,5 +1,7 @@
 package com.verdroid.app.ui.chathead
 
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing

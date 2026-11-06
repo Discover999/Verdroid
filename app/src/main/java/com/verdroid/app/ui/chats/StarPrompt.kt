@@ -2,6 +2,8 @@ package com.verdroid.app.ui.chats
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton

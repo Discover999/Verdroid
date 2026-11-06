@@ -74,7 +74,7 @@ fun InstallDialog() {
         title = { Text(stringResource(R.string.install_packages)) },
         text = {
             Column(Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(stringResource(R.string.needs_to_install, p.tool),, style = MaterialTheme.typography.titleSmall)
+                Text(stringResource(R.string.needs_to_install, p.tool), style = MaterialTheme.typography.titleSmall)
                 SelectionContainer { Text(com.verdroid.app.agent.tools.InstallConsent.describe(p.packages), fontFamily = FontFamily.Monospace, fontSize = 12.sp) }
                 Text(stringResource(R.string.why_colon, p.reason), style = MaterialTheme.typography.bodyMedium)
                 Text(p.estimate, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -148,7 +148,7 @@ fun XPostDialog() {
             Column(Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 p.replyTo?.let { Text(stringResource(R.string.replying_to, it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 SelectionContainer { Text(p.text, style = MaterialTheme.typography.bodyLarge) }
-                Text(stringResource(R.string.x_post_counter, com.verdroid.app.agent.tools.XText.weightedLength(p.text))
+                Text(stringResource(R.string.x_post_counter, com.verdroid.app.agent.tools.XText.weightedLength(p.text)),
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 OutlinedButton(onClick = { consent.answer(p.id, post = true, always = true) }) { Text(stringResource(R.string.always_allow)) }
             }

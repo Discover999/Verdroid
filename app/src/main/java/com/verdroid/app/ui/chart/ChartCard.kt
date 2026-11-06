@@ -59,7 +59,7 @@ fun ChartView(spec: ChartSpec, height: Dp, modifier: Modifier = Modifier) {
     val colors = themeChartColors()
     val density = LocalDensity.current.density
     val painter = remember(spec, colors, density) { ChartPainter(spec, colors, density) }
-    Canvas(modifier.fillMaxWidth().height(height).semantics { contentDescription = context.getString(R.string.chart_cd, spec.title.ifBlank { spec.type }) }) {
+    Canvas(modifier.fillMaxWidth().height(height).semantics { contentDescription = ctx.getString(R.string.chart_cd, spec.title.ifBlank { spec.type }) }) {
         drawIntoCanvas { painter.draw(it.nativeCanvas, size.width, size.height, drawBackground = false) }
     }
 }
