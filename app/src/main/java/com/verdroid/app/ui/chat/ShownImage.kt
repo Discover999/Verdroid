@@ -11,6 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
@@ -67,7 +69,7 @@ fun ShownImageCard(ref: ShownImageRef) {
             contentAlignment = Alignment.Center) {
             when (val s = state) {
                 Load.Loading -> CircularProgressIndicator(Modifier.size(24.dp), strokeWidth = 2.dp)
-                is Load.Ok -> Image(s.bmp, contentDescription = ref.caption ?: "Image", contentScale = ContentScale.Fit, modifier = Modifier.fillMaxWidth())
+                is Load.Ok -> Image(s.bmp, contentDescription = ref.caption ?: stringResource(R.string.image_fallback), contentScale = ContentScale.Fit, modifier = Modifier.fillMaxWidth())
                 is Load.Missing -> Text("🖼️ ${s.why}", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(12.dp))
             }
         }
@@ -94,7 +96,7 @@ private fun ShownImageFullscreen(ref: ShownImageRef, file: File, onClose: () -> 
                     }
                 }, contentAlignment = Alignment.Center) {
                     bmp?.let { b ->
-                        Image(b, contentDescription = ref.caption ?: "Image", contentScale = ContentScale.Fit,
+                        Image(b, contentDescription = ref.caption ?: stringResource(R.string.image_fallback), contentScale = ContentScale.Fit,
                             modifier = Modifier.fillMaxSize().graphicsLayer { scaleX = scale; scaleY = scale; translationX = offset.x; translationY = offset.y })
                     } ?: CircularProgressIndicator()
                 }

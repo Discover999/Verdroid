@@ -491,4 +491,46 @@
     <string name="for_theme">（%1$s 主题）</string>
     <string name="pick">选择</string>
     <string name="connecting_">连接中…</string>
+    <!-- batch4: prompts/chathead/update/share/misc -->
+    <string name="allow_chat_heads">允许悬浮头像覆盖其他应用</string>
+    <string name="overlay_permission_body">要把对话悬浮在其他应用上，Verdroid 需要「显示在其他应用上层」权限。
+
+</string>
+    <string name="overlay_permission_body2">HyperOS/MIUI 还需打开「其他权限」，允许「后台运行时显示弹出窗口」。</string>
+    <string name="not_now">暂不</string>
+    <string name="app_update">应用更新</string>
+    <string name="installed_v">已安装：v%1$s</string>
+    <string name="check_for_updates">检查更新</string>
+    <string name="check_updates_github">在 GitHub 上检查更新</string>
+    <string name="check_updates_github_desc">默认关闭。开启后，Verdroid 启动时向 api.github.com 查询最新版本，并从 github.com/chr243/Verdroid/releases 下载 APK（确认后才会安装）。</string>
+    <string name="up_to_date">已是最新（最新版：v%1$s）</string>
+    <string name="version_available">v%1$s 可用</string>
+    <string name="no_apk_in_release">此版本没有可下载的 Verdroid APK。</string>
+    <string name="downloading_v">正在下载 v%1$s… %2$d / %3$d KB</string>
+    <string name="v_downloaded">v%1$s 已下载</string>
+    <string name="allow_install_unknown">请为 Verdroid 允许「安装未知应用」，然后点安装</string>
+    <string name="open_arrow">打开 ↗</string>
+    <string name="resume">继续</string>
+    <string name="message_verdroid">给 Verdroid 发消息…</string>
+    <string name="send">发送</string>
+    <string name="share_to_verdroid">分享到 Verdroid</string>
+    <string name="nothing_usable_shared">分享的内容 Verdroid 用不了（不支持图片）。</string>
+    <string name="message_field">消息</string>
+    <string name="shared_files_note">分享的文件会进入 Documents/Verdroid/Input，需要「所有文件访问」权限。</string>
+    <string name="new_chat">新对话</string>
+    <string name="last_chat">最近对话</string>
+    <string name="sending_">发送中…</string>
+    <string name="got_an_idea">对 Verdroid 有想法？</string>
+    <string name="share_an_idea">分享想法</string>
+    <string name="maybe_later">以后再说</string>
+    <string name="update_available_v">有可用更新：v%1$s</string>
+    <string name="later">稍后</string>
+    <string name="star_on_github">在 GitHub 加星</string>
+    <string name="maybe_not">暂时不了</string>
+    <string name="chart_cd">图表：%1$s</string>
+    <string name="ask_verdroid">询问 Verdroid</string>
+    <string name="open_app">打开应用</string>
+    <string name="notify_when_finished">任务完成时通知</string>
+    <string name="notify_when_finished_desc">关闭时：仅限速、配额警告和失败才通知。</string>
+    <string name="notifications_empty">限速提醒、配额警告和失败信息会显示在这里。</string>
 </resources>

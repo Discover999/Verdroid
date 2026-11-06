@@ -26,8 +26,8 @@ fun StarPrompt(anyTaskActive: Boolean) {
             TextButton(onClick = {
                 store.finish()
                 runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(FeedbackLinks.REPO))) }
-            }) { Text("Star on GitHub") }
+            }) { Text(stringResource(R.string.star_on_github)) }
         },
-        dismissButton = { TextButton(onClick = { store.finish() }) { Text("Maybe not") } },
+        dismissButton = { TextButton(onClick = { store.finish() }) { Text(stringResource(R.string.maybe_not)) } },
     )
 }

@@ -12,6 +12,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
@@ -57,7 +59,7 @@ fun ChartView(spec: ChartSpec, height: Dp, modifier: Modifier = Modifier) {
     val colors = themeChartColors()
     val density = LocalDensity.current.density
     val painter = remember(spec, colors, density) { ChartPainter(spec, colors, density) }
-    Canvas(modifier.fillMaxWidth().height(height).semantics { contentDescription = "Chart: ${spec.title.ifBlank { spec.type }}" }) {
+    Canvas(modifier.fillMaxWidth().height(height).semantics { contentDescription = context.getString(R.string.chart_cd, spec.title.ifBlank { spec.type }) }) {
         drawIntoCanvas { painter.draw(it.nativeCanvas, size.width, size.height, drawBackground = false) }
     }
 }

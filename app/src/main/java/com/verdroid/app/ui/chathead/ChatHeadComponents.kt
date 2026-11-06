@@ -156,15 +156,14 @@ fun DismissTarget(near: Boolean) {
 fun OverlayPermissionDialog(onOpenSettings: () -> Unit, onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Allow chat heads over other apps") },
+        title = { Text(stringResource(R.string.allow_chat_heads)) },
         text = {
             Text(
-                "To float the conversation over other apps, Verdroid needs the \"Display over other apps\" permission.\n\n" +
-                    "On HyperOS/MIUI also open Other permissions and allow \"Display pop-up windows while running in the background\".",
+                stringResource(R.string.overlay_permission_body) + stringResource(R.string.overlay_permission_body2)
             )
         },
-        confirmButton = { TextButton(onClick = onOpenSettings) { Text("Open settings") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Not now") } },
+        confirmButton = { TextButton(onClick = onOpenSettings) { Text(stringResource(R.string.open_settings)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.not_now)) } },
     )
 }
 

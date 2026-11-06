@@ -491,4 +491,46 @@
     <string name="default_word">Default</string>
     <string name="for_theme">for the %1$s theme</string>
     <string name="pick">Pick</string>
+    <!-- batch4: prompts/chathead/update/share/misc -->
+    <string name="allow_chat_heads">Allow chat heads over other apps</string>
+    <string name="overlay_permission_body">To float the conversation over other apps, Verdroid needs the "Display over other apps" permission.
+
+</string>
+    <string name="overlay_permission_body2">On HyperOS/MIUI also open Other permissions and allow "Display pop-up windows while running in the background".</string>
+    <string name="not_now">Not now</string>
+    <string name="app_update">App update</string>
+    <string name="installed_v">Installed: v%1$s</string>
+    <string name="check_for_updates">Check for updates</string>
+    <string name="check_updates_github">Check for updates on GitHub</string>
+    <string name="check_updates_github_desc">Off by default. When on, Verdroid asks api.github.com for the latest release on start and downloads APKs from github.com/chr243/Verdroid/releases (installed only after you confirm).</string>
+    <string name="up_to_date">Up to date (latest: v%1$s)</string>
+    <string name="version_available">v%1$s available</string>
+    <string name="no_apk_in_release">This release has no Verdroid APK to download.</string>
+    <string name="downloading_v">Downloading v%1$s… %2$d / %3$d KB</string>
+    <string name="v_downloaded">v%1$s downloaded</string>
+    <string name="allow_install_unknown">allow "Install unknown apps" for Verdroid, then tap Install</string>
+    <string name="open_arrow">Open ↗</string>
+    <string name="resume">Resume</string>
+    <string name="message_verdroid">Message Verdroid…</string>
+    <string name="send">Send</string>
+    <string name="share_to_verdroid">Share to Verdroid</string>
+    <string name="nothing_usable_shared">Nothing Verdroid can use was shared (images are not supported).</string>
+    <string name="message_field">Message</string>
+    <string name="shared_files_note">Shared files go to Documents/Verdroid/Input, which needs All files access.</string>
+    <string name="new_chat">New chat</string>
+    <string name="last_chat">Last chat</string>
+    <string name="sending_">Sending…</string>
+    <string name="got_an_idea">Got an idea for Verdroid?</string>
+    <string name="share_an_idea">Share an idea</string>
+    <string name="maybe_later">Maybe later</string>
+    <string name="update_available_v">Update available: v%1$s</string>
+    <string name="later">Later</string>
+    <string name="star_on_github">Star on GitHub</string>
+    <string name="maybe_not">Maybe not</string>
+    <string name="chart_cd">Chart: %1$s</string>
+    <string name="ask_verdroid">Ask Verdroid</string>
+    <string name="open_app">Open app</string>
+    <string name="notify_when_finished">Notify when a task finishes</string>
+    <string name="notify_when_finished_desc">Off: only rate limits, quota warnings, and failures notify.</string>
+    <string name="notifications_empty">Rate-limit alerts, quota warnings and failures will appear here.</string>
 </resources>
