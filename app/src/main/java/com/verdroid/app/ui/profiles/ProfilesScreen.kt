@@ -237,6 +237,7 @@ internal val SUGGESTED_EMOJI = listOf("🤖", "🔎", "💻", "🧑‍💻", "�
 
 @Composable
 internal fun EmojiGrid(selected: String, onPick: (String) -> Unit) {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
     Column {
         SUGGESTED_EMOJI.chunked(8).forEach { row ->
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -245,7 +246,7 @@ internal fun EmojiGrid(selected: String, onPick: (String) -> Unit) {
                     Surface(shape = MaterialTheme.shapes.small,
                         color = if (on) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
                         modifier = Modifier.size(40.dp).clickable { onPick(e) }
-                            .semantics { contentDescription = if (on) stringResource(R.string.cd_icon_selected, e) else stringResource(R.string.cd_icon, e) }) {
+                            .semantics { contentDescription = if (on) ctx.getString(R.string.cd_icon_selected, e) else ctx.getString(R.string.cd_icon, e) }) {
                         Box(contentAlignment = Alignment.Center) { Text(e, style = MaterialTheme.typography.titleLarge, maxLines = 1, softWrap = false) }
                     }
                 }
@@ -268,8 +269,8 @@ internal fun ProfileRow(p: Profile, isActive: Boolean, onUse: () -> Unit, onEdit
                 modifier = Modifier.semantics { contentDescription = if (isActive) context.getString(R.string.cd_profile_active, p.name) else context.getString(R.string.cd_use_profile, p.name) }) {
                 Text(if (isActive) stringResource(R.string.in_use) else stringResource(R.string.use), maxLines = 1, softWrap = false)
             }
-            TextButton(onClick = onEdit, modifier = Modifier.semantics { contentDescription = stringResource(R.string.cd_edit_profile, p.name) }) { Text(stringResource(R.string.edit), maxLines = 1, softWrap = false) }
-            if (!p.isDefault) TextButton(onClick = onDelete, modifier = Modifier.semantics { contentDescription = stringResource(R.string.cd_delete_profile, p.name) },
+            TextButton(onClick = onEdit, modifier = Modifier.semantics { contentDescription = context.getString(R.string.cd_edit_profile, p.name) }) { Text(stringResource(R.string.edit), maxLines = 1, softWrap = false) }
+            if (!p.isDefault) TextButton(onClick = onDelete, modifier = Modifier.semantics { contentDescription = context.getString(R.string.cd_delete_profile, p.name) },
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) { Text(stringResource(R.string.delete), maxLines = 1, softWrap = false) }
         }
     }
