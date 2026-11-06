@@ -533,4 +533,17 @@
     <string name="notify_when_finished">Notify when a task finishes</string>
     <string name="notify_when_finished_desc">Off: only rate limits, quota warnings, and failures notify.</string>
     <string name="notifications_empty">Rate-limit alerts, quota warnings and failures will appear here.</string>
+    <!-- batch5: freellmapi/common -->
+    <string name="freellmapi_title">FreeLLMAPI in Termux (experimental)</string>
+    <string name="status_colon">Status: %1$s</string>
+    <string name="install_update_termux">Install / Update in Termux</string>
+    <string name="start">Start</string>
+    <string name="start_in_termux">Start in Termux window</string>
+    <string name="stop">Stop</string>
+    <string name="open_dashboard">Open dashboard</string>
+    <string name="check_status">Check status</string>
+    <string name="view_log">View log</string>
+    <string name="freellmapi_log">FreeLLMAPI log</string>
+    <string name="copy_">Copy</string>
+    <string name="copied">Copied</string>
 </resources>

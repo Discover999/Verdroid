@@ -533,4 +533,17 @@
     <string name="notify_when_finished">任务完成时通知</string>
     <string name="notify_when_finished_desc">关闭时：仅限速、配额警告和失败才通知。</string>
     <string name="notifications_empty">限速提醒、配额警告和失败信息会显示在这里。</string>
+    <!-- batch5: freellmapi/common -->
+    <string name="freellmapi_title">Termux 中的 FreeLLMAPI（实验性）</string>
+    <string name="status_colon">状态：%1$s</string>
+    <string name="install_update_termux">在 Termux 中安装 / 更新</string>
+    <string name="start">启动</string>
+    <string name="start_in_termux">在 Termux 窗口中启动</string>
+    <string name="stop">停止</string>
+    <string name="open_dashboard">打开控制台</string>
+    <string name="check_status">检查状态</string>
+    <string name="view_log">查看日志</string>
+    <string name="freellmapi_log">FreeLLMAPI 日志</string>
+    <string name="copy_">复制</string>
+    <string name="copied">已复制</string>
 </resources>

@@ -6,6 +6,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -92,25 +94,25 @@ fun FreeLlmApiPanel(open: (String) -> Unit, vm: FreeLlmApiViewModel = hiltViewMo
     val busy by vm.busy.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { vm.check() }
 
-    Text("FreeLLMAPI in Termux (experimental)", style = MaterialTheme.typography.titleMedium)
+    Text(stringResource(R.string.freellmapi_title), style = MaterialTheme.typography.titleMedium)
     Text(FreeLlmApi.HELP, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    Text("Status: $status", style = MaterialTheme.typography.labelLarge)
+    Text(stringResource(R.string.status_colon, status), style = MaterialTheme.typography.labelLarge)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Button(enabled = !busy, onClick = vm::install) { Text("Install / Update in Termux") }
-        OutlinedButton(enabled = !busy, onClick = { vm.start() }) { Text("Start") }
-        OutlinedButton(enabled = !busy, onClick = vm::startInTerminal) { Text("Start in Termux window") }
-        OutlinedButton(enabled = !busy, onClick = { vm.stop() }) { Text("Stop") }
-        OutlinedButton(onClick = { open(FreeLlmApi.DASHBOARD_URL) }) { Text("Open dashboard") }
-        TextButton(onClick = { vm.check() }) { Text("Check status") }
-        TextButton(enabled = !busy, onClick = { vm.showLog() }) { Text("View log") }
+        Button(enabled = !busy, onClick = vm::install) { Text(stringResource(R.string.install_update_termux)) }
+        OutlinedButton(enabled = !busy, onClick = { vm.start() }) { Text(stringResource(R.string.start)) }
+        OutlinedButton(enabled = !busy, onClick = vm::startInTerminal) { Text(stringResource(R.string.start_in_termux)) }
+        OutlinedButton(enabled = !busy, onClick = { vm.stop() }) { Text(stringResource(R.string.stop)) }
+        OutlinedButton(onClick = { open(FreeLlmApi.DASHBOARD_URL) }) { Text(stringResource(R.string.open_dashboard)) }
+        TextButton(onClick = { vm.check() }) { Text(stringResource(R.string.check_status)) }
+        TextButton(enabled = !busy, onClick = { vm.showLog() }) { Text(stringResource(R.string.view_log)) }
     }
     note?.takeIf { it.isNotBlank() }?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
     HorizontalDivider(Modifier.padding(vertical = 4.dp))
 
     log?.let { text ->
-        AlertDialog(onDismissRequest = vm::closeLog, title = { Text("FreeLLMAPI log") },
+        AlertDialog(onDismissRequest = vm::closeLog, title = { Text(stringResource(R.string.freellmapi_log)) },
             text = { Text(text, fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState())) },
-            confirmButton = { TextButton(onClick = vm::closeLog) { Text("Close") } })
+            confirmButton = { TextButton(onClick = vm::closeLog) { Text(stringResource(R.string.close)) } })
     }
 }
