@@ -17,6 +17,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.verdroid.app.R
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -46,20 +48,20 @@ object PermissionCatalog {
     )
 
     fun rows(s: Status): List<PermissionRow> = listOf(
-        PermissionRow("all_files", "All files access", "Documents/Verdroid (Input/, Output/, Internal/) and the workspace_* tools", s.allFiles, "Grant"),
-        PermissionRow("notifications", "Notifications", "Task finished / rate-limit alerts, chat heads (Bubbles), keep-alive", s.notifications, "Grant"),
-        PermissionRow("termux", "Run commands in Termux", "termux_run, Termux add-ons, selenium_* and termux_python",
-            s.termuxRunCommand, if (!s.termuxInstalled) "Get Termux" else "Grant"),
-        PermissionRow("shizuku", "Shizuku", "run_shell and rish_run (privileged shell)", s.shizuku == ShizukuState.READY, when (s.shizuku) {
-            ShizukuState.NOT_INSTALLED -> "Get Shizuku"
-            ShizukuState.NOT_RUNNING, ShizukuState.PRE_V11 -> "Open Shizuku"
-            ShizukuState.NO_PERMISSION -> "Grant"
+        PermissionRow("all_files", stringResource(R.string.perm_all_files), stringResource(R.string.perm_all_files_desc), s.allFiles, stringResource(R.string.grant)),
+        PermissionRow("notifications", stringResource(R.string.notifications), stringResource(R.string.perm_notifications_desc), s.notifications, stringResource(R.string.grant)),
+        PermissionRow("termux", stringResource(R.string.perm_termux), stringResource(R.string.perm_termux_desc),
+            s.termuxRunCommand, if (!s.termuxInstalled) stringResource(R.string.get_termux) else stringResource(R.string.grant)),
+        PermissionRow("shizuku", stringResource(R.string.perm_shizuku), stringResource(R.string.perm_shizuku_desc), s.shizuku == ShizukuState.READY, when (s.shizuku) {
+            ShizukuState.NOT_INSTALLED -> stringResource(R.string.get_shizuku)
+            ShizukuState.NOT_RUNNING, ShizukuState.PRE_V11 -> stringResource(R.string.open_shizuku)
+            ShizukuState.NO_PERMISSION -> stringResource(R.string.grant)
             ShizukuState.READY -> null
         }),
-        PermissionRow("accessibility", "Accessibility service", "screen_read / tap / swipe / type on other apps", s.accessibility, "Open settings"),
-        PermissionRow("overlay", "Display over other apps", "Overlay chat heads", s.overlay, "Grant"),
-        PermissionRow("battery", "Ignore battery optimisation", "Keeps long tasks running in the background", s.battery, "Grant"),
-        PermissionRow("install", "Install unknown apps", "In-app updates (installing a new Verdroid APK)", s.installApps, "Grant"),
+        PermissionRow("accessibility", stringResource(R.string.perm_accessibility), stringResource(R.string.perm_accessibility_desc), s.accessibility, stringResource(R.string.open_settings)),
+        PermissionRow("overlay", stringResource(R.string.perm_overlay), stringResource(R.string.perm_overlay_desc), s.overlay, stringResource(R.string.grant)),
+        PermissionRow("battery", stringResource(R.string.perm_battery), stringResource(R.string.perm_battery_desc), s.battery, stringResource(R.string.grant)),
+        PermissionRow("install", stringResource(R.string.perm_install), stringResource(R.string.perm_install_desc), s.installApps, stringResource(R.string.grant)),
     )
 }
 

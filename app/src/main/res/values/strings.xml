@@ -403,4 +403,31 @@
     <string name="add_to_model_priority">Add to Model priority</string>
     <string name="delete_model_file">Delete %1$s?</string>
     <string name="delete_model_file_desc">Removes the copied model file (%1$s) from Verdroid's storage and from Model priority.</string>
+    <!-- archive / cookies / permissions -->
+    <string name="empty_archive">Empty archive</string>
+    <string name="archive_intro">Chats deleted from the home list land here. Open one to read it, Restore to continue it, or delete it permanently (messages, short-term memory and chart images).</string>
+    <string name="archive_empty">The archive is empty.</string>
+    <string name="archived_line">Archived %1$s · last activity %2$s</string>
+    <string name="delete_permanently">Delete permanently?</string>
+    <string name="web_login_intro">Log in once in the in-app browser; cookie_open (including Reddit) and the X tools use that login.</string>
+    <string name="cookie_tools_off_hint">Web login tools (cookie_*) are off: turn them on under Tools → Web.</string>
+    <string name="log_in_to_site">Log in to a site</string>
+    <string name="no_saved_sites">No saved sites</string>
+    <string name="site_url_label">Site or login page URL</string>
+    <string name="open_settings">Open settings</string>
+    <string name="perm_all_files">All files access</string>
+    <string name="perm_all_files_desc">Documents/Verdroid (Input/, Output/, Internal/) and the workspace_* tools</string>
+    <string name="perm_notifications_desc">Task finished / rate-limit alerts, chat heads (Bubbles), keep-alive</string>
+    <string name="perm_termux">Run commands in Termux</string>
+    <string name="perm_termux_desc">termux_run, Termux add-ons, selenium_* and termux_python</string>
+    <string name="perm_shizuku">Shizuku</string>
+    <string name="perm_shizuku_desc">run_shell and rish_run (privileged shell)</string>
+    <string name="perm_accessibility">Accessibility service</string>
+    <string name="perm_accessibility_desc">screen_read / tap / swipe / type on other apps</string>
+    <string name="perm_overlay">Display over other apps</string>
+    <string name="perm_overlay_desc">Overlay chat heads</string>
+    <string name="perm_battery">Ignore battery optimisation</string>
+    <string name="perm_battery_desc">Keeps long tasks running in the background</string>
+    <string name="perm_install">Install unknown apps</string>
+    <string name="perm_install_desc">In-app updates (installing a new Verdroid APK)</string>
 </resources>

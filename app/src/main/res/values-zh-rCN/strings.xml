@@ -403,4 +403,31 @@
     <string name="add_to_model_priority">添加到模型优先级</string>
     <string name="delete_model_file">删除 %1$s？</string>
     <string name="delete_model_file_desc">从 Verdroid 存储和模型优先级中移除已复制的模型文件（%1$s）。</string>
+    <!-- archive / cookies / permissions -->
+    <string name="empty_archive">清空归档</string>
+    <string name="archive_intro">从主页删除的对话会到这里。打开可阅读，恢复可继续，或永久删除（消息、短期记忆和图表图片）。</string>
+    <string name="archive_empty">归档是空的。</string>
+    <string name="archived_line">归档于 %1$s · 最后活动 %2$s</string>
+    <string name="delete_permanently">永久删除？</string>
+    <string name="web_login_intro">在内置浏览器里登录一次；cookie_open（包括 Reddit）和 X 工具会使用该登录。</string>
+    <string name="cookie_tools_off_hint">网页登录工具（cookie_*）已关闭：请在 工具 → 网页 中开启。</string>
+    <string name="log_in_to_site">登录一个网站</string>
+    <string name="no_saved_sites">还没有保存的网站</string>
+    <string name="site_url_label">网站或登录页 URL</string>
+    <string name="open_settings">打开设置</string>
+    <string name="perm_all_files">所有文件访问</string>
+    <string name="perm_all_files_desc">Documents/Verdroid（Input/、Output/、Internal/）和 workspace_* 工具</string>
+    <string name="perm_notifications_desc">任务完成/限速提醒、悬浮头像（气泡）、保活</string>
+    <string name="perm_termux">在 Termux 中运行命令</string>
+    <string name="perm_termux_desc">termux_run、Termux 附加组件、selenium_* 和 termux_python</string>
+    <string name="perm_shizuku">Shizuku</string>
+    <string name="perm_shizuku_desc">run_shell 和 rish_run（特权 shell）</string>
+    <string name="perm_accessibility">无障碍服务</string>
+    <string name="perm_accessibility_desc">在其他应用上 screen_read / 点击 / 滑动 / 输入</string>
+    <string name="perm_overlay">显示在其他应用上层</string>
+    <string name="perm_overlay_desc">覆盖层悬浮头像</string>
+    <string name="perm_battery">忽略电池优化</string>
+    <string name="perm_battery_desc">让长时间任务在后台持续运行</string>
+    <string name="perm_install">安装未知应用</string>
+    <string name="perm_install_desc">应用内更新（安装新的 Verdroid APK）</string>
 </resources>
