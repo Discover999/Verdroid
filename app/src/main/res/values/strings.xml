@@ -141,9 +141,9 @@
     <string name="post_without_asking">Post without asking</string>
     <string name="post_without_asking_desc">x_post publishes immediately, without showing you the text first. Posts are public and can\'t be unsent.</string>
     <string name="limit_posts">Limit posts</string>
-    <string name="limit_posts_on">On: x_post stops at the limits below, in chats and scheduled runs, even with \\"Always allow\\". 0 = no limit for that window.</string>
+    <string name="limit_posts_on">On: x_post stops at the limits below, in chats and scheduled runs, even with \"Always allow\". 0 = no limit for that window.</string>
     <string name="limit_posts_off">Off: no limit on x_post (chats and scheduled runs). Every post is still logged.</string>
-    <string name="limit_posts_used"> Used: %1$d in the last hour, %2$d in the last 24 h.</string>
+    <string name="limit_posts_used">Used: %1$d in the last hour, %2$d in the last 24 h.</string>
     <string name="per_hour">Per hour</string>
     <string name="per_day">Per day</string>
     <string name="view_post_log">View post log</string>
@@ -152,10 +152,10 @@
     <string name="turn_on_twitter">Turn on Twitter tools?</string>
     <string name="i_understand_turn_on">I understand, turn on</string>
     <!-- schedules -->
-    <string name="couldnt_create_schedule">Couldn't create the schedule</string>
+    <string name="couldnt_create_schedule">Couldn\'t create the schedule</string>
     <string name="schedules">Schedules</string>
-    <string name="no_schedules_hint">No schedules yet. Ask in a chat, e.g. 'remind me in 10 minutes about my soup', 'every day at 10am check cnn.com and give me a summary' or 'every 15 minutes check this blog, only tell me if there is a new post' — or tap Add.</string>
-    <string name="schedules_tz_note">Times are in this phone's time zone (%1$s). Repeating runs need at least %2$d minutes between them. Scheduled runs happen without you: tools that need your confirmation (posting, deleting, installing, phone control) are blocked in them.</string>
+    <string name="no_schedules_hint">No schedules yet. Ask in a chat, e.g. \'remind me in 10 minutes about my soup\', \'every day at 10am check cnn.com and give me a summary\' or \'every 15 minutes check this blog, only tell me if there is a new post\' — or tap Add.</string>
+    <string name="schedules_tz_note">Times are in this phone\'s time zone (%1$s). Repeating runs need at least %2$d minutes between them. Scheduled runs happen without you: tools that need your confirmation (posting, deleting, installing, phone control) are blocked in them.</string>
     <string name="delete_this_schedule">Delete this schedule?</string>
     <string name="schedules_may_be_late">Scheduled runs may be late or skipped</string>
     <string name="allow_background">Allow background</string>
@@ -194,8 +194,8 @@
     <string name="new_profile">New profile</string>
     <string name="copy_of_current">Copy of current profile</string>
     <string name="template_arg">Template: %1$s</string>
-    <string name="delete_profile">Delete profile "%1$s"?</string>
-    <string name="delete_profile_desc">Its chats move to Default and the memories it learned become visible to "All memories" profiles. Chats and memories are not deleted.</string>
+    <string name="delete_profile">Delete profile \"%1$s\"?</string>
+    <string name="delete_profile_desc">Its chats move to Default and the memories it learned become visible to \"All memories\" profiles. Chats and memories are not deleted.</string>
     <string name="all_tools">all tools</string>
     <string name="n_tool_groups">%1$d tool groups</string>
     <string name="all_skills">all skills</string>
@@ -209,16 +209,16 @@
     <string name="any_emoji">Any emoji</string>
     <string name="name">Name</string>
     <string name="follow_model_priority">Follow Model priority</string>
-    <string name="profile_model_hint">Tried first; if it fails, the rest of Model priority is used. A chat's own pinned model still wins.</string>
+    <string name="profile_model_hint">Tried first; if it fails, the rest of Model priority is used. A chat\'s own pinned model still wins.</string>
     <string name="tools">Tools</string>
     <string name="skills">Skills</string>
     <string name="memory">Memory</string>
-    <string name="profile_tools_hint">A chat's Tool presets can still override this; Settings → Tools switches still apply.</string>
+    <string name="profile_tools_hint">A chat\'s Tool presets can still override this; Settings → Tools switches still apply.</string>
     <string name="default_all_memories">Default always sees all memories.</string>
     <string name="profile_memory_hint">Selected only: the agent sees just these long-term memories, and anything it learns in this profile is added here (hidden from other profiles). Short-term notes are always per chat.</string>
     <string name="instructions">Instructions</string>
-    <string name="profile_instructions_hint">Context or persona for this profile, e.g. "You help me with Android coding in Kotlin."</string>
-    <string name="profile_instructions_note">Added to the agent's instructions, after AGENTS.md.</string>
+    <string name="profile_instructions_hint">Context or persona for this profile, e.g. \"You help me with Android coding in Kotlin.\"</string>
+    <string name="profile_instructions_note">Added to the agent\'s instructions, after AGENTS.md.</string>
     <string name="profile">Profile</string>
     <string name="edit_profiles_hint">Edit profiles in Settings → Profiles.</string>
     <!-- memory -->
@@ -227,12 +227,12 @@
     <string name="add_long_term_memory">Add long-term memory</string>
     <string name="edit_memory">Edit memory #%1$d</string>
     <string name="delete_memory">Delete memory #%1$d?</string>
-    <string name="clear_chat_memory">Clear this chat's short-term memory?</string>
+    <string name="clear_chat_memory">Clear this chat\'s short-term memory?</string>
     <string name="clear_all_memories">Clear all long-term memories?</string>
-    <string name="clear_chat_memory_desc">The agent loses its notes about this chat's task.</string>
+    <string name="clear_chat_memory_desc">The agent loses its notes about this chat\'s task.</string>
     <string name="clear_all_memories_desc">The agent will forget everything it learned about you.</string>
     <string name="clear">Clear</string>
-    <string name="short_term_memory_intro">Short-term memory: the agent's scratchpad for one chat (task progress, decisions, findings). Always in that chat's prompt (~1k tokens, oldest trimmed) and deleted with the chat.</string>
+    <string name="short_term_memory_intro">Short-term memory: the agent\'s scratchpad for one chat (task progress, decisions, findings). Always in that chat\'s prompt (~1k tokens, oldest trimmed) and deleted with the chat.</string>
     <string name="no_chats_yet">No chats yet</string>
     <string name="chat_colon">Chat: %1$s</string>
     <string name="no_short_term_notes">No short-term notes for this chat.</string>
@@ -244,14 +244,14 @@
     <string name="autosave_off">The agent saves long-term memories only when you ask.</string>
     <string name="search_memories">Search (%1$d memories)</string>
     <string name="nothing_remembered">Nothing remembered yet.</string>
-    <string name="no_memory_matches">No memory matches "%1$s".</string>
+    <string name="no_memory_matches">No memory matches \"%1$s\".</string>
     <string name="clear_all">Clear all</string>
     <string name="deleted_profile">deleted profile</string>
     <string name="only_in_profile">Only in profile %1$s</string>
     <string name="updated_at_word">updated</string>
     <string name="edit">Edit</string>
     <string name="text">Text</string>
-    <string name="tags_hint">Tags (comma-separated; "important" keeps it in the prompt)</string>
+    <string name="tags_hint">Tags (comma-separated; \"important\" keeps it in the prompt)</string>
     <!-- device control -->
     <string name="shizuku_git">Shizuku &amp; Git</string>
     <string name="section_run_shell">run_shell (Shizuku)</string>
@@ -275,7 +275,7 @@
     <string name="diagnose">Diagnose</string>
     <string name="re_check">Re-check</string>
     <string name="section_rish">rish (rish_run)</string>
-    <string name="rish_intro">Shizuku's rish lets Verdroid run privileged shell commands (rish_run). In Shizuku, open “Use Shizuku in terminal apps” → Export files into Download, Documents or Documents/Verdroid/Input and tap Find rish (needs All files access), or pick the exported rish file (select rish_shizuku.dex too if asked). Verdroid copies both to /data/local/tmp/verdroid_rish and chmod +x (needs Shizuku).</string>
+    <string name="rish_intro">Shizuku\'s rish lets Verdroid run privileged shell commands (rish_run). In Shizuku, open “Use Shizuku in terminal apps” → Export files into Download, Documents or Documents/Verdroid/Input and tap Find rish (needs All files access), or pick the exported rish file (select rish_shizuku.dex too if asked). Verdroid copies both to /data/local/tmp/verdroid_rish and chmod +x (needs Shizuku).</string>
     <string name="rish_installed">✅ Installed: %1$s</string>
     <string name="not_set_up">Not set up</string>
     <string name="find_rish">Find rish</string>
@@ -299,7 +299,7 @@
     <string name="checking_">Checking…</string>
     <string name="check_again">Check again</string>
     <string name="file_safety">File safety</string>
-    <string name="file_safety_hint">The Yes/No dialog's This chat / Always allow buttons set these too.</string>
+    <string name="file_safety_hint">The Yes/No dialog\'s This chat / Always allow buttons set these too.</string>
     <string name="shared_folder">Shared folder</string>
     <string name="tools_off_hint">Off = hidden from the model (and refused if it calls them anyway).</string>
     <string name="cd_group_summary">%1$s, %2$d of %3$d on, %4$s</string>
@@ -348,24 +348,24 @@
     <string name="state_ready">Ready</string>
     <string name="state_needs_key">Needs a key</string>
     <string name="state_needs_address">Needs an address</string>
-    <string name="openrouter_help">Gives access to many models; the ones ending in ":free" cost nothing. You can add several keys: Verdroid starts with the primary one and switches to the next if a key hits its limit. Keys are stored encrypted on this phone.</string>
+    <string name="openrouter_help">Gives access to many models; the ones ending in \":free\" cost nothing. You can add several keys: Verdroid starts with the primary one and switches to the next if a key hits its limit. Keys are stored encrypted on this phone.</string>
     <string name="get_free_key_or">Get a free key at openrouter.ai</string>
     <string name="kilo_ready">Ready, no key needed</string>
-    <string name="kilo_help">Kilo's free models work without an account or key (about 200 requests per hour). Kilo Auto Free is in Model priority by default.</string>
+    <string name="kilo_help">Kilo\'s free models work without an account or key (about 200 requests per hour). Kilo Auto Free is in Model priority by default.</string>
     <string name="share_memories_kilo">Share memories with Kilo models</string>
     <string name="share_memories_kilo_desc">Off keeps your saved memories out of prompts sent to Kilo (its free model may log prompts).</string>
     <string name="about_kilo">About Kilo</string>
     <string name="choose_model_order">Choose the order of models in Model priority →</string>
     <string name="cd_provider_state">%1$s, %2$s</string>
-    <string name="freellmapi_help">Paste the API key from the FreeLLMAPI dashboard. It's stored encrypted and only sent to 127.0.0.1 (this phone).</string>
-    <string name="paste_key_help">Paste your %1$s API key. It's stored encrypted on this phone and only sent to %1$s.</string>
+    <string name="freellmapi_help">Paste the API key from the FreeLLMAPI dashboard. It\'s stored encrypted and only sent to 127.0.0.1 (this phone).</string>
+    <string name="paste_key_help">Paste your %1$s API key. It\'s stored encrypted on this phone and only sent to %1$s.</string>
     <string name="custom_provider_help">Any service that speaks the OpenAI API. Enter its address and, if it needs one, a key.</string>
     <string name="lan_provider_help">%1$s. No key needed. On this phone use http://localhost; another device needs an https address or a *.local name.</string>
     <string name="get_a_key">Get a %1$s key</string>
     <string name="api_key">API key</string>
     <string name="api_key_optional">API key (optional)</string>
     <string name="server_address">Server address</string>
-    <string name="server_address_hint">The API's base address, usually ending in /v1</string>
+    <string name="server_address_hint">The API\'s base address, usually ending in /v1</string>
     <string name="hide_advanced">Hide advanced</string>
     <string name="default_address_note">Default address: %1$s. Only change it if you use a proxy.</string>
     <string name="extra_headers">Extra headers (optional)</string>
@@ -382,9 +382,9 @@
     <string name="not_supported">Not supported</string>
     <string name="loaded_state">Loaded</string>
     <string name="no_model_yet">No model yet</string>
-    <string name="local_provider_intro">Runs a model on this phone: GGUF files with llama.cpp, .litertlm files with Google LiteRT-LM. Private and offline, but much slower and less capable than cloud models. Suggested: Qwen3-4B Q4_K_M (≈2.5 GB, needs ~6 GB RAM) or a 1–2B model on older phones. Agents get a smaller tool set on local models. If a local model can't load, Verdroid moves on to the next model in Model priority.</string>
+    <string name="local_provider_intro">Runs a model on this phone: GGUF files with llama.cpp, .litertlm files with Google LiteRT-LM. Private and offline, but much slower and less capable than cloud models. Suggested: Qwen3-4B Q4_K_M (≈2.5 GB, needs ~6 GB RAM) or a 1–2B model on older phones. Agents get a smaller tool set on local models. If a local model can\'t load, Verdroid moves on to the next model in Model priority.</string>
     <string name="import_model">Import a .gguf or .litertlm model</string>
-    <string name="import_model_note">The file is copied into Verdroid's private storage. .litertlm models come from the LiteRT Community on Hugging Face (huggingface.co/litert-community).</string>
+    <string name="import_model_note">The file is copied into Verdroid\'s private storage. .litertlm models come from the LiteRT Community on Hugging Face (huggingface.co/litert-community).</string>
     <string name="context_size">Context size</string>
     <string name="threads_n">Threads: %1$d</string>
     <string name="use_gpu">Use GPU</string>
@@ -401,7 +401,7 @@
     <string name="remove_from_priority">Remove from priority</string>
     <string name="add_to_model_priority">Add to Model priority</string>
     <string name="delete_model_file">Delete %1$s?</string>
-    <string name="delete_model_file_desc">Removes the copied model file (%1$s) from Verdroid's storage and from Model priority.</string>
+    <string name="delete_model_file_desc">Removes the copied model file (%1$s) from Verdroid\'s storage and from Model priority.</string>
     <!-- archive / cookies / permissions -->
     <string name="empty_archive">Empty archive</string>
     <string name="archive_intro">Chats deleted from the home list land here. Open one to read it, Restore to continue it, or delete it permanently (messages, short-term memory and chart images).</string>
@@ -433,15 +433,15 @@
     <string name="agents_md_intro">Standing instructions for the agent, added to every chat (how you like answers, rules, context about you). Leave empty to send nothing. Max %1$d characters.</string>
     <string name="clear_agents_md">Clear AGENTS.md?</string>
     <string name="clear_agents_md_desc">The agent will no longer get these instructions.</string>
-    <string name="skills_intro">Reusable procedures the agent saved with you (it offers to save one when you work out a multi-step task together). Enabled skills are added to the agent's instructions; turned-off skills are kept but not sent.</string>
-    <string name="no_skills_hint">No skills yet. Ask Verdroid to "save this as a skill" after a task.</string>
+    <string name="skills_intro">Reusable procedures the agent saved with you (it offers to save one when you work out a multi-step task together). Enabled skills are added to the agent\'s instructions; turned-off skills are kept but not sent.</string>
+    <string name="no_skills_hint">No skills yet. Ask Verdroid to \"save this as a skill\" after a task.</string>
     <string name="enabled_word">Enabled</string>
-    <string name="delete_skill">Delete skill "%1$s"?</string>
+    <string name="delete_skill">Delete skill \"%1$s\"?</string>
     <string name="delete_skill_desc">The agent will no longer know this procedure.</string>
     <string name="mode">Mode</string>
     <string name="colors">Colors</string>
     <string name="font_size">Font size</string>
-    <string name="follow_phone_dark">Follow the phone's dark mode</string>
+    <string name="follow_phone_dark">Follow the phone\'s dark mode</string>
     <string name="always_light">Always light</string>
     <string name="always_dark">Always dark</string>
     <string name="font_size_label">Font size %1$s</string>
@@ -459,14 +459,14 @@
     <string name="auth_header_optional">Auth header (optional)</string>
     <string name="token_saved">Token: saved (type to replace)</string>
     <string name="token_optional">Token or header value (optional)</string>
-    <string name="token_storage_note">Stored encrypted. A bare token is sent as "Bearer &lt;token&gt;".</string>
+    <string name="token_storage_note">Stored encrypted. A bare token is sent as \"Bearer &lt;token&gt;\".</string>
     <string name="remove_saved_token">Remove the saved token</string>
     <string name="background_battery">Background &amp; battery</string>
     <string name="keep_tasks_alive">Keep tasks alive while working</string>
-    <string name="keepalive_desc">While a task runs, a foreground service shows "Working on: &lt;chat&gt;" with the current step and a Stop button. When nothing is running there is no service and no notification.</string>
+    <string name="keepalive_desc">While a task runs, a foreground service shows \"Working on: &lt;chat&gt;\" with the current step and a Stop button. When nothing is running there is no service and no notification.</string>
     <string name="keepalive_chathead_note">Chat heads keep working while idle without this service, but Android may close an idle app; the bubble then comes back the next time you open Verdroid.</string>
     <string name="battery_optimisation">Battery optimisation</string>
-    <string name="battery_unrestricted">✅ Unrestricted — Android won't defer Verdroid's resume jobs.</string>
+    <string name="battery_unrestricted">✅ Unrestricted — Android won\'t defer Verdroid\'s resume jobs.</string>
     <string name="battery_optimised_note">Optimised — Doze can delay auto-resume and kill the agent. Allow Verdroid to ignore battery optimisations.</string>
     <string name="hyperos_autostart">HyperOS / MIUI autostart</string>
     <string name="xiaomi_note">On Xiaomi/Redmi/POCO phones, also:</string>
@@ -474,7 +474,7 @@
     <string name="open_app_settings">Open app settings</string>
     <string name="reboot_note">After a reboot, Verdroid restarts only tasks that were mid-run; paused tasks keep their scheduled resume.</string>
     <string name="chat_heads">Chat heads</string>
-    <string name="chat_heads_intro">Open any conversation as a floating chat head with the 🫧 button in the chat's top bar.</string>
+    <string name="chat_heads_intro">Open any conversation as a floating chat head with the 🫧 button in the chat\'s top bar.</string>
     <string name="mode_auto">Auto</string>
     <string name="mode_auto_desc">Bubbles when supported and allowed; overlay on HyperOS/MIUI or when bubbles are off</string>
     <string name="mode_bubbles">Bubbles</string>
@@ -482,7 +482,7 @@
     <string name="mode_overlay">Overlay</string>
     <string name="mode_overlay_desc">Draggable chat head drawn over other apps (needs permission)</string>
     <string name="auto_chat_head_home">Auto chat head on Home</string>
-    <string name="auto_chat_head_desc">Leaving the app (Home/Recents) from a chat opens that chat as an overlay head; it is removed when you come back. Needs "Display over other apps".</string>
+    <string name="auto_chat_head_desc">Leaving the app (Home/Recents) from a chat opens that chat as an overlay head; it is removed when you come back. Needs \"Display over other apps\".</string>
     <string name="chat_head_gifs">Chat head GIFs for the %1$s theme</string>
     <string name="chat_head_gifs_note">Picks apply only to the current theme; switch themes to set different ones.</string>
     <string name="on_task_gif">On-task GIF</string>
@@ -493,10 +493,10 @@
     <string name="pick">Pick</string>
     <!-- batch4: prompts/chathead/update/share/misc -->
     <string name="allow_chat_heads">Allow chat heads over other apps</string>
-    <string name="overlay_permission_body">To float the conversation over other apps, Verdroid needs the "Display over other apps" permission.
+    <string name="overlay_permission_body">To float the conversation over other apps, Verdroid needs the \"Display over other apps\" permission.
 
 </string>
-    <string name="overlay_permission_body2">On HyperOS/MIUI also open Other permissions and allow "Display pop-up windows while running in the background".</string>
+    <string name="overlay_permission_body2">On HyperOS/MIUI also open Other permissions and allow \"Display pop-up windows while running in the background\".</string>
     <string name="not_now">Not now</string>
     <string name="app_update">App update</string>
     <string name="installed_v">Installed: v%1$s</string>
@@ -508,7 +508,7 @@
     <string name="no_apk_in_release">This release has no Verdroid APK to download.</string>
     <string name="downloading_v">Downloading v%1$s… %2$d / %3$d KB</string>
     <string name="v_downloaded">v%1$s downloaded</string>
-    <string name="allow_install_unknown">allow "Install unknown apps" for Verdroid, then tap Install</string>
+    <string name="allow_install_unknown">allow \"Install unknown apps\" for Verdroid, then tap Install</string>
     <string name="open_arrow">Open ↗</string>
     <string name="resume">Resume</string>
     <string name="message_verdroid">Message Verdroid…</string>

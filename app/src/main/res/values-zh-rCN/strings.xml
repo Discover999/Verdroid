@@ -142,7 +142,7 @@
     <string name="limit_posts">限制发帖数量</string>
     <string name="limit_posts_on">开：x_post 在下述限额处停止（对话和定时任务中，即使选了「始终允许」）。0 = 该时段不限制。</string>
     <string name="limit_posts_off">关：x_post 不限次数（对话和定时任务）。每次发帖仍会记录。</string>
-    <string name="limit_posts_used"> 已用：过去 1 小时 %1$d 次，过去 24 小时 %2$d 次。</string>
+    <string name="limit_posts_used">已用：过去 1 小时 %1$d 次，过去 24 小时 %2$d 次。</string>
     <string name="per_hour">每小时</string>
     <string name="per_day">每天</string>
     <string name="view_post_log">查看发帖记录</string>
@@ -347,7 +347,7 @@
     <string name="state_ready">已就绪</string>
     <string name="state_needs_key">需要密钥</string>
     <string name="state_needs_address">需要地址</string>
-    <string name="openrouter_help">提供大量模型；以 ":free" 结尾的完全免费。可以添加多个密钥：Verdroid 从主密钥开始，达到限额时自动切换到下一个。密钥在本机加密存储。</string>
+    <string name="openrouter_help">提供大量模型；以 \":free\" 结尾的完全免费。可以添加多个密钥：Verdroid 从主密钥开始，达到限额时自动切换到下一个。密钥在本机加密存储。</string>
     <string name="get_free_key_or">在 openrouter.ai 获取免费密钥</string>
     <string name="kilo_ready">已就绪，无需密钥</string>
     <string name="kilo_help">Kilo 的免费模型无需账号或密钥（约每小时 200 次请求）。Kilo Auto Free 默认已在模型优先级中。</string>
@@ -458,7 +458,7 @@
     <string name="auth_header_optional">认证请求头（可选）</string>
     <string name="token_saved">令牌：已保存（输入可替换）</string>
     <string name="token_optional">令牌或请求头的值（可选）</string>
-    <string name="token_storage_note">加密存储。纯令牌会以 "Bearer &lt;token&gt;" 形式发送。</string>
+    <string name="token_storage_note">加密存储。纯令牌会以 \"Bearer &lt;token&gt;\" 形式发送。</string>
     <string name="remove_saved_token">删除已保存的令牌</string>
     <string name="background_battery">后台与电池</string>
     <string name="keep_tasks_alive">工作时保持任务存活</string>

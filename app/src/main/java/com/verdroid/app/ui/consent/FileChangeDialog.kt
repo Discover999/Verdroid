@@ -189,7 +189,7 @@ fun XPostLimitsSetting(modifier: Modifier = Modifier) {
             Column(Modifier.weight(1f)) {
                 Text(stringResource(R.string.limit_posts), style = MaterialTheme.typography.bodyLarge)
                 Text((if (limitOn) stringResource(R.string.limit_posts_on) else stringResource(R.string.limit_posts_off)) +
-                    stringResource(R.string.limit_posts_used, h, d),
+                    " " + stringResource(R.string.limit_posts_used, h, d),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Switch(checked = limitOn, onCheckedChange = guard::setLimitOn)
