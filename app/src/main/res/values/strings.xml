@@ -220,4 +220,36 @@
     <string name="profile_instructions_note">Added to the agent's instructions, after AGENTS.md.</string>
     <string name="profile">Profile</string>
     <string name="edit_profiles_hint">Edit profiles in Settings → Profiles.</string>
+    <!-- memory -->
+    <string name="memory">Memory</string>
+    <string name="long_term">Long-term</string>
+    <string name="add_short_term_note">Add short-term note</string>
+    <string name="add_long_term_memory">Add long-term memory</string>
+    <string name="edit_memory">Edit memory #%1$d</string>
+    <string name="delete_memory">Delete memory #%1$d?</string>
+    <string name="clear_chat_memory">Clear this chat's short-term memory?</string>
+    <string name="clear_all_memories">Clear all long-term memories?</string>
+    <string name="clear_chat_memory_desc">The agent loses its notes about this chat's task.</string>
+    <string name="clear_all_memories_desc">The agent will forget everything it learned about you.</string>
+    <string name="clear">Clear</string>
+    <string name="short_term_memory_intro">Short-term memory: the agent's scratchpad for one chat (task progress, decisions, findings). Always in that chat's prompt (~1k tokens, oldest trimmed) and deleted with the chat.</string>
+    <string name="no_chats_yet">No chats yet</string>
+    <string name="chat_colon">Chat: %1$s</string>
+    <string name="no_short_term_notes">No short-term notes for this chat.</string>
+    <string name="move_to_long_term">Move to long-term</string>
+    <string name="clear_this_chat">Clear this chat</string>
+    <string name="long_term_memory_intro">Long-term memory: lasting facts about you and your preferences, shared by all chats. The ~20 most important/recent go into the system prompt; the agent can search the rest. Exported to %1$s.</string>
+    <string name="automatic_saving">Automatic saving</string>
+    <string name="autosave_on">The agent saves lasting facts on its own.</string>
+    <string name="autosave_off">The agent saves long-term memories only when you ask.</string>
+    <string name="search_memories">Search (%1$d memories)</string>
+    <string name="nothing_remembered">Nothing remembered yet.</string>
+    <string name="no_memory_matches">No memory matches "%1$s".</string>
+    <string name="clear_all">Clear all</string>
+    <string name="deleted_profile">deleted profile</string>
+    <string name="only_in_profile">Only in profile %1$s</string>
+    <string name="updated_at_word">updated</string>
+    <string name="edit">Edit</string>
+    <string name="text">Text</string>
+    <string name="tags_hint">Tags (comma-separated; "important" keeps it in the prompt)</string>
 </resources>

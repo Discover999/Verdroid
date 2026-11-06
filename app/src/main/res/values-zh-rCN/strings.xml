@@ -220,4 +220,36 @@
     <string name="profile_instructions_note">加在智能体指令之后、AGENTS.md 之后。</string>
     <string name="profile">配置</string>
     <string name="edit_profiles_hint">在 设置 → 配置 中编辑。</string>
+    <!-- memory -->
+    <string name="memory">记忆</string>
+    <string name="long_term">长期</string>
+    <string name="add_short_term_note">添加短期笔记</string>
+    <string name="add_long_term_memory">添加长期记忆</string>
+    <string name="edit_memory">编辑记忆 #%1$d</string>
+    <string name="delete_memory">删除记忆 #%1$d？</string>
+    <string name="clear_chat_memory">清空此对话的短期记忆？</string>
+    <string name="clear_all_memories">清空所有长期记忆？</string>
+    <string name="clear_chat_memory_desc">智能体会丢失它对这个对话任务的笔记。</string>
+    <string name="clear_all_memories_desc">智能体会忘掉它学到的关于你的一切。</string>
+    <string name="clear">清空</string>
+    <string name="short_term_memory_intro">短期记忆：智能体在单个对话里的草稿本（任务进度、决定、发现）。始终在该对话的提示词中（约 1k token，最旧的会被裁剪），随对话一起删除。</string>
+    <string name="no_chats_yet">还没有对话</string>
+    <string name="chat_colon">对话：%1$s</string>
+    <string name="no_short_term_notes">此对话暂无短期笔记。</string>
+    <string name="move_to_long_term">转为长期记忆</string>
+    <string name="clear_this_chat">清空此对话</string>
+    <string name="long_term_memory_intro">长期记忆：关于你的持久事实和偏好，所有对话共享。最重要/最近的约 20 条进入系统提示词；其余智能体可以搜索。导出位置 %1$s。</string>
+    <string name="automatic_saving">自动保存</string>
+    <string name="autosave_on">智能体会自动保存持久事实。</string>
+    <string name="autosave_off">只有你要求时智能体才保存长期记忆。</string>
+    <string name="search_memories">搜索（%1$d 条记忆）</string>
+    <string name="nothing_remembered">还没有任何记忆。</string>
+    <string name="no_memory_matches">没有匹配「%1$s」的记忆。</string>
+    <string name="clear_all">全部清空</string>
+    <string name="deleted_profile">已删除的配置</string>
+    <string name="only_in_profile">仅在配置 %1$s 中</string>
+    <string name="updated_at_word">更新于</string>
+    <string name="edit">编辑</string>
+    <string name="text">内容</string>
+    <string name="tags_hint">标签（逗号分隔；「important」使其保持在提示词中）</string>
 </resources>
