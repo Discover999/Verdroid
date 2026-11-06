@@ -108,4 +108,46 @@
     <string name="lang_system">System default</string>
     <string name="lang_english">English</string>
     <string name="lang_chinese">\u4e2d\u6587</string>
+    <!-- consent dialogs -->
+    <string name="allow_this_command">Allow this command?</string>
+    <string name="allow_this_file_change">Allow this file change?</string>
+    <string name="chat_tool_line">Chat: %1$s · tool %2$s</string>
+    <string name="chat_id_arg">#%1$d</string>
+    <string name="this_chat">This chat</string>
+    <string name="always_allow">Always allow</string>
+    <string name="shared_deletes_intro">Everything affected is inside Documents/Verdroid. Skip this question for deletes/moves/renames there:</string>
+    <string name="n_more_waiting">%1$d more waiting</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="install_packages">Install packages?</string>
+    <string name="needs_to_install">%1$s needs to install:</string>
+    <string name="why_colon">Why: %1$s</string>
+    <string name="install">Install</string>
+    <string name="dont_install">Don\'t install</string>
+    <string name="overwrite_without_asking">Overwrite without asking</string>
+    <string name="overwrite_without_asking_desc">Replace existing files outside Internal/ without a Yes/No.</string>
+    <string name="ask_before_shell">Ask before shell commands</string>
+    <string name="ask_before_shell_desc">Yes/No before every run_shell, rish_run, termux_run and termux_python. Even when off, risky commands (uploads, pm, settings put, …) ask after the chat read web or other untrusted content.</string>
+    <string name="shared_delete_title">Delete/move in Documents/Verdroid without asking</string>
+    <string name="shared_delete_desc">Only when every file is provably inside. Outside, or not provable, still asks. Never in scheduled runs.</string>
+    <string name="post_reply_x">Post this reply on X?</string>
+    <string name="post_x">Post this on X?</string>
+    <string name="replying_to">Replying to %1$s</string>
+    <string name="x_post_counter">%1$d/280 · posts publicly as you</string>
+    <string name="post">Post</string>
+    <string name="post_without_asking">Post without asking</string>
+    <string name="post_without_asking_desc">x_post publishes immediately, without showing you the text first. Posts are public and can\'t be unsent.</string>
+    <string name="limit_posts">Limit posts</string>
+    <string name="limit_posts_on">On: x_post stops at the limits below, in chats and scheduled runs, even with \\"Always allow\\". 0 = no limit for that window.</string>
+    <string name="limit_posts_off">Off: no limit on x_post (chats and scheduled runs). Every post is still logged.</string>
+    <string name="limit_posts_used"> Used: %1$d in the last hour, %2$d in the last 24 h.</string>
+    <string name="per_hour">Per hour</string>
+    <string name="per_day">Per day</string>
+    <string name="view_post_log">View post log</string>
+    <string name="no_xpost_log">No x_post attempts logged yet.</string>
+    <string name="x_post_log">x_post log</string>
+    <string name="turn_on_twitter">Turn on Twitter tools?</string>
+    <string name="i_understand_turn_on">I understand, turn on</string>
 </resources>

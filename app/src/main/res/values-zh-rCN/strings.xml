@@ -108,4 +108,46 @@
     <string name="lang_system">\u8ddf\u968f\u7cfb\u7edf</string>
     <string name="lang_english">English</string>
     <string name="lang_chinese">\u4e2d\u6587</string>
+    <!-- consent dialogs -->
+    <string name="allow_this_command">允许执行此命令？</string>
+    <string name="allow_this_file_change">允许此文件更改？</string>
+    <string name="chat_tool_line">对话：%1$s · 工具 %2$s</string>
+    <string name="chat_id_arg">#%1$d</string>
+    <string name="this_chat">仅此对话</string>
+    <string name="always_allow">始终允许</string>
+    <string name="shared_deletes_intro">受影响的内容都在 Documents/Verdroid 内。跳过其中删除/移动/重命名的询问：</string>
+    <string name="n_more_waiting">还有 %1$d 个待处理</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="allow">允许</string>
+    <string name="deny">拒绝</string>
+    <string name="install_packages">安装软件包？</string>
+    <string name="needs_to_install">%1$s 需要安装：</string>
+    <string name="why_colon">原因：%1$s</string>
+    <string name="install">安装</string>
+    <string name="dont_install">不安装</string>
+    <string name="overwrite_without_asking">覆盖文件不再询问</string>
+    <string name="overwrite_without_asking_desc">无需确认即可替换 Internal/ 之外的现有文件。</string>
+    <string name="ask_before_shell">执行 shell 命令前询问</string>
+    <string name="ask_before_shell_desc">每次 run_shell、rish_run、termux_run 和 termux_python 前都先问一次。即使关闭，当对话读取过网页等不可信内容后，高风险命令（上传、pm、settings put 等）仍会询问。</string>
+    <string name="shared_delete_title">Documents/Verdroid 内删除/移动不再询问</string>
+    <string name="shared_delete_desc">仅当所有文件都确定在该目录内时才跳过；目录外或无法确定时仍会询问。定时任务中永不跳过。</string>
+    <string name="post_reply_x">在 X 上发布这条回复？</string>
+    <string name="post_x">在 X 上发布这条内容？</string>
+    <string name="replying_to">回复 %1$s</string>
+    <string name="x_post_counter">%1$d/280 · 将以你的身份公开发布</string>
+    <string name="post">发布</string>
+    <string name="post_without_asking">发布前不再询问</string>
+    <string name="post_without_asking_desc">x_post 会立即发布，不先给你看内容。帖子是公开的，发出后无法撤回。</string>
+    <string name="limit_posts">限制发帖数量</string>
+    <string name="limit_posts_on">开：x_post 在下述限额处停止（对话和定时任务中，即使选了「始终允许」）。0 = 该时段不限制。</string>
+    <string name="limit_posts_off">关：x_post 不限次数（对话和定时任务）。每次发帖仍会记录。</string>
+    <string name="limit_posts_used"> 已用：过去 1 小时 %1$d 次，过去 24 小时 %2$d 次。</string>
+    <string name="per_hour">每小时</string>
+    <string name="per_day">每天</string>
+    <string name="view_post_log">查看发帖记录</string>
+    <string name="no_xpost_log">尚无 x_post 记录。</string>
+    <string name="x_post_log">x_post 记录</string>
+    <string name="turn_on_twitter">开启 Twitter 工具？</string>
+    <string name="i_understand_turn_on">我已了解，开启</string>
 </resources>
