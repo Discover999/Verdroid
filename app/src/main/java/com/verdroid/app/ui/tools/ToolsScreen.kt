@@ -64,6 +64,8 @@ fun ToolsScreen(onBack: () -> Unit, onOpenShizuku: () -> Unit = {}, onOpenPermis
             navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back)) } },
             actions = { TextButton(onClick = vm::refresh, enabled = !state.checking) { Text(if (state.checking) stringResource(R.string.checking_) else stringResource(R.string.check_again)) } })
     }) { padding ->
+        val packagesTitle = stringResource(R.string.packages)
+        val addonsTitle = stringResource(R.string.verdroid_addons)
         LazyColumn(Modifier.fillMaxSize().padding(padding)) {
             // 1. File safety
             item(key = "file-safety") {
@@ -158,8 +160,6 @@ fun ToolsScreen(onBack: () -> Unit, onOpenShizuku: () -> Unit = {}, onOpenPermis
                 Hint(stringResource(R.string.termux_packages_hint))
                 state.packagesNote?.let { Hint(it) }
             }
-            val packagesTitle = stringResource(R.string.packages)
-            val addonsTitle = stringResource(R.string.verdroid_addons)
             for ((key, title, rows) in listOf(
                 Triple(ToolsLayout.PACKAGES, packagesTitle, state.packages.filterNot { com.verdroid.app.data.tools.TermuxPackages.isAddon(it.pkg.pkg) }),
                 Triple(ToolsLayout.ADDONS, addonsTitle, state.packages.filter { com.verdroid.app.data.tools.TermuxPackages.isAddon(it.pkg.pkg) }),
