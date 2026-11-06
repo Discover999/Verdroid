@@ -624,4 +624,13 @@
     <string name="tools_subagents_hint">Read-only tools only; a tool also has to be on for the chat (Settings → Tools, Tool presets, profile) to be offered.</string>
     <string name="same_as_main_model_default">Same as main model (default)</string>
     <string name="same_as_subagent_default">Same as sub-agent model (default)</string>
+    <string name="active_word">active</string>
+    <string name="in_use">In use</string>
+    <string name="use">Use</string>
+    <string name="cd_profile_active">%1$s is active</string>
+    <string name="cd_use_profile">Use %1$s</string>
+    <string name="cd_edit_profile">Edit %1$s</string>
+    <string name="cd_delete_profile">Delete %1$s</string>
+    <string name="cd_icon">Icon %1$s</string>
+    <string name="cd_icon_selected">Icon %1$s, selected</string>
 </resources>

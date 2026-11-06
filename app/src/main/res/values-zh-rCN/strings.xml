@@ -624,4 +624,13 @@
     <string name="tools_subagents_hint">只提供只读工具；此外该工具还必须在该对话中开启（设置 → 工具、工具预设、配置）才会被提供。</string>
     <string name="same_as_main_model_default">与主模型相同（默认）</string>
     <string name="same_as_subagent_default">与子智能体模型相同（默认）</string>
+    <string name="active_word">使用中</string>
+    <string name="in_use">使用中</string>
+    <string name="use">使用</string>
+    <string name="cd_profile_active">%1$s 正在使用</string>
+    <string name="cd_use_profile">使用 %1$s</string>
+    <string name="cd_edit_profile">编辑 %1$s</string>
+    <string name="cd_delete_profile">删除 %1$s</string>
+    <string name="cd_icon">图标 %1$s</string>
+    <string name="cd_icon_selected">图标 %1$s，已选中</string>
 </resources>

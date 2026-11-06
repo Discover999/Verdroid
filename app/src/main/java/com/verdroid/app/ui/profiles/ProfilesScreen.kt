@@ -245,7 +245,7 @@ internal fun EmojiGrid(selected: String, onPick: (String) -> Unit) {
                     Surface(shape = MaterialTheme.shapes.small,
                         color = if (on) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
                         modifier = Modifier.size(40.dp).clickable { onPick(e) }
-                            .semantics { contentDescription = "Icon $e" + if (on) ", selected" else "" }) {
+                            .semantics { contentDescription = if (on) stringResource(R.string.cd_icon_selected, e) else stringResource(R.string.cd_icon, e) }) {
                         Box(contentAlignment = Alignment.Center) { Text(e, style = MaterialTheme.typography.titleLarge, maxLines = 1, softWrap = false) }
                     }
                 }
@@ -258,18 +258,19 @@ internal fun EmojiGrid(selected: String, onPick: (String) -> Unit) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ProfileRow(p: Profile, isActive: Boolean, onUse: () -> Unit, onEdit: () -> Unit, onDelete: () -> Unit) {
+    val context = androidx.compose.ui.platform.LocalContext.current
     Column(Modifier.fillMaxWidth().clickable(onClick = onEdit).padding(start = 16.dp, end = 8.dp, top = 10.dp, bottom = 2.dp)) {
-        Text(p.label + if (isActive) "  · active" else "", style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+        Text(p.label + if (isActive) "  · " + stringResource(R.string.active_word) else "", style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
         Text(summary(p), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 3, overflow = TextOverflow.Ellipsis)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             TextButton(onClick = onUse, enabled = !isActive,
-                modifier = Modifier.semantics { contentDescription = if (isActive) "${p.name} is active" else "Use ${p.name}" }) {
-                Text(if (isActive) "In use" else "Use", maxLines = 1, softWrap = false)
+                modifier = Modifier.semantics { contentDescription = if (isActive) context.getString(R.string.cd_profile_active, p.name) else context.getString(R.string.cd_use_profile, p.name) }) {
+                Text(if (isActive) stringResource(R.string.in_use) else stringResource(R.string.use), maxLines = 1, softWrap = false)
             }
-            TextButton(onClick = onEdit, modifier = Modifier.semantics { contentDescription = "Edit ${p.name}" }) { Text("Edit", maxLines = 1, softWrap = false) }
-            if (!p.isDefault) TextButton(onClick = onDelete, modifier = Modifier.semantics { contentDescription = "Delete ${p.name}" },
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) { Text("Delete", maxLines = 1, softWrap = false) }
+            TextButton(onClick = onEdit, modifier = Modifier.semantics { contentDescription = stringResource(R.string.cd_edit_profile, p.name) }) { Text(stringResource(R.string.edit), maxLines = 1, softWrap = false) }
+            if (!p.isDefault) TextButton(onClick = onDelete, modifier = Modifier.semantics { contentDescription = stringResource(R.string.cd_delete_profile, p.name) },
+                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) { Text(stringResource(R.string.delete), maxLines = 1, softWrap = false) }
         }
     }
 }
