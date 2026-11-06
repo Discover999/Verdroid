@@ -294,4 +294,50 @@
     <string name="author_name">Author name</string>
     <string name="author_email">Author email</string>
     <string name="remove_token">Remove token</string>
+    <!-- tools -->
+    <string name="command_copied">Command copied — paste it in Termux and press Enter</string>
+    <string name="tools">Tools</string>
+    <string name="checking_">Checking…</string>
+    <string name="check_again">Check again</string>
+    <string name="file_safety">File safety</string>
+    <string name="file_safety_hint">The Yes/No dialog's This chat / Always allow buttons set these too.</string>
+    <string name="shared_folder">Shared folder</string>
+    <string name="tools_off_hint">Off = hidden from the model (and refused if it calls them anyway).</string>
+    <string name="cd_group_summary">%1$s, %2$d of %3$d on, %4$s</string>
+    <string name="expanded">expanded</string>
+    <string name="collapsed">collapsed</string>
+    <string name="cd_turn_all_tools">Turn all %1$s tools %2$s</string>
+    <string name="off_word">Off</string>
+    <string name="on_word">on</string>
+    <string name="web_logins">Web &amp; logins</string>
+    <string name="x_twitter">X (Twitter)</string>
+    <string name="x_tools_off_hint">X tools are off: turn them on under Tools → X (Twitter).</string>
+    <string name="terminal_termux">Terminal (Termux)</string>
+    <string name="termux_packages_hint">Installed in the background with pkg (no Termux window); termux_run and the tools above use them.</string>
+    <string name="packages">Packages</string>
+    <string name="verdroid_addons">Verdroid add-ons</string>
+    <string name="advanced">Advanced</string>
+    <string name="advanced_row_title">Shizuku, rish, Git token, permissions</string>
+    <string name="shizuku_git_sub">run_shell, rish, Git token</string>
+    <string name="permissions">Permissions</string>
+    <string name="permissions_sub">All files, notifications, Termux, Shizuku, accessibility, overlay</string>
+    <string name="installed_binary">Installed (%1$s)</string>
+    <string name="not_installed">Not installed</string>
+    <string name="installing_">Installing…</string>
+    <string name="install_failed">Install failed</string>
+    <string name="unknown">Unknown</string>
+    <string name="installed">Installed</string>
+    <string name="retry">Retry</string>
+    <string name="mcp_servers">MCP servers</string>
+    <string name="shared_folder_desc">Input/ = files for Verdroid, Output/ = results, Repos/ = git clones, Internal/ = scratch. Needs All files access (Android 11+); the folders are created once it is granted.</string>
+    <string name="grant">Grant</string>
+    <string name="termux_run_note">termux_run and the add-ons run in the Termux app (in the background, no Termux window).</string>
+    <string name="check_setup">Check setup</string>
+    <string name="continue_setup">Continue setup</string>
+    <string name="set_up_termux">Set up Termux</string>
+    <string name="termux_setup_intro">One tap walks through everything: install, permission, allow-external-apps (copied for one paste) and storage. Come back to Verdroid after each step and it continues.</string>
+    <string name="get_termux">Get Termux (F-Droid)</string>
+    <string name="paste_once_termux">Paste this once into Termux:</string>
+    <string name="termux_storage_note">For selenium_* and your scrapers to save into Documents/Verdroid/Output, run this once in Termux and allow storage:</string>
+    <string name="n_of_installed">%1$d of %2$d installed</string>
 </resources>
