@@ -205,7 +205,8 @@ object ToolsLayout {
     fun allOff(names: List<String>, disabled: Set<String>, which: (String) -> Boolean): Boolean =
         names.filter(which).let { it.isNotEmpty() && it.all { n -> n in disabled } }
 
-    fun installedLabel(installed: Int, total: Int, ctx: android.content.Context): String = ctx.getString(R.string.n_of_installed, installed, total)
+    fun installedLabel(installed: Int, total: Int, ctx: android.content.Context? = null): String =
+        ctx?.getString(R.string.n_of_installed, installed, total) ?: "$installed of $total installed"
 }
 
 @Composable
