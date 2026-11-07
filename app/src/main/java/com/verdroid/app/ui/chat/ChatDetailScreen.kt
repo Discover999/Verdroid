@@ -483,7 +483,7 @@ internal fun ToolPresetsDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) } },
-        dismissButton = { TextButton(onClick = onReset, enabled = off.isNotEmpty()) { Text(toolPresetsResetLabel(profilesOn)) } },
+        dismissButton = { TextButton(onClick = onReset, enabled = off.isNotEmpty()) { Text(toolPresetsResetLabelLocalized(profilesOn)) } },
         title = { Text(stringResource(R.string.tool_presets)) },
         text = { ToolPresetsContent(off, global, onSet, onSetAll, if (profilesOn) profileLabel else "", profilesOn) },
     )
@@ -502,7 +502,7 @@ internal fun ToolPresetsContent(
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 if (profilesOn && profileLabel.isNotBlank()) Text(stringResource(R.string.from_profile, profileLabel), style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary)
-                Text(toolPresetsIntro(profilesOn), style = MaterialTheme.typography.bodySmall,
+                Text(toolPresetsIntroLocalized(profilesOn), style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.height(8.dp))
                 PresetRow(stringResource(R.string.preset_all), stringResource(R.string.preset_all_desc), com.verdroid.app.data.tools.ToolPreset.allOn(off, global)) { onSetAll(it) }
@@ -842,11 +842,20 @@ internal fun ChatModelDialog(
 }
 
 /** Intro text of the Tool presets dialog; never mentions profiles when they are off. */
-@Composable
 internal fun toolPresetsIntro(profilesOn: Boolean): String =
+    (if (profilesOn) "Starts from this chat's profile and Settings → Tools" else "Starts from Settings → Tools") +
+        "; changes here apply only to this chat. Memory & skills, charts & other (incl. self-test) and MCP follow Settings."
+
+/** Localized intro for the UI ([toolPresetsIntro] stays English for the unit test that pins the wording). */
+@Composable
+internal fun toolPresetsIntroLocalized(profilesOn: Boolean): String =
     (if (profilesOn) stringResource(R.string.presets_intro_profile) else stringResource(R.string.presets_intro_settings)) +
         stringResource(R.string.presets_intro_tail)
 
 /** Reset button of the Tool presets dialog: drops this chat's overrides (back to the profile, or Settings → Tools when Profiles are off). */
+internal fun toolPresetsResetLabel(profilesOn: Boolean): String = if (profilesOn) "Reset to profile" else "Reset to Settings"
+
+/** Localized reset label for the UI ([toolPresetsResetLabel] stays English for the unit test). */
 @Composable
-internal fun toolPresetsResetLabel(profilesOn: Boolean): String = if (profilesOn) stringResource(R.string.reset_to_profile) else stringResource(R.string.reset_to_settings)
+internal fun toolPresetsResetLabelLocalized(profilesOn: Boolean): String =
+    if (profilesOn) stringResource(R.string.reset_to_profile) else stringResource(R.string.reset_to_settings)
