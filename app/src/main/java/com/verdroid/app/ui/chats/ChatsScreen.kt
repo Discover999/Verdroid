@@ -250,7 +250,7 @@ private fun SearchBar(query: String, onChange: (String) -> Unit) {
             )
         }
         if (query.isNotEmpty()) {
-            Icon(Icons.Filled.Clear, stringResource(R.string.clear)), Modifier.clickable { onChange("") }, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+            Icon(Icons.Filled.Clear, stringResource(R.string.clear), Modifier.clickable { onChange("") }, tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
