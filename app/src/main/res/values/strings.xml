@@ -793,4 +793,21 @@
     <string name="pv_connected_no_models">Connected. This server doesn\'t list its models; type a model name below.</string>
     <string name="pv_connected_models">Connected · %1$d models available</string>
     <string name="pv_connect_failed">Couldn\'t connect: %1$s</string>
+    <string name="stop_listening">Stop listening</string>
+    <string name="voice_input">Voice input</string>
+    <string name="subagents_starting">Sub-agents starting…</string>
+    <string name="presets_intro_profile">Starts from this chat\'s profile and Settings → Tools</string>
+    <string name="presets_intro_settings">Starts from Settings → Tools</string>
+    <string name="presets_intro_tail">; changes here apply only to this chat. Memory &amp; skills, charts &amp; other (incl. self-test) and MCP follow Settings.</string>
+    <string name="reset_to_profile">Reset to profile</string>
+    <string name="reset_to_settings">Reset to Settings</string>
+    <string name="img_not_found">Image not found: %1$s</string>
+    <string name="img_load_failed">Couldn\'t load the image (%1$s)</string>
+    <string name="img_decode_failed">Couldn\'t decode the image</string>
+    <string name="share_image">Share image</string>
+    <string name="cd_drag_move">Drag to move window</string>
+    <string name="cd_drag_resize">Drag to resize window</string>
+    <string name="all_noun_added">All %1$s added</string>
+    <string name="plus_add">+ Add</string>
+    <string name="add_noun">Add %1$s</string>
 </resources>

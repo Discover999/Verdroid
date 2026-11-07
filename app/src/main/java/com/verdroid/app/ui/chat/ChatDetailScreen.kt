@@ -435,7 +435,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
                                 maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f),
                             )
-                            TextButton(onClick = { if (listening) voice.cancelListening() else voice.stopSpeaking() }) { Text(if (listening) "Cancel" else "Stop") }
+                            TextButton(onClick = { if (listening) voice.cancelListening() else voice.stopSpeaking() }) { Text(if (listening) stringResource(R.string.cancel) else stringResource(R.string.stop)) }
                         }
                     }
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -451,7 +451,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                             val listening = voice.mic != com.verdroid.app.ui.voice.VoiceController.Mic.IDLE
                             IconButton(onClick = { if (listening) voice.stopListening() else startMic() }) {
                                 Icon(androidx.compose.ui.res.painterResource(com.verdroid.app.R.drawable.ic_mic),
-                                    if (listening) "Stop listening" else "Voice input",
+                                    if (listening) stringResource(R.string.stop_listening) else stringResource(R.string.voice_input),
                                     tint = if (listening) MaterialTheme.colorScheme.error else LocalContentColor.current)
                             }
                         } else Spacer(Modifier.width(6.dp))
@@ -646,7 +646,7 @@ internal fun ToolCallCard(call: ToolCallRecord) {
             }
             if (call.name == com.verdroid.app.agent.subagents.SubAgentPolicy.TOOL_NAME) {
                 val live by com.verdroid.app.agent.subagents.SubAgentLive.progress.collectAsState()
-                val line = if (call.status == ToolCallStatus.PENDING) live[call.taskId]?.label ?: "Sub-agents starting…"
+                val line = if (call.status == ToolCallStatus.PENDING) live[call.taskId]?.label ?: stringResource(R.string.subagents_starting)
                     else remember(call.resultJson) { com.verdroid.app.agent.subagents.SpawnSubagentsTool.summary(call.resultJson) }
                 line?.let { Text("🤖 $it", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 4.dp)) }
@@ -842,9 +842,11 @@ internal fun ChatModelDialog(
 }
 
 /** Intro text of the Tool presets dialog; never mentions profiles when they are off. */
+@Composable
 internal fun toolPresetsIntro(profilesOn: Boolean): String =
-    (if (profilesOn) "Starts from this chat's profile and Settings → Tools" else "Starts from Settings → Tools") +
-        "; changes here apply only to this chat. Memory & skills, charts & other (incl. self-test) and MCP follow Settings."
+    (if (profilesOn) stringResource(R.string.presets_intro_profile) else stringResource(R.string.presets_intro_settings)) +
+        stringResource(R.string.presets_intro_tail)
 
 /** Reset button of the Tool presets dialog: drops this chat's overrides (back to the profile, or Settings → Tools when Profiles are off). */
-internal fun toolPresetsResetLabel(profilesOn: Boolean): String = if (profilesOn) "Reset to profile" else "Reset to Settings"
+@Composable
+internal fun toolPresetsResetLabel(profilesOn: Boolean): String = if (profilesOn) stringResource(R.string.reset_to_profile) else stringResource(R.string.reset_to_settings)

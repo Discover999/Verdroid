@@ -48,11 +48,11 @@ private sealed interface Load { data object Loading : Load; data class Ok(val bm
 /** Decodes off the main thread, downscaled to [maxSide] (URLs come from / go to the cache dir). */
 private suspend fun load(ctx: android.content.Context, ref: ShownImageRef, maxSide: Int): Load = withContext(Dispatchers.IO) {
     val file = when {
-        ref.path != null -> File(ref.path).takeIf { it.isFile } ?: return@withContext Load.Missing("Image not found: ${ref.path}")
-        else -> ShownImages.fetch(ref.url!!, ctx.cacheDir).getOrElse { return@withContext Load.Missing("Couldn't load the image (${it.message})") }
+        ref.path != null -> File(ref.path).takeIf { it.isFile } ?: return@withContext Load.Missing(ctx.getString(R.string.img_not_found, ref.path))
+        else -> ShownImages.fetch(ref.url!!, ctx.cacheDir).getOrElse { return@withContext Load.Missing(ctx.getString(R.string.img_load_failed, it.message ?: "")) }
     }
     val bmp = runCatching { com.verdroid.app.data.storage.AttachmentImages.thumbnail(file, maxSide) }.getOrNull()
-        ?: return@withContext Load.Missing("Couldn't decode the image")
+        ?: return@withContext Load.Missing(ctx.getString(R.string.img_decode_failed))
     Load.Ok(bmp.asImageBitmap(), file)
 }
 
@@ -119,6 +119,6 @@ private fun share(ctx: android.content.Context, ref: ShownImageRef, file: File) 
         val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.updates", out)
         val send = Intent(Intent.ACTION_SEND).setType(ShownImages.mime(kind)).putExtra(Intent.EXTRA_STREAM, uri)
             .apply { ref.caption?.let { putExtra(Intent.EXTRA_TEXT, it) } }.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        ctx.startActivity(Intent.createChooser(send, "Share image").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        ctx.startActivity(Intent.createChooser(send, ctx.getString(R.string.share_image)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 }

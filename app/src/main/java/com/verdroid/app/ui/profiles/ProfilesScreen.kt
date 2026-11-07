@@ -37,6 +37,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfilesViewModel @Inject constructor(
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context,
     private val store: ProfileStore,
     private val skillStore: SkillStore,
     memoryRepo: com.verdroid.app.data.memory.MemoryRepository,
@@ -54,7 +55,7 @@ class ProfilesViewModel @Inject constructor(
 
     fun newId(): String = Profiles.newId(store.allProfiles.value.map { it.id })
     /** "New profile": a copy of the active one. */
-    fun draftCopy(): Profile = Profiles.copyOf(store.active(), newId(), "New profile")
+    fun draftCopy(): Profile = Profiles.copyOf(store.active(), newId(), context.getString(R.string.new_profile))
     fun templates(): List<Profile> = Profiles.templates { newId() + "_" + it }
     fun save(p: Profile) = store.save(p.copy(name = p.name.trim().ifEmpty { "Profile" }.take(40), emoji = p.emoji.trim().take(8)))
     fun delete(id: String) = viewModelScope.launch { store.delete(id) }
@@ -303,17 +304,17 @@ internal fun SelectionSection(noun: String, items: List<PickItem>, selected: Set
     var picking by remember { mutableStateOf(false) }
     Box {
         OutlinedButton(onClick = { menu = true }, modifier = Modifier.semantics { contentDescription = "$noun mode" }) {
-            Text(if (selected == null) "All $noun (incl. new ones)" else "Selected only (${selected.size})", maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(if (selected == null) stringResource(R.string.all_noun, noun) else stringResource(R.string.selected_only_n, selected.size), maxLines = 1, overflow = TextOverflow.Ellipsis)
             Text("  ▾")
         }
         DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-            DropdownMenuItem(text = { Text("All $noun (incl. new ones)") }, onClick = { onChange(null); menu = false })
-            DropdownMenuItem(text = { Text("Selected only") }, onClick = { if (selected == null) onChange(startWith); menu = false })
+            DropdownMenuItem(text = { Text(stringResource(R.string.all_noun, noun)) }, onClick = { onChange(null); menu = false })
+            DropdownMenuItem(text = { Text(stringResource(R.string.selected_only)) }, onClick = { if (selected == null) onChange(startWith); menu = false })
         }
     }
     if (selected == null) return
     val byId = items.associateBy { it.id }
-    if (selected.isEmpty()) Hint("None selected — this profile uses no $noun.")
+    if (selected.isEmpty()) Hint(stringResource(R.string.none_selected, noun))
     selected.sortedBy { id -> items.indexOfFirst { it.id == id }.let { if (it < 0) Int.MAX_VALUE else it } }.forEach { id ->
         val it = byId[id]
         Row(Modifier.fillMaxWidth().padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -326,7 +327,7 @@ internal fun SelectionSection(noun: String, items: List<PickItem>, selected: Set
     }
     val rest = items.filter { it.id !in selected }
     TextButton(onClick = { picking = true }, enabled = rest.isNotEmpty(), modifier = Modifier.semantics { contentDescription = "Add $noun" }) {
-        Text(if (rest.isEmpty()) "All $noun added" else "+ Add")
+        Text(if (rest.isEmpty()) stringResource(R.string.all_noun_added, noun) else stringResource(R.string.plus_add))
     }
     if (picking) PickerDialog(noun, rest, onDismiss = { picking = false }) { onChange(selected + it); picking = false }
 }
@@ -336,10 +337,10 @@ internal fun PickerDialog(noun: String, items: List<PickItem>, onDismiss: () -> 
     var q by remember { mutableStateOf("") }
     var chosen by remember { mutableStateOf(setOf<String>()) }
     val shown = items.filter { q.isBlank() || it.title.contains(q, true) || it.subtitle?.contains(q, true) == true }
-    AlertDialog(onDismissRequest = onDismiss, title = { Text("Add $noun") },
+    AlertDialog(onDismissRequest = onDismiss, title = { Text(stringResource(R.string.add_noun, noun)) },
         text = {
             Column {
-                OutlinedTextField(q, { q = it }, placeholder = { Text("Search") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(q, { q = it }, placeholder = { Text(stringResource(R.string.search_word)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
                 LazyColumn(Modifier.heightIn(max = 360.dp)) {
                     items(shown, key = { it.id }) { item ->
                         Row(Modifier.fillMaxWidth().clickable { chosen = if (item.id in chosen) chosen - item.id else chosen + item.id },
@@ -351,10 +352,10 @@ internal fun PickerDialog(noun: String, items: List<PickItem>, onDismiss: () -> 
                             }
                         }
                     }
-                    if (shown.isEmpty()) item { Text("No matches", modifier = Modifier.padding(8.dp)) }
+                    if (shown.isEmpty()) item { Text(stringResource(R.string.no_matches), modifier = Modifier.padding(8.dp)) }
                 }
             }
         },
-        confirmButton = { TextButton(onClick = { onAdd(chosen) }, enabled = chosen.isNotEmpty()) { Text(if (chosen.isEmpty()) "Add" else "Add (${chosen.size})") } },
+        confirmButton = { TextButton(onClick = { onAdd(chosen) }, enabled = chosen.isNotEmpty()) { Text(if (chosen.isEmpty()) stringResource(R.string.add) else stringResource(R.string.add_n, chosen.size)) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } })
 }

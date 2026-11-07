@@ -200,7 +200,7 @@ private fun AddScheduleDialog(onDismiss: () -> Unit, onCreate: (ScheduleKind, St
                 else onCreate(kind, text, spec, only) { error = it }
             }) { Text(stringResource(R.string.create)) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } })
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } })
 }
 
 @EntryPoint
@@ -232,5 +232,5 @@ fun ScheduleHealthDialog() {
             }
         },
         confirmButton = { TextButton(onClick = m::dismissPrompt) { Text(stringResource(R.string.done)) } },
-        dismissButton = { TextButton(onClick = m::dismissPrompt) { Text("Not now") } })
+        dismissButton = { TextButton(onClick = m::dismissPrompt) { Text(stringResource(R.string.not_now)) } })
 }

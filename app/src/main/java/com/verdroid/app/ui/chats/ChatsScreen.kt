@@ -136,14 +136,15 @@ internal fun updateHintLatest(vm: ChatsViewModel, updateAvailable: Boolean): Str
 }
 
 @Composable
-internal fun UpdatePill(latest: String, label: String = "New version on GitHub", modifier: Modifier = Modifier) {
+internal fun UpdatePill(latest: String, label: String? = null, modifier: Modifier = Modifier) {
+    val pillLabel = label ?: stringResource(R.string.new_version_github)
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     val cdNewVersion = stringResource(R.string.cd_new_version, latest)
     Surface(shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         modifier = modifier.clip(RoundedCornerShape(50)).clickable { runCatching { uri.openUri(com.verdroid.app.data.update.UpdateLogic.RELEASES_PAGE) } }
             .semantics { contentDescription = cdNewVersion }) {
-        Text(label, style = MaterialTheme.typography.labelMedium, maxLines = 1, softWrap = false,
+        Text(pillLabel, style = MaterialTheme.typography.labelMedium, maxLines = 1, softWrap = false,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp))
     }
 }
@@ -225,7 +226,7 @@ private fun QuotaDotButton(dot: QuotaDot, onDetails: () -> Unit) {
                 Text(dot.line, style = MaterialTheme.typography.bodyMedium)
                 Text(stringResource(R.string.active_model, dot.activeModel), style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
-                TextButton(onClick = { open = false; onDetails() }, contentPadding = PaddingValues(0.dp)) { Text("Details") }
+                TextButton(onClick = { open = false; onDetails() }, contentPadding = PaddingValues(0.dp)) { Text(stringResource(R.string.details)) }
             }
         }
     }
@@ -249,7 +250,7 @@ private fun SearchBar(query: String, onChange: (String) -> Unit) {
             )
         }
         if (query.isNotEmpty()) {
-            Icon(Icons.Filled.Clear, "Clear", Modifier.clickable { onChange("") }, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+            Icon(Icons.Filled.Clear, stringResource(R.string.clear)), Modifier.clickable { onChange("") }, tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
@@ -347,7 +348,7 @@ private fun ProfileMenu(
         DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
             profiles.forEach { p ->
                 DropdownMenuItem(text = { Text(p.label) }, onClick = { open = false; onSelect(p.id) },
-                    trailingIcon = { if (p.id == active.id && !showAll) Icon(Icons.Filled.Check, "Active") })
+                    trailingIcon = { if (p.id == active.id && !showAll) Icon(Icons.Filled.Check, stringResource(R.string.active_word)) })
             }
             HorizontalDivider()
             DropdownMenuItem(text = { Text(stringResource(R.string.add_new)) }, onClick = { open = false; onNew() })

@@ -793,4 +793,21 @@
     <string name="pv_connected_no_models">已连接。该服务器没有提供模型列表；请在下方手动输入模型名称。</string>
     <string name="pv_connected_models">已连接 · 可用模型 %1$d 个</string>
     <string name="pv_connect_failed">连接失败：%1$s</string>
+    <string name="stop_listening">停止收音</string>
+    <string name="voice_input">语音输入</string>
+    <string name="subagents_starting">子智能体启动中…</string>
+    <string name="presets_intro_profile">从此对话的配置和 设置 → 工具 开始</string>
+    <string name="presets_intro_settings">从 设置 → 工具 开始</string>
+    <string name="presets_intro_tail">；此处的更改仅对当前对话生效。记忆与技能、图表与其他（含自检）以及 MCP 仍跟随设置。</string>
+    <string name="reset_to_profile">恢复为配置设置</string>
+    <string name="reset_to_settings">恢复为设置</string>
+    <string name="img_not_found">找不到图片：%1$s</string>
+    <string name="img_load_failed">无法加载图片（%1$s）</string>
+    <string name="img_decode_failed">无法解码图片</string>
+    <string name="share_image">分享图片</string>
+    <string name="cd_drag_move">拖动以移动窗口</string>
+    <string name="cd_drag_resize">拖动以调整窗口大小</string>
+    <string name="all_noun_added">已添加全部 %1$s</string>
+    <string name="plus_add">+ 添加</string>
+    <string name="add_noun">添加 %1$s</string>
 </resources>
