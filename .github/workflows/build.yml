@@ -17,7 +17,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
-      - run: set -o pipefail; ./gradlew assembleDebug --stacktrace 2>&1 | tee build_output.log
+      - name: Build, test and lint (same as upstream CI)
+        run: set -o pipefail; ./gradlew assembleDebug testDebugUnitTest lint --stacktrace 2>&1 | tee build_output.log
       - name: Upload build log on failure
         if: failure()
         uses: actions/upload-artifact@v4
