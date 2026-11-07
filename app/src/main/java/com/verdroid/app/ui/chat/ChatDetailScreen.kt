@@ -239,7 +239,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                         t?.let { TaskAvatar(it, size = 36.dp) } ?: TaskAvatar(TaskType.CHAT, null, size = 36.dp)
                         Spacer(Modifier.width(10.dp))
                         Column {
-                            Text(t?.title ?: "New conversation", maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleMedium)
+                            Text(t?.title ?: stringResource(R.string.new_conversation)), maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleMedium)
                             val pin by vm.modelPin.collectAsStateWithLifecycle()
                             val sub = listOfNotNull(pin?.let { "📌 " + com.verdroid.app.data.network.ModelIds.label(it.model) + if (it.allowFallback) " (+fallback)" else "" }, t?.subtitle)
                                 .joinToString(" · ")
@@ -269,7 +269,8 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                         if (showModel) {
                             val pin by vm.modelPin.collectAsStateWithLifecycle()
                             val global by vm.globalModels.collectAsStateWithLifecycle()
-                            ChatModelDialog(pin, global, onPick = { vm.setModelPin(it); showModel = false }, onUpdate = { vm.setModelPin(it) }, onDismiss = { showModel = false })
+                            ChatModelDialog(pin, global, onPick = { vm.setModelPin(it); showModel = false }, onUpdate = { vm.setModelPin(it) }, onDismiss = { showModel = false },
+                                title = stringResource(R.string.model_for_chat), defaultLabel = stringResource(R.string.use_global_default))
                         }
                         if (showPresets) {
                             val off by vm.presetOverrides.collectAsStateWithLifecycle()
@@ -439,11 +440,11 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                     }
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         IconButton(onClick = { attachPicker.launch(arrayOf("*/*")) }, enabled = !generating) {
-                            Icon(Icons.Filled.Add, "Attach file")
+                            Icon(Icons.Filled.Add, stringResource(R.string.attach_file))
                         }
                         OutlinedTextField(
                             value = input, onValueChange = { input = it }, modifier = Modifier.weight(1f),
-                            placeholder = { Text(if (task == null) "Describe a new task…" else "Message Verdroid…") },
+                            placeholder = { Text(if (task == null) stringResource(R.string.describe_new_task) else stringResource(R.string.message_verdroid)) },
                             shape = RoundedCornerShape(24.dp), maxLines = 5,
                         )
                         if (micOn) {
@@ -504,11 +505,11 @@ internal fun ToolPresetsContent(
                 Text(toolPresetsIntro(profilesOn), style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.height(8.dp))
-                PresetRow("All", "Every tool category", com.verdroid.app.data.tools.ToolPreset.allOn(off, global)) { onSetAll(it) }
+                PresetRow(stringResource(R.string.preset_all), stringResource(R.string.preset_all_desc), com.verdroid.app.data.tools.ToolPreset.allOn(off, global)) { onSetAll(it) }
                 HorizontalDivider(Modifier.padding(vertical = 4.dp))
                 com.verdroid.app.data.tools.ToolPreset.entries.forEach { p ->
                     // Effective state: the chat override if set, else Settings → Tools.
-                    PresetRow(p.label, p.description, com.verdroid.app.data.tools.ToolPreset.shownOn(p, off, global)) { onSet(p, it) }
+                    PresetRow(stringResource(com.verdroid.app.data.tools.ToolGroupsText.titleRes(p.groupId)), stringResource(com.verdroid.app.data.tools.ToolGroupsText.descRes(p.groupId)), com.verdroid.app.data.tools.ToolPreset.shownOn(p, off, global)) { onSet(p, it) }
                 }
             }
 }
@@ -799,13 +800,15 @@ internal fun ChatModelDialog(
     onPick: (com.verdroid.app.data.settings.ModelPin?) -> Unit,
     onUpdate: (com.verdroid.app.data.settings.ModelPin?) -> Unit,
     onDismiss: () -> Unit,
-    title: String = "Model for this chat",
-    defaultLabel: String = "Use global (default)",
+    title: String? = null,
+    defaultLabel: String? = null,
 ) {
+    val dlgTitle = title ?: stringResource(R.string.model_for_chat)
+    val dlgDefault = defaultLabel ?: stringResource(R.string.use_global_default)
     var fallback by remember { mutableStateOf(pin?.allowFallback ?: false) }
     var custom by remember { mutableStateOf("") }
     AlertDialog(onDismissRequest = onDismiss,
-        title = { Text(title) },
+        title = { Text(dlgTitle) },
         text = {
             Column(Modifier.heightIn(max = 480.dp).verticalScroll(androidx.compose.foundation.rememberScrollState())) {
                 @Composable fun row(label: String, selected: Boolean, onClick: () -> Unit) {
@@ -814,21 +817,21 @@ internal fun ChatModelDialog(
                         Text(label, style = MaterialTheme.typography.bodyMedium)
                     }
                 }
-                row(defaultLabel, pin == null) { onPick(null) }
-                Text("Pin one model (only it is used; a failure shows an error instead of switching):",
+                row(dlgDefault, pin == null) { onPick(null) }
+                Text(stringResource(R.string.model_pin_hint),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 6.dp))
                 (global + listOfNotNull(pin?.model)).distinct().forEach { m ->
                     row(com.verdroid.app.data.network.ModelIds.label(m), pin?.model == m) { onPick(com.verdroid.app.data.settings.ModelPin(m, fallback)) }
                 }
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 8.dp)) {
-                    OutlinedTextField(custom, { custom = it }, singleLine = true, label = { Text("Other model id (vendor/model, kilo:…, prov:…)") },
+                    OutlinedTextField(custom, { custom = it }, singleLine = true, label = { Text(stringResource(R.string.model_pin_other)) },
                         modifier = Modifier.weight(1f))
                     TextButton(onClick = { onPick(com.verdroid.app.data.settings.ModelPin(custom.trim(), fallback)) }, enabled = custom.isNotBlank()) { Text("Pin") }
                 }
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 8.dp)) {
                     Column(Modifier.weight(1f)) {
-                        Text("Allow fallback", style = MaterialTheme.typography.bodyLarge)
-                        Text("If the pinned model fails, continue with the global list.", style = MaterialTheme.typography.bodySmall,
+                        Text(stringResource(R.string.allow_fallback), style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(R.string.allow_fallback_desc), style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Switch(checked = fallback, onCheckedChange = { fallback = it; pin?.let { p -> onUpdate(p.copy(allowFallback = it)) } })

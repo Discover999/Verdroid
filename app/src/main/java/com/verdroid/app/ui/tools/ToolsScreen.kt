@@ -94,10 +94,10 @@ fun ToolsScreen(onBack: () -> Unit, onOpenShizuku: () -> Unit = {}, onOpenPermis
                     // Same look as the chat Tool presets dialog: title, muted description, Switch; tap the row to expand.
                     val partial = ToolGroups.partialLabel(names, disabled)
                     Row(Modifier.fillMaxWidth().clickable { expanded = if (open) expanded - g.id else expanded + g.id }
-                        .semantics { contentDescription = context.getString(R.string.cd_group_summary, g.title, names.count { it !in disabled }, names.size, context.getString(if (open) R.string.expanded else R.string.collapsed)) }
+                        .semantics { contentDescription = context.getString(R.string.cd_group_summary, context.getString(com.verdroid.app.data.tools.ToolGroupsText.titleRes(g.id)), names.count { it !in disabled }, names.size, context.getString(if (open) R.string.expanded else R.string.collapsed)) }
                         .padding(horizontal = 16.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
-                            Text(g.title, style = MaterialTheme.typography.bodyLarge)
+                            Text(stringResource(com.verdroid.app.data.tools.ToolGroupsText.titleRes(g.id)), style = MaterialTheme.typography.bodyLarge)
                             Text(g.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             partial?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         }
@@ -108,7 +108,7 @@ fun ToolsScreen(onBack: () -> Unit, onOpenShizuku: () -> Unit = {}, onOpenPermis
                                 if (ToolGroups.needsTosWarning(g.id, ToolGroups.switchOn(m), on)) tosPending = { names.forEach { vm.setEnabled(it, true) } }
                                 else names.forEach { vm.setEnabled(it, on) }
                             },
-                            modifier = Modifier.semantics { contentDescription = context.getString(R.string.cd_turn_all_tools, g.title, context.getString(if (ToolGroups.switchOn(m)) R.string.off_word else R.string.on_word)) })
+                            modifier = Modifier.semantics { contentDescription = context.getString(R.string.cd_turn_all_tools, context.getString(com.verdroid.app.data.tools.ToolGroupsText.titleRes(g.id)), context.getString(if (ToolGroups.switchOn(m)) R.string.off_word else R.string.on_word)) })
                     }
                 }
                 if (open) itemsIndexed(tools, key = { _, t -> "t-" + t.name }) { i, t ->
