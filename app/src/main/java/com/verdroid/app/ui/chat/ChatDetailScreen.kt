@@ -239,7 +239,7 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                         t?.let { TaskAvatar(it, size = 36.dp) } ?: TaskAvatar(TaskType.CHAT, null, size = 36.dp)
                         Spacer(Modifier.width(10.dp))
                         Column {
-                            Text(t?.title ?: stringResource(R.string.new_conversation)), maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleMedium)
+                            Text(t?.title ?: stringResource(R.string.new_conversation), maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleMedium)
                             val pin by vm.modelPin.collectAsStateWithLifecycle()
                             val sub = listOfNotNull(pin?.let { "📌 " + com.verdroid.app.data.network.ModelIds.label(it.model) + if (it.allowFallback) " (+fallback)" else "" }, t?.subtitle)
                                 .joinToString(" · ")
