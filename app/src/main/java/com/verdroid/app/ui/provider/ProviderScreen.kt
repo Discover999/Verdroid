@@ -51,6 +51,7 @@ data class ProviderCheck(val ok: Boolean, val text: String)
 
 @HiltViewModel
 class ProviderViewModel @Inject constructor(
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context,
     val store: CustomProviderStore,
     private val client: CustomLlmClient,
     private val settings: SettingsRepository,
@@ -69,22 +70,22 @@ class ProviderViewModel @Inject constructor(
     /** Validates and saves one provider. Returns an error message, or null when saved. */
     fun save(p: ProviderPreset, base: String, key: String, headers: String): String? {
         val url = if (base.isBlank()) "" else ProviderUrls.normalize(base)
-            ?: return "That address doesn't look right. Example: https://api.example.com/v1"
-        if (url.isNotEmpty() && !ProviderUrls.cleartextAllowed(url)) return "Plain http:// only works for this phone (localhost) or *.local names. Use https://."
-        if (p.id == "custom" && url.isEmpty()) return "Enter the server address"
+            ?: return context.getString(R.string.pv_bad_url)
+        if (url.isNotEmpty() && !ProviderUrls.cleartextAllowed(url)) return context.getString(R.string.pv_cleartext)
+        if (p.id == "custom" && url.isEmpty()) return context.getString(R.string.pv_need_address)
         store.save(p.id, url, headers, key)
-        _check.value = _check.value + (p.id to ProviderCheck(true, "Saved"))
+        _check.value = _check.value + (p.id to ProviderCheck(true, context.getString(R.string.pv_saved)))
         return null
     }
 
     /** Test connection = list models; on success also fills the "Add models" list. */
     fun test(p: ProviderPreset) = viewModelScope.launch {
-        _check.value = _check.value + (p.id to ProviderCheck(true, "Checking…"))
+        _check.value = _check.value + (p.id to ProviderCheck(true, context.getString(R.string.pv_checking)))
         client.listModels(p.id).onSuccess {
             _available.value = _available.value + (p.id to it)
             _check.value = _check.value + (p.id to ProviderCheck(true,
-                if (it.isEmpty()) "Connected. This server doesn't list its models; type a model name below." else "Connected · ${it.size} models available"))
-        }.onFailure { _check.value = _check.value + (p.id to ProviderCheck(false, "Couldn't connect: ${it.message}")) }
+                if (it.isEmpty()) context.getString(R.string.pv_connected_no_models) else context.getString(R.string.pv_connected_models, it.size)))
+        }.onFailure { _check.value = _check.value + (p.id to ProviderCheck(false, context.getString(R.string.pv_connect_failed, it.message ?: ""))) }
     }
 
     fun addModel(providerId: String, model: String) = viewModelScope.launch {

@@ -26,11 +26,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FreeLlmApiViewModel @Inject constructor(
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context,
     private val termux: TermuxManager,
     private val client: CustomLlmClient,
     private val store: CustomProviderStore,
 ) : ViewModel() {
-    private val _status = MutableStateFlow("Not checked")
+    private val _status = MutableStateFlow("")
     val status = _status.asStateFlow()
     private val _note = MutableStateFlow<String?>(null)
     val note = _note.asStateFlow()
@@ -40,21 +41,21 @@ class FreeLlmApiViewModel @Inject constructor(
     val busy = _busy.asStateFlow()
 
     private fun termuxProblem(): String? = when {
-        !termux.isInstalled() -> "Termux isn't installed. Set it up in Settings → Tools → Termux."
-        !termux.hasRunCommandPermission() -> "Verdroid can't run Termux commands yet. Set it up in Settings → Tools → Termux."
+        !termux.isInstalled() -> context.getString(R.string.fla_no_termux)
+        !termux.hasRunCommandPermission() -> context.getString(R.string.fla_no_termux_perm)
         else -> null
     }
 
     fun install() {
         termuxProblem()?.let { _note.value = it; return }
         _note.value = if (termux.runInTerminal(FreeLlmApi.installScript(), "FreeLLMAPI install"))
-            "Installing in Termux… follow it there. When it says DONE, come back and tap Start." else "Couldn't open Termux."
+            context.getString(R.string.fla_installing) else context.getString(R.string.fla_cant_open_termux)
     }
 
     private fun bg(script: String, tag: String, timeout: Long, then: (String?) -> String) = viewModelScope.launch {
         termuxProblem()?.let { _note.value = it; return@launch }
         _busy.value = true
-        _note.value = "Working…"
+        _note.value = context.getString(R.string.fla_working)
         _note.value = then(termux.runAndWait(script, "$tag-${System.nanoTime()}", timeout, "FreeLLMAPI")?.stdout)
         _busy.value = false
     }
@@ -62,26 +63,26 @@ class FreeLlmApiViewModel @Inject constructor(
     fun startInTerminal() {
         termuxProblem()?.let { _note.value = it; return }
         _note.value = if (termux.runInTerminal(FreeLlmApi.startInTerminalScript(), "FreeLLMAPI"))
-            "Running in a Termux window. Keep it open, then tap Check status." else "Couldn't open Termux."
+            context.getString(R.string.fla_running_window) else context.getString(R.string.fla_cant_open_termux)
     }
     fun start() = bg(FreeLlmApi.startScript(), "fla-start", 30_000) { FreeLlmApi.startMessage(it) }
     fun stop() = bg(FreeLlmApi.stopScript(), "fla-stop", 15_000) {
-        _status.value = "Not running"; if (it?.contains(FreeLlmApi.STOPPED) == true) "Stopped." else "Stop: Termux didn't answer."
+        _status.value = context.getString(R.string.fla_not_running); if (it?.contains(FreeLlmApi.STOPPED) == true) context.getString(R.string.fla_stopped) else context.getString(R.string.fla_stop_no_answer)
     }
-    fun showLog() = bg(FreeLlmApi.logScript(), "fla-log", 15_000) { _log.value = it?.ifBlank { "(empty)" } ?: "Termux didn't answer."; "" }
+    fun showLog() = bg(FreeLlmApi.logScript(), "fla-log", 15_000) { _log.value = it?.ifBlank { "(empty)" } ?: context.getString(R.string.fla_no_answer); "" }
     fun closeLog() { _log.value = null }
 
     /** Health: GET /v1/models with the saved key. */
     fun check() = viewModelScope.launch {
-        _status.value = "Checking…"
+        _status.value = context.getString(R.string.fla_checking)
         if (!store.isConfigured(FreeLlmApi.PROVIDER_ID)) {
             // No key yet: still tell running vs not by whether the port answers at all.
-            _status.value = client.listModels(FreeLlmApi.PROVIDER_ID).fold({ "Running" }, { e ->
-                if (com.verdroid.app.data.network.ProviderProbe.isUnreachable(e)) "Not running" else "Running (paste the dashboard key below)" })
+            _status.value = client.listModels(FreeLlmApi.PROVIDER_ID).fold({ context.getString(R.string.fla_running) }, { e ->
+                if (com.verdroid.app.data.network.ProviderProbe.isUnreachable(e)) context.getString(R.string.fla_not_running) else context.getString(R.string.fla_running_paste_key) })
             return@launch
         }
-        _status.value = client.listModels(FreeLlmApi.PROVIDER_ID).fold({ "Running · ${it.size} models" }, { e ->
-            if (com.verdroid.app.data.network.ProviderProbe.isUnreachable(e)) "Not running" else "Error: ${e.message?.take(120)}" })
+        _status.value = client.listModels(FreeLlmApi.PROVIDER_ID).fold({ context.getString(R.string.fla_running_models, it.size) }, { e ->
+            if (com.verdroid.app.data.network.ProviderProbe.isUnreachable(e)) context.getString(R.string.fla_not_running) else context.getString(R.string.fla_error, e.message?.take(120) ?: "") })
     }
 }
 

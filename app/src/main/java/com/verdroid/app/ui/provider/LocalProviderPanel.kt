@@ -39,6 +39,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocalLlmViewModel @Inject constructor(
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context,
     val store: LocalModelStore,
     private val engine: LocalEngines,
     private val llama: LocalLlmEngine,
@@ -54,17 +55,17 @@ class LocalLlmViewModel @Inject constructor(
     val probing = _probing.asStateFlow()
 
     fun setGpu(on: Boolean) = viewModelScope.launch {
-        if (!on) { llama.disableGpu(); litert.resetGpuFailure(); if (engine.loadedId?.let(engine::engineFor) === litert) litert.unload(); _useGpu.value = false; _note.value = "GPU off; CPU is used"; return@launch }
+        if (!on) { llama.disableGpu(); litert.resetGpuFailure(); if (engine.loadedId?.let(engine::engineFor) === litert) litert.unload(); _useGpu.value = false; _note.value = context.getString(R.string.lm_gpu_off); return@launch }
         _probing.value = true
-        _note.value = "Probing the GPU (separate process)…"
+        _note.value = context.getString(R.string.lm_probing_gpu)
         val (_, msg) = llama.enableGpu()
         litert.resetGpuFailure()
         if (engine.loadedId?.let { engine.engineFor(it) } === litert) litert.unload() // reload on GPU next time
         _useGpu.value = store.useGpu
-        _note.value = "$msg. Applies on the next load."
+        _note.value = context.getString(R.string.lm_applies_next, msg)
         _probing.value = false
     }
-    fun setGpuLayers(n: Int) { store.gpuLayers = n; _note.value = "GPU layers ${com.verdroid.app.data.localllm.GpuPolicy.layersLabel(n)} (applies on next load)" }
+    fun setGpuLayers(n: Int) { store.gpuLayers = n; _note.value = context.getString(R.string.lm_gpu_layers_note, com.verdroid.app.data.localllm.GpuPolicy.layersLabel(n)) }
     val priority = settings.modelPriority.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     private val _note = MutableStateFlow<String?>(null)
     val note = _note.asStateFlow()
@@ -77,36 +78,36 @@ class LocalLlmViewModel @Inject constructor(
             _busy.value = true
             try {
                 val m = store.import(uri) { done, total ->
-                    _note.value = if (total > 0) "Copying… ${done * 100 / total}% (${LocalModels.human(done)} of ${LocalModels.human(total)})"
-                        else "Copying… ${LocalModels.human(done)}"
+                    _note.value = if (total > 0) context.getString(R.string.lm_copying_pct, done * 100 / total, LocalModels.human(done), LocalModels.human(total))
+                        else context.getString(R.string.lm_copying, LocalModels.human(done))
                 }
-                _note.value = "Imported ${m.name} (${LocalModels.human(m.sizeBytes)})"
-            } catch (e: kotlinx.coroutines.CancellationException) { _note.value = "Import cancelled"; throw e
-            } catch (e: Exception) { _note.value = "Import failed: ${e.message}" }
+                _note.value = context.getString(R.string.lm_imported, m.name, LocalModels.human(m.sizeBytes))
+            } catch (e: kotlinx.coroutines.CancellationException) { _note.value = context.getString(R.string.lm_import_cancelled); throw e
+            } catch (e: Exception) { _note.value = context.getString(R.string.lm_import_failed, e.message ?: "") }
             finally { _busy.value = false }
         }
     }
     fun cancelImport() { importJob?.cancel() }
 
     fun load(id: String) = viewModelScope.launch {
-        _note.value = "Loading…"
-        _note.value = engine.ensureLoaded(id)?.let { "Couldn't load: $it" } ?: "Loaded"
+        _note.value = context.getString(R.string.lm_loading)
+        _note.value = engine.ensureLoaded(id)?.let { context.getString(R.string.lm_load_failed, it) } ?: context.getString(R.string.lm_loaded)
     }
-    fun unload() = viewModelScope.launch { engine.unload(); _note.value = "Unloaded" }
+    fun unload() = viewModelScope.launch { engine.unload(); _note.value = context.getString(R.string.lm_unloaded) }
 
     fun quickTest(id: String) = viewModelScope.launch {
         _busy.value = true
-        _note.value = "Testing…"
+        _note.value = context.getString(R.string.lm_testing)
         val t0 = System.currentTimeMillis()
         val msgs = listOf(ApiMessage("system", LocalPrompt.SYSTEM), ApiMessage("user", "Reply with one short sentence: what is 2+2?"))
         val (body, err) = engine.chat(id, LocalPrompt.messagesJson(msgs), "", 64)
         val secs = (System.currentTimeMillis() - t0) / 1000.0
         _note.value = when {
-            err != null -> "Test failed: $err"
+            err != null -> context.getString(R.string.lm_test_failed, err)
             else -> when (val r = LocalReply.parse(body.orEmpty(), id)) {
                 is LocalReply.Result.Ok -> "OK on ${(engine.current as? LocalEngineState.Loaded)?.backend ?: "?"} in ${"%.1f".format(secs)} s · ${r.completionTokens} tokens " +
                     "(${if (secs > 0) "%.1f".format(r.completionTokens / secs) else "?"} tok/s incl. prompt): " + (r.completion.content ?: "(empty)").take(200)
-                is LocalReply.Result.Error -> "Test failed: ${r.message}"
+                is LocalReply.Result.Error -> context.getString(R.string.lm_test_failed, r.message)
             }
         }
         _busy.value = false
@@ -115,7 +116,7 @@ class LocalLlmViewModel @Inject constructor(
     fun addToPriority(id: String) = viewModelScope.launch {
         val mid = ModelIds.local(id)
         settings.setModelPriority(listOf(mid) + settings.currentModels().filter { it != mid })
-        _note.value = "Added to the top of Model priority"
+        _note.value = context.getString(R.string.lm_added_priority)
     }
     fun removeFromPriority(id: String) = viewModelScope.launch {
         settings.setModelPriority(settings.currentModels().filter { it != ModelIds.local(id) })
