@@ -810,4 +810,5 @@
     <string name="all_noun_added">All %1$s added</string>
     <string name="plus_add">+ Add</string>
     <string name="add_noun">Add %1$s</string>
+    <string name="perm_get_termux">Get Termux</string>
 </resources>
