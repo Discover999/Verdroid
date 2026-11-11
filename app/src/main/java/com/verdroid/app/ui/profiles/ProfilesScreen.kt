@@ -300,6 +300,7 @@ internal fun MemorySection(p: Profile, items: List<PickItem>, onChange: (Profile
  */
 @Composable
 internal fun SelectionSection(noun: String, items: List<PickItem>, selected: Set<String>?, startWith: Set<String>, onChange: (Set<String>?) -> Unit) {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
     var menu by remember { mutableStateOf(false) }
     var picking by remember { mutableStateOf(false) }
     Box {
@@ -322,11 +323,11 @@ internal fun SelectionSection(noun: String, items: List<PickItem>, selected: Set
                 Text(it?.title ?: "(deleted)", style = MaterialTheme.typography.bodyMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 it?.subtitle?.let { s -> Text(s, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis) }
             }
-            IconButton(onClick = { onChange(selected - id) }, modifier = Modifier.semantics { contentDescription = "Remove ${it?.title ?: id}" }) { Text("✕") }
+            IconButton(onClick = { onChange(selected - id) }, modifier = Modifier.semantics { contentDescription = ctx.getString(R.string.cd_remove_item, it?.title ?: id) }) { Text("✕") }
         }
     }
     val rest = items.filter { it.id !in selected }
-    TextButton(onClick = { picking = true }, enabled = rest.isNotEmpty(), modifier = Modifier.semantics { contentDescription = "Add $noun" }) {
+    TextButton(onClick = { picking = true }, enabled = rest.isNotEmpty(), modifier = Modifier.semantics { contentDescription = ctx.getString(R.string.cd_add_item, noun) }) {
         Text(if (rest.isEmpty()) stringResource(R.string.all_noun_added, noun) else stringResource(R.string.plus_add))
     }
     if (picking) PickerDialog(noun, rest, onDismiss = { picking = false }) { onChange(selected + it); picking = false }

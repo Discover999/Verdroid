@@ -192,7 +192,7 @@ class CookieLoginActivity : ComponentActivity() {
                     )
                 }) { padding ->
                     Column(Modifier.fillMaxSize().padding(padding)) {
-                        Text("Cookies are saved encrypted on this phone. Use username + password: Google sign-in is blocked in this screen. $title",
+                        Text(stringResource(R.string.cookie_login_note, title),
                             style = MaterialTheme.typography.bodySmall, maxLines = 2,
                             modifier = Modifier.padding(horizontal = 12.dp(), vertical = 4.dp()))
                         if (progress in 1..99) LinearProgressIndicator(progress = { progress / 100f }, modifier = Modifier.fillMaxWidth().height(2.dp()))
@@ -290,12 +290,12 @@ class CookieLoginActivity : ComponentActivity() {
         }
         if (missing) {
             // Guest cookies only: don't save them as a "login"; keep the screen open so the user can finish logging in.
-            android.widget.Toast.makeText(this, "Not logged in yet (no $marker cookie). Finish logging in, then tap Done.", android.widget.Toast.LENGTH_LONG).show()
+            android.widget.Toast.makeText(this, getString(R.string.not_logged_in_yet, marker ?: ""), android.widget.Toast.LENGTH_LONG).show()
             return
         }
         val result = CookieLoginBridge.capture(url, CookieStore(applicationContext)) { cm.getCookie(it) }
         if (result.reason == "not_logged_in") {  // guest cookies only: nothing saved, keep the screen open
-            android.widget.Toast.makeText(this, "Not logged in yet (no $marker cookie). Finish logging in, then tap Done.", android.widget.Toast.LENGTH_LONG).show()
+            android.widget.Toast.makeText(this, getString(R.string.not_logged_in_yet, marker ?: ""), android.widget.Toast.LENGTH_LONG).show()
             return
         }
         android.util.Log.i("CookieLogin", "saved cookie names for ${result.sites}: ${result.names}") // names only, never values

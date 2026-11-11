@@ -86,7 +86,7 @@ fun ArchiveScreen(onBack: () -> Unit, onOpenChat: (Long) -> Unit, vm: ArchiveVie
     when (val c = confirm) {
         is Confirm.Delete -> AlertDialog(onDismissRequest = { confirm = null },
             title = { Text(stringResource(R.string.delete_permanently)) },
-            text = { Text("\"${c.task.title}\" will be deleted with its messages, short-term memory and chart images. This can't be undone.") },
+            text = { Text(stringResource(R.string.archive_delete_body, c.task.title)) },
             confirmButton = { TextButton(onClick = { vm.delete(c.task.id); confirm = null }) { Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error) } },
             dismissButton = { TextButton(onClick = { confirm = null }) { Text(stringResource(R.string.cancel)) } })
         Confirm.Empty -> AlertDialog(onDismissRequest = { confirm = null },

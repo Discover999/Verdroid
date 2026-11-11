@@ -373,7 +373,7 @@ private fun CrashLogRow(index: Int) {
                 val chooserTitle = stringResource(R.string.share_crash_log)
                 TextButton(onClick = {
                     val send = android.content.Intent(android.content.Intent.ACTION_SEND).setType("text/plain")
-                        .putExtra(android.content.Intent.EXTRA_SUBJECT, "Verdroid crash log").putExtra(android.content.Intent.EXTRA_TEXT, t.second)
+                        .putExtra(android.content.Intent.EXTRA_SUBJECT, context.getString(R.string.crash_share_subject)).putExtra(android.content.Intent.EXTRA_TEXT, t.second)
                     runCatching { context.startActivity(android.content.Intent.createChooser(send, chooserTitle)) }
                 }) { Text(stringResource(R.string.share)) }
             }

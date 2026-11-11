@@ -430,8 +430,8 @@ fun ChatDetailScreen(onBack: () -> Unit, onChatMemory: (Long) -> Unit = {}, vm: 
                         Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                             val listening = voice.mic != com.verdroid.app.ui.voice.VoiceController.Mic.IDLE
                             Text(
-                                if (listening) (if (voice.partial.isBlank()) (if (voice.mic == com.verdroid.app.ui.voice.VoiceController.Mic.LISTENING) "🎙 Listening…" else "🎙 Recognizing…") else "🎙 ${voice.partial}")
-                                else "🔊 Speaking…",
+                                if (listening) (if (voice.partial.isBlank()) (if (voice.mic == com.verdroid.app.ui.voice.VoiceController.Mic.LISTENING) stringResource(R.string.voice_listening) else stringResource(R.string.voice_recognizing)) else "🎙 ${voice.partial}")
+                                else stringResource(R.string.voice_speaking),
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
                                 maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f),
                             )
@@ -571,7 +571,7 @@ internal fun AgentBubble(text: String, model: String?) {
                     when (seg) {
                         is InlineImages.Seg.Text -> SelectionContainer { MarkdownText(seg.text, color = b.onAgent) }
                         is InlineImages.Seg.Image -> remember(seg) { InlineImages.resolve(seg.src, seg.alt) }?.let { ShownImageCard(it) }
-                            ?: Text("🖼️ ${seg.alt.ifBlank { "Image" }} (can't show: ${seg.src.take(80)})",
+                            ?: Text(stringResource(R.string.image_cannot_show, seg.alt.ifBlank { stringResource(R.string.image_fallback) }, seg.src.take(80)),
                                 style = MaterialTheme.typography.bodySmall, color = b.onAgent, modifier = Modifier.padding(vertical = 4.dp))
                     }
                 }
@@ -608,7 +608,7 @@ internal fun SummaryCard(m: ChatMessage) {
     Surface(shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.surfaceContainerLow,
         modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp).clickable { expanded = !expanded }) {
         Column(Modifier.padding(10.dp)) {
-            Text("📝 Earlier conversation summarized ${if (expanded) "▲" else "▼"}", style = MaterialTheme.typography.labelMedium)
+            Text(stringResource(R.string.earlier_summarized, if (expanded) "▲" else "▼"), style = MaterialTheme.typography.labelMedium)
             AnimatedVisibility(expanded) { Text(m.content.orEmpty(), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 6.dp)) }
         }
     }
@@ -694,8 +694,8 @@ private fun LiveOutputView(o: com.verdroid.app.agent.tools.LiveOutput) {
     val quietS = (o.quietMs / 1000).toInt()
     Column(Modifier.padding(top = 4.dp)) {
         Text("⏱ " + L.duration((o.elapsedMs / 1000).toInt()) +
-            (if (o.lines.isEmpty()) " · no output yet" else " · ${o.lines.size} line${if (o.lines.size == 1) "" else "s"}") +
-            (if (quietS >= 30) " · quiet ${L.duration(quietS)} (stops after ${L.duration(o.idleLimitS)})" else "") +
+            (if (o.lines.isEmpty()) " · " + stringResource(R.string.live_no_output) else " · " + stringResource(R.string.live_lines, o.lines.size)) +
+            (if (quietS >= 30) " · " + stringResource(R.string.live_quiet, L.duration(quietS), L.duration(o.idleLimitS)) else "") +
             (if (o.lines.size > L.COLLAPSED_LINES) if (open) " ▲" else " ▼" else ""),
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.clickable { open = !open })
@@ -738,7 +738,7 @@ private fun FailedWorkersList(failed: List<Pair<String, String>>) {
     if (failed.isEmpty()) return
     var open by remember(failed) { mutableStateOf(false) }
     Column(Modifier.padding(top = 4.dp)) {
-        Text("⚠️ ${failed.size} worker${if (failed.size == 1) "" else "s"} failed " + if (open) "▲" else "▼",
+        Text(androidx.compose.ui.res.pluralStringResource(R.plurals.steps_workers_failed, failed.size, failed.size, if (open) "▲" else "▼"),
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error,
             modifier = Modifier.clickable { open = !open })
         AnimatedVisibility(open) {

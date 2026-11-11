@@ -156,7 +156,7 @@ internal fun ToolCallGroup(calls: List<ToolCallRecord>) {
                 Text("🔧", fontSize = 14.sp); Spacer(Modifier.width(6.dp))
                 Text("${calls.first().name} ×${calls.size}", fontFamily = FontFamily.Monospace, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f))
-                if (failed > 0) { Text("$failed failed", style = MaterialTheme.typography.labelSmall, color = sc.error); Spacer(Modifier.width(6.dp)) }
+                if (failed > 0) { Text(stringResource(R.string.failed_count, failed), style = MaterialTheme.typography.labelSmall, color = sc.error); Spacer(Modifier.width(6.dp)) }
                 Text(icon, color = color)
                 Spacer(Modifier.width(6.dp))
                 Text(if (expanded) "▲" else "▼", fontSize = 12.sp)
@@ -229,7 +229,7 @@ internal fun StepsCard(block: ToolStacks.Steps, bubble: @Composable (String, Str
         Column(Modifier.clickable { expanded = !expanded }.padding(10.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("🔧", fontSize = 14.sp); Spacer(Modifier.width(6.dp))
-                Text("${block.stepCount} steps · ${block.label}", fontWeight = FontWeight.SemiBold, maxLines = 1,
+                Text(stringResource(R.string.steps_n_dot, block.stepCount, block.label), fontWeight = FontWeight.SemiBold, maxLines = 1,
                     overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                 Spacer(Modifier.width(6.dp))
                 when (block.status) {

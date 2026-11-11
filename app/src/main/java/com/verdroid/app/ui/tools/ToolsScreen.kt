@@ -108,7 +108,7 @@ fun ToolsScreen(onBack: () -> Unit, onOpenShizuku: () -> Unit = {}, onOpenPermis
                                 if (ToolGroups.needsTosWarning(g.id, ToolGroups.switchOn(m), on)) tosPending = { names.forEach { vm.setEnabled(it, true) } }
                                 else names.forEach { vm.setEnabled(it, on) }
                             },
-                            modifier = Modifier.semantics { contentDescription = context.getString(R.string.cd_turn_all_tools, context.getString(com.verdroid.app.data.tools.ToolGroupsText.titleRes(g.id)), context.getString(if (ToolGroups.switchOn(m)) R.string.off_word else R.string.on_word)) })
+                            modifier = Modifier.semantics { contentDescription = context.getString(if (ToolGroups.switchOn(m)) R.string.cd_turn_all_tools_off else R.string.cd_turn_all_tools_on, context.getString(com.verdroid.app.data.tools.ToolGroupsText.titleRes(g.id))) })
                     }
                 }
                 if (open) itemsIndexed(tools, key = { _, t -> "t-" + t.name }) { i, t ->

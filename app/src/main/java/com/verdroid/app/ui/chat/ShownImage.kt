@@ -102,8 +102,8 @@ private fun ShownImageFullscreen(ref: ShownImageRef, file: File, onClose: () -> 
                 }
                 ref.caption?.let { Text(it, color = androidx.compose.ui.graphics.Color.White, modifier = Modifier.padding(horizontal = 16.dp)) }
                 Row(Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = { share(ctx, ref, file) }) { Text("Share") }
-                    TextButton(onClick = onClose) { Text("Close") }
+                    TextButton(onClick = { share(ctx, ref, file) }) { Text(stringResource(R.string.share)) }
+                    TextButton(onClick = onClose) { Text(stringResource(R.string.close)) }
                 }
             }
         }

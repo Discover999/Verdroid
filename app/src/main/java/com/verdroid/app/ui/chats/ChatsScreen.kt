@@ -109,7 +109,7 @@ fun ChatsScreen(
             if (conversations.isEmpty()) {
                 item("empty") {
                     Text(
-                        if (query.isBlank()) "No conversations yet.\nTap ✏️ or + to start a task." else "No matches for \"$query\"",
+                        if (query.isBlank()) stringResource(R.string.empty_no_conversations) else stringResource(R.string.empty_no_matches, query),
                         textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.fillMaxWidth().padding(32.dp),
                     )

@@ -91,7 +91,7 @@ fun SchedulesScreen(onBack: () -> Unit, onOpenChat: (Long) -> Unit, onOpenKeepAl
     confirmDelete?.let { s ->
         AlertDialog(onDismissRequest = { confirmDelete = null },
             title = { Text(stringResource(R.string.delete_this_schedule)) },
-            text = { Text("“${s.name}” will stop running. Its chat and past results stay.") },
+            text = { Text(stringResource(R.string.schedule_stop_body, s.name)) },
             confirmButton = { TextButton(onClick = { vm.delete(s.id); confirmDelete = null }) { Text(stringResource(R.string.yes)) } },
             dismissButton = { Button(onClick = { confirmDelete = null }) { Text(stringResource(R.string.no)) } })
     }
