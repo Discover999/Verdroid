@@ -37,11 +37,11 @@ fun AgentsMdScreen(onBack: () -> Unit, vm: AgentsMdViewModel = hiltViewModel()) 
             OutlinedTextField(
                 value = text, onValueChange = { text = it.take(AgentsMdStore.MAX_CHARS) },
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                placeholder = { Text("# My agent rules\n- Reply briefly\n- Save outputs to Output/") },
+                placeholder = { Text(stringResource(R.string.agents_md_placeholder)) },
                 textStyle = LocalTextStyle.current.copy(fontFamily = FontFamily.Monospace, fontSize = 13.sp),
             )
             Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("${text.length} / ${AgentsMdStore.MAX_CHARS}" + if (dirty) " · unsaved" else "",
+                Text("${text.length} / ${AgentsMdStore.MAX_CHARS}" + if (dirty) " · " + stringResource(R.string.unsaved) else "",
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 TextButton(onClick = { confirmClear = true }, enabled = text.isNotEmpty() || saved.isNotEmpty()) { Text(stringResource(R.string.clear)) }
             }

@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.Lifecycle
@@ -126,7 +127,7 @@ class MainActivity : ComponentActivity() {
                     val wiped by com.verdroid.app.data.secure.KeyWipeNotice.wiped.collectAsState()
                     if (wiped.isNotEmpty()) androidx.compose.material3.AlertDialog(
                         onDismissRequest = {},
-                        title = { androidx.compose.material3.Text("Saved keys were reset") },
+                        title = { androidx.compose.material3.Text(stringResource(R.string.keys_reset_title)) },
                         text = { androidx.compose.material3.Text(com.verdroid.app.data.secure.KeyWipeNotice.message(wiped)) },
                         confirmButton = { androidx.compose.material3.TextButton(onClick = {
                             com.verdroid.app.data.secure.KeyWipeNotice.dismiss(this@MainActivity) }) { androidx.compose.material3.Text("OK") } })

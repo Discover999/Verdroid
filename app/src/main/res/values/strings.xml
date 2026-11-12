@@ -33,12 +33,10 @@
     <string name="image_fallback">Image</string>
     <string name="image_cannot_show">🖼️ %1$s (can\'t show: %2$s)</string>
     <string name="earlier_summarized">📝 Earlier conversation summarized %1$s</string>
-    <string name="steps_workers_failed">⚠️ %1$d worker%2$s failed %3$s</string>
     <string name="cd_attached_image">Attached image</string>
     <string name="cd_remove_attachment">Remove attachment</string>
     <string name="model_pin_hint">Pin one model (only it is used; a failure shows an error instead of switching):</string>
     <string name="model_pin_other">Other model id (vendor/model, kilo:…, prov:…)</string>
-    <string name="pin">Pin</string>
     <string name="allow_fallback">Allow fallback</string>
     <string name="allow_fallback_desc">If the pinned model fails, continue with the global list.</string>
     <string name="close">Close</string>
@@ -73,7 +71,6 @@
     <string name="unread_notifications">%1$d unread · rate limits, quota warnings, completions</string>
     <string name="version_line">Verdroid v%1$s</string>
     <string name="new_kilo_auto">New: Kilo Auto Free (no API key)</string>
-    <string name="kilo_auto_desc">kilo:kilo-auto/free is in Model priority and is used when OpenRouter has no key or is unavailable. </string>
     <string name="got_it">Got it</string>
     <string name="add_key">Add key</string>
     <string name="label_optional">Label (optional)</string>
@@ -97,7 +94,6 @@
     <string name="enable_deep_research">Enable deep research</string>
     <string name="worker_model">Worker model</string>
     <string name="tools_subagents_may_use">Tools sub-agents may use</string>
-    <string name="default_">Default</string>
     <string name="subagent_model">Sub-agent model</string>
     <string name="research_worker_model">Deep research worker model</string>
     <string name="theme">Theme</string>
@@ -152,7 +148,6 @@
     <string name="turn_on_twitter">Turn on Twitter tools?</string>
     <string name="i_understand_turn_on">I understand, turn on</string>
     <!-- schedules -->
-    <string name="couldnt_create_schedule">Couldn\'t create the schedule</string>
     <string name="schedules">Schedules</string>
     <string name="no_schedules_hint">No schedules yet. Ask in a chat, e.g. \'remind me in 10 minutes about my soup\', \'every day at 10am check cnn.com and give me a summary\' or \'every 15 minutes check this blog, only tell me if there is a new post\' — or tap Add.</string>
     <string name="schedules_tz_note">Times are in this phone\'s time zone (%1$s). Repeating runs need at least %2$d minutes between them. Scheduled runs happen without you: tools that need your confirmation (posting, deleting, installing, phone control) are blocked in them.</string>
@@ -305,9 +300,7 @@
     <string name="cd_group_summary">%1$s, %2$d of %3$d on, %4$s</string>
     <string name="expanded">expanded</string>
     <string name="collapsed">collapsed</string>
-    <string name="cd_turn_all_tools">Turn all %1$s tools %2$s</string>
     <string name="off_word">Off</string>
-    <string name="on_word">on</string>
     <string name="web_logins">Web &amp; logins</string>
     <string name="x_twitter">X (Twitter)</string>
     <string name="x_tools_off_hint">X tools are off: turn them on under Tools → X (Twitter).</string>
@@ -811,4 +804,37 @@
     <string name="plus_add">+ Add</string>
     <string name="add_noun">Add %1$s</string>
     <string name="perm_get_termux">Get Termux</string>
+    <string name="failed_count">%1$d failed</string>
+    <string name="cookie_login_note">Cookies are saved encrypted on this phone. Use username + password: Google sign-in is blocked in this screen. %1$s</string>
+    <string name="not_logged_in_yet">Not logged in yet (no %1$s cookie). Finish logging in, then tap Done.</string>
+    <string name="chathead_notification_title">Verdroid chat head</string>
+    <string name="chathead_notification_text">Tap the head to chat · drag it onto ✕ to close</string>
+    <string name="keys_reset_title">Saved keys were reset</string>
+    <string name="cd_remove_item">Remove %1$s</string>
+    <string name="cd_add_item">Add %1$s</string>
+    <plurals name="steps_workers_failed">
+        <item quantity="one">⚠️ %1$d worker failed %2$s</item>
+        <item quantity="other">⚠️ %1$d workers failed %2$s</item>
+    </plurals>
+    <string name="cd_turn_all_tools_off">Turn all %1$s tools off</string>
+    <string name="cd_turn_all_tools_on">Turn all %1$s tools on</string>
+    <string name="empty_no_conversations">No conversations yet.
+Tap ✏️ or + to start a task.</string>
+    <string name="empty_no_matches">No matches for \"%1$s\"</string>
+    <string name="voice_listening">🎙 Listening…</string>
+    <string name="voice_recognizing">🎙 Recognizing…</string>
+    <string name="voice_speaking">🔊 Speaking…</string>
+    <string name="live_no_output">no output yet</string>
+    <string name="live_lines">%1$d lines</string>
+    <string name="live_quiet">quiet %1$s (stops after %2$s)</string>
+    <string name="steps_n_dot">%1$d steps · %2$s</string>
+    <string name="archive_delete_body">\"%1$s\" will be deleted with its messages, short-term memory and chart images. This can\'t be undone.</string>
+    <string name="schedule_stop_body">“%1$s” will stop running. Its chat and past results stay.</string>
+    <string name="voice_note_ok">Language: %1$s (phone default). Speech recognition: available. Everything uses Android\'s built-in speech services, no keys or paid APIs.</string>
+    <string name="voice_note_missing">Language: %1$s (phone default). Speech recognition service not found; the system voice prompt is used if one exists. Everything uses Android\'s built-in speech services, no keys or paid APIs.</string>
+    <string name="agents_md_placeholder"># My agent rules
+- Reply briefly
+- Save outputs to Output/</string>
+    <string name="unsaved">unsaved</string>
+    <string name="crash_share_subject">Verdroid crash log</string>
 </resources>

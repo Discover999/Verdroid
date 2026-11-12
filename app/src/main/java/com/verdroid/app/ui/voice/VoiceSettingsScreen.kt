@@ -56,9 +56,8 @@ fun VoiceSettingsScreen(onBack: () -> Unit, vm: VoiceSettingsViewModel = hiltVie
                 { _ -> row(stringResource(R.string.voice_hands_free), stringResource(R.string.voice_hands_free_desc), handsFree, enabled = speak, set = p::setHandsFree) },
             ))
             Text(
-                "Language: ${Locale.getDefault().displayName} (phone default). " +
-                    (if (recognizer) "Speech recognition: available." else "Speech recognition service not found; the system voice prompt is used if one exists.") +
-                    " Everything uses Android's built-in speech services, no keys or paid APIs.",
+                (if (recognizer) stringResource(R.string.voice_note_ok, Locale.getDefault().displayName)
+                    else stringResource(R.string.voice_note_missing, Locale.getDefault().displayName)),
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 28.dp, vertical = 12.dp),
             )

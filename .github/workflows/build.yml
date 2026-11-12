@@ -1,0 +1,43 @@
+name: Build debug APK
+on:
+  push:
+    branches: [build/zh-test]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build, test and lint
+        run: set -o pipefail; ./gradlew assembleDebug testDebugUnitTest lint --stacktrace 2>&1 | tee build_output.log
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: build-log
+          path: build_output.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: debug-apk
+          path: app/build/outputs/**/*.apk
+      - name: Release APK
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: zh-test-build
+          name: Verdroid 1.0.77 + i18n fixes (debug)
+          files: app/build/outputs/**/*.apk
+          make_latest: false
+          body: |
+            Debug build of v1.0.77 with both i18n PRs applied
+            (fix/i18n-zh-cn-leftovers + l10n/zh-cn-polish-main).
+            Debug signature — uninstall the previous build first if signatures differ.
